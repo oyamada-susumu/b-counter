@@ -299,6 +299,7 @@
   <script>
     function DSPS(x){
       hyouji3.innerHTML = FUGO[x]
+      LedTbl.rows[0].cells[0].innerHTML=x;
       if (x==1){
           LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
         }else{
@@ -311,6 +312,7 @@
     function DSPK(K){
       TX="";
       for(j=0; j<23; j++){
+        LedTbl.rows[0].cells[j+9].innerHTML=K[j];
         TX=TX+K[j];
         if(K[j]==1){
           LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOn.jpg" width="50">';
