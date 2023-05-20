@@ -1,16 +1,17 @@
 <center>
   <h1>2進数カウンタ</h1>
   <h1 id="hyouji2">********</h2>
-  <h1 id="hyouji">*,*,*,*,*,*,*,*</h1>
+  <h1 id="hyouji">********</h1>
   <table id="LedTbl" border="1">
-    <td><center>0</center></td>
-    <td><center>0</center></td>
-    <td><center>0</center></td>
-    <td><center>0</center></td>
-    <td><center>0</center></td>
-    <td><center>0</center></td>
-    <td><center>0</center></td>
-    <td><center>0</center></td>
+    <tr>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
       <tr>
       <td><img src="LedOff.jpg" width="50"></td>
       <td><img src="LedOff.jpg" width="50"></td>
@@ -22,7 +23,7 @@
       <td><img src="LedOff.jpg" width="50"></td>
     </tr>
     <tr>
-      <td><input type="button" id="pushuButton8" value="ｂ８"></td>
+      <td><br><input type="button" id="pushuButton8" value="ｂ８"><br><br></td>
       <td><input type="button" id="pushuButton7" value="ｂ７"></td>
       <td><input type="button" id="pushuButton6" value="ｂ６"></td>
       <td><input type="button" id="pushuButton5" value="ｂ５"></td>
@@ -32,25 +33,30 @@
       <td><input type="button" id="pushuButton1" value="ｂ１"></td>
     </tr>
     <tr>
-      <td><center>128</center></td>
-      <td><center>64</center></td>
-      <td><center>32</center></td>
-      <td><center>16</center></td>
-      <td><center>8</center></td>
-      <td><center>4</center></td>
-      <td><center>2</center></td>
-      <td><center>1</center></td>
+      <td>128</td>
+      <td>64</td>
+      <td>32</td>
+      <td>16</td>
+      <td>8</td>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
     </tr>
   </table>
+  <br><br>
   <input type="button" id="pushuButtonRst" value="ＲＥＳＥＴ">
   <input type="button" id="pushuButtonUp" value="ＵＰ">
   <input type="button" id="pushuButtonDown" value="ＤＯＷＮ">
-  <h2>RESETボタンをクリックしてから始めてください。</h2>
+
   </center>
   
   <script>
   LedTbl.style.textAlign = "center";
   LedTbl.style.verticalAlign = "middle";
+  window.onload = function(){
+    i = 0;
+    DSP(i);
+  }
   </script>
   
   <script>
@@ -145,9 +151,14 @@
   
   <script>
     function DSP(x){
-      hyouji.innerHTML = D2B(i);
-      hyouji2.innerHTML = i
-      DSP_LED(D2B(i));
+      D=D2B(x);
+      TX="";
+      for(j=0; j<8; j++){
+        TX=TX+D[j]
+      }
+      hyouji.innerHTML = TX;
+      hyouji2.innerHTML = x;
+      DSP_LED(D2B(x));
     }
   </script>
   
