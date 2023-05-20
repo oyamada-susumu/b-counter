@@ -1,0 +1,94 @@
+<center>
+<h1>２進数カウンタ</h1>
+<h1 id="hyouji2">********</h2>
+<h1 id="hyouji">*,*,*,*,*,*,*,*</h1>
+<table id="LedTbl" border="1">
+  <td><center>0</center></td>
+  <td><center>0</center></td>
+  <td><center>0</center></td>
+  <td><center>0</center></td>
+  <td><center>0</center></td>
+  <td><center>0</center></td>
+  <td><center>0</center></td>
+  <td><center>0</center></td>
+    <tr>
+    <td><img src="LedOff.jpg" width="50"></td>
+    <td><img src="LedOff.jpg" width="50"></td>
+    <td><img src="LedOff.jpg" width="50"></td>
+    <td><img src="LedOff.jpg" width="50"></td>
+    <td><img src="LedOff.jpg" width="50"></td>
+    <td><img src="LedOff.jpg" width="50"></td>
+    <td><img src="LedOff.jpg" width="50"></td>
+    <td><img src="LedOff.jpg" width="50"></td>
+  </tr>
+  <tr>
+    <td><center>128</center></td>
+    <td><center>64</center></td>
+    <td><center>32</center></td>
+    <td><center>16</center></td>
+    <td><center>8</center></td>
+    <td><center>4</center></td>
+    <td><center>2</center></td>
+    <td><center>1</center></td>
+  </tr>
+</table>
+
+<input type="button" id="pushuButtonRst" value="RESET">
+<input type="button" id="pushuButtonUp" value="UP">
+<input type="button" id="pushuButtonDown" value="DOWN">
+</h1>
+</center>
+
+<script>
+  pushuButtonRst.onclick = function(){
+    i = 0;
+    hyouji.innerHTML = D2B(i);
+    hyouji2.innerHTML = i
+    DSP_LED(D2B(i));
+  };
+  pushuButtonUp.onclick = function(){
+    i = i + 1;
+    if(i>255){
+      i=0;
+    }
+    hyouji.innerHTML = D2B(i);
+    hyouji2.innerHTML = i
+    DSP_LED(D2B(i));
+  };
+  pushuButtonDown.onclick = function(){
+    i = i - 1;
+    hyouji.innerHTML = D2B(i);
+    hyouji2.innerHTML = i
+    DSP_LED(D2B(i));
+  };
+</script>
+
+<script>
+  function D2B(x) {
+    a=[];
+    b=[];
+      for(j=0; j<8; j=j+1){
+        a[j]=x%2
+        x = Math.floor(x/2);
+      }
+      for(k=0; k<8; k=k+1){
+        b[7-k]=a[k];
+      }
+ 
+    return b;
+  }
+</script>
+
+<script>
+  function DSP_LED(c){
+    r=1; n=0;
+    for(k=0; k<8; k++){
+      LedTbl.rows[n].cells[k].innerHTML= c[k] ;
+      if (c[k]==1){
+        LedTbl.rows[r].cells[k].innerHTML='<img src="LedOn.jpg" width="50">';
+      }else{
+        LedTbl.rows[r].cells[k].innerHTML='<img src="LedOff.jpg" width="50">';
+      } 
+    }
+  }
+</script>
