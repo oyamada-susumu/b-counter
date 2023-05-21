@@ -1,10 +1,10 @@
 
   <h1>32ビット浮動小数点数</h1>
-  <h1 id="hyouji3">********</h1>
-  <h1 id="hyouji2">********</h1>
-  <h1 id="hyouji">********</h1>
-  <h1 id="hyouji4">********</h1>
-  <h1 id="hyouji5">********</h1>
+  <h3 id="hyouji3">********</h3>
+  <h3 id="hyouji2">********</h3>
+  <h3 id="hyouji">********</h3>
+  <h3 id="hyouji4">********</h3>
+  <h5 id="hyouji5">********</h5>
   <table id="LedTbl" border="1">
     <tr>
       <td>0</td>
@@ -133,13 +133,13 @@
       <td>1/16384</td>
       <td>1/32768</td>
       <td>1/65536</td>
-      <td>2^-17</td>
-      <td>2^-18</td>
-      <td>2^-19</td>
-      <td>2^-20</td>
-      <td>2^-21</td>
-      <td>2^-22</td>
-      <td>2^-23</td>
+      <td>2**(-17)</td>
+      <td>2**(-18)</td>
+      <td>2**(-19)</td>
+      <td>2**(-20)</td>
+      <td>2**(-21)</td>
+      <td>2**(-22)</td>
+      <td>2**(-23)</td>
     </tr>
   </table>
   <br><br>
@@ -258,7 +258,10 @@
     }
     pushuButtonDown.onclick = function(){
       i = i - 1;
-      DSP(i);
+      if(i<0){
+        i=255;
+        }
+        DSP(i);
     }
     pushuButtonM1.onclick = function(){
       if(KASU[0] == 1){
@@ -351,7 +354,7 @@
     function DSP_LED(c){
       r=1; n=0;
       for(k=0; k<8; k++){
-        LedTbl.rows[n].cells[k].innerHTML= c[k] ;
+        LedTbl.rows[n].cells[k+1].innerHTML= c[k] ;
         if (c[k]==1){
           LedTbl.rows[r].cells[k+1].innerHTML='<img src="LedOn.jpg" width="50">';
         }else{
