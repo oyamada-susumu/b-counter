@@ -4,6 +4,7 @@
   <h1 id="hyouji2">********</h1>
   <h1 id="hyouji">********</h1>
   <h1 id="hyouji4">********</h1>
+  <h1 id="hyouji5">********</h1>
   <table id="LedTbl" border="1">
     <tr>
       <td>0</td>
@@ -161,6 +162,13 @@
     KASU=[];
     KASU=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     DSPK(KASU);
+    M=[];
+    u=-1;
+    for(t=0; t < 23; t++) {
+      M[t]=2**u;
+      u--;
+    }
+    hyouji5.innerHTML = M;
   }
   </script>
   
