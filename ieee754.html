@@ -1,9 +1,9 @@
 
-  <h1>32ビット浮動小数点数</h1>
-  <h3 id="hyouji3">********</h3>
-  <h3 id="hyouji2">********</h3>
+  <h1>32ビット浮動小数点数の内部表現</h1>
   <h3 id="hyouji">********</h3>
-  <h3 id="hyouji4">********</h3>
+  <h3 id="hyouji2">********</h3>
+  <h3 id="hyouji3">********</h3>
+  <h3 id="hyouji4">10進数= </h3>  
   <h5 id="hyouji5">********</h5>
   <table id="LedTbl" border="1">
     <tr>
@@ -74,38 +74,38 @@
       <td><img src="LedOff.jpg" width="50"></td>
     </tr>
     <tr>
-      <td><br><input type="button" id="pushuButtonS" value="Ｓ"><br><br></td>
-      <td><input type="button" id="pushuButtonE8" value="Ｅ８"></td>
-      <td><input type="button" id="pushuButtonE7" value="Ｅ７"></td>
-      <td><input type="button" id="pushuButtonE6" value="Ｅ６"></td>
-      <td><input type="button" id="pushuButtonE5" value="Ｅ５"></td>
-      <td><input type="button" id="pushuButtonE4" value="Ｅ４"></td>
-      <td><input type="button" id="pushuButtonE3" value="Ｅ３"></td>
-      <td><input type="button" id="pushuButtonE2" value="Ｅ２"></td>
-      <td><input type="button" id="pushuButtonE1" value="Ｅ１"></td>
-      <td><input type="button" id="pushuButtonM1" value="M1"></td>
-      <td><input type="button" id="pushuButtonM2" value="M2"></td>
-      <td><input type="button" id="pushuButtonM3" value="M3"></td>
-      <td><input type="button" id="pushuButtonM4" value="M4"></td>
-      <td><input type="button" id="pushuButtonM5" value="M5"></td>
-      <td><input type="button" id="pushuButtonM6" value="M6"></td>
-      <td><input type="button" id="pushuButtonM7" value="M7"></td>
-      <td><input type="button" id="pushuButtonM8" value="M8"></td>
-      <td><input type="button" id="pushuButtonM9" value="M9"></td>
-      <td><input type="button" id="pushuButtonM10" value="M10"></td>
-      <td><input type="button" id="pushuButtonM11" value="M11"></td>
-      <td><input type="button" id="pushuButtonM12" value="M12"></td>
-      <td><input type="button" id="pushuButtonM13" value="M13"></td>
-      <td><input type="button" id="pushuButtonM14" value="M14"></td>
-      <td><input type="button" id="pushuButtonM15" value="M15"></td>
-      <td><input type="button" id="pushuButtonM16" value="M16"></td>
-      <td><input type="button" id="pushuButtonM17" value="M17"></td>
-      <td><input type="button" id="pushuButtonM18" value="M18"></td>
-      <td><input type="button" id="pushuButtonM19" value="M19"></td>
-      <td><input type="button" id="pushuButtonM20" value="M20"></td>
-      <td><input type="button" id="pushuButtonM21" value="M21"></td>
-      <td><input type="button" id="pushuButtonM22" value="M22"></td>
-      <td><input type="button" id="pushuButtonM23" value="M23"></td>
+      <td><br><input type="button" id="pushButtonS" value="Ｓ"><br><br></td>
+      <td><input type="button" id="pushButtonE8" value="Ｅ８"></td>
+      <td><input type="button" id="pushButtonE7" value="Ｅ７"></td>
+      <td><input type="button" id="pushButtonE6" value="Ｅ６"></td>
+      <td><input type="button" id="pushButtonE5" value="Ｅ５"></td>
+      <td><input type="button" id="pushButtonE4" value="Ｅ４"></td>
+      <td><input type="button" id="pushButtonE3" value="Ｅ３"></td>
+      <td><input type="button" id="pushButtonE2" value="Ｅ２"></td>
+      <td><input type="button" id="pushButtonE1" value="Ｅ１"></td>
+      <td><input type="button" id="pushButtonM1" value="M1"></td>
+      <td><input type="button" id="pushButtonM2" value="M2"></td>
+      <td><input type="button" id="pushButtonM3" value="M3"></td>
+      <td><input type="button" id="pushButtonM4" value="M4"></td>
+      <td><input type="button" id="pushButtonM5" value="M5"></td>
+      <td><input type="button" id="pushButtonM6" value="M6"></td>
+      <td><input type="button" id="pushButtonM7" value="M7"></td>
+      <td><input type="button" id="pushButtonM8" value="M8"></td>
+      <td><input type="button" id="pushButtonM9" value="M9"></td>
+      <td><input type="button" id="pushButtonM10" value="M10"></td>
+      <td><input type="button" id="pushButtonM11" value="M11"></td>
+      <td><input type="button" id="pushButtonM12" value="M12"></td>
+      <td><input type="button" id="pushButtonM13" value="M13"></td>
+      <td><input type="button" id="pushButtonM14" value="M14"></td>
+      <td><input type="button" id="pushButtonM15" value="M15"></td>
+      <td><input type="button" id="pushButtonM16" value="M16"></td>
+      <td><input type="button" id="pushButtonM17" value="M17"></td>
+      <td><input type="button" id="pushButtonM18" value="M18"></td>
+      <td><input type="button" id="pushButtonM19" value="M19"></td>
+      <td><input type="button" id="pushButtonM20" value="M20"></td>
+      <td><input type="button" id="pushButtonM21" value="M21"></td>
+      <td><input type="button" id="pushButtonM22" value="M22"></td>
+      <td><input type="button" id="pushButtonM23" value="M23"></td>
     </tr>
     <tr>
       <td>符号</td>
@@ -142,11 +142,15 @@
       <td>2**(-23)</td>
     </tr>
   </table>
-  <br><br>
-  <input type="button" id="pushuButtonRst" value="ＲＥＳＥＴ">
-  <input type="button" id="pushuButtonUp" value="ＵＰ">
-  <input type="button" id="pushuButtonDown" value="ＤＯＷＮ">
-
+  <br>
+  指数部
+  <input type="button" id="pushButtonRst" value="ＲＥＳＥＴ">
+  <input type="button" id="pushButtonUp" value="ＵＰ">
+  <input type="button" id="pushButtonDown" value="ＤＯＷＮ">
+  10進数を入力してください
+  <input type="number" id="numberSUU" value="">
+  <input type="button" id="pushBottonDtoB" value="内部表現に変換する">
+  <input type="button" id="pushButtonBtoD" value="10進数で表示する">
   
   <script>
   LedTbl.style.textAlign = "center";
@@ -173,7 +177,7 @@
   </script>
   
   <script>
-    pushuButtonS.onclick = function(){
+    pushButtonS.onclick = function(){
       if(s==1){
         s=0;
       }else{
@@ -181,7 +185,7 @@
       }
       DSPS(s);
      }
-    pushuButtonE1.onclick = function(){
+    pushButtonE1.onclick = function(){
       if(D2BX(i,0)==1){
         i = i - 1;
       }else{
@@ -189,109 +193,60 @@
       }
       DSP(i);    
     }
-    pushuButtonE2.onclick = function(){
-      if(D2BX(i,1)==1){
-        i = i - 2;
-      }else{
-        i = i + 2;
-      }
-      DSP(i);    
-    }
-    pushuButtonE3.onclick = function(){
-      if(D2BX(i,2)==1){
-        i = i - 4;
-      }else{
-        i = i + 4;
-      }
-      DSP(i);    
-    }
-    pushuButtonE4.onclick = function(){
-      if(D2BX(i,3)==1){
-        i = i - 8;
-      }else{
-        i = i + 8;
-      }
-      DSP(i);    
-    }
-    pushuButtonE5.onclick = function(){
-      if(D2BX(i,4)==1){
-        i = i - 16;
-      }else{
-        i = i + 16;
-      }
-      DSP(i);    
-    }
-    pushuButtonE6.onclick = function(){
-      if(D2BX(i,5)==1){
-        i = i - 32;
-      }else{
-        i = i + 32;
-      }
-      DSP(i);    
-    }
-    pushuButtonE7.onclick = function(){
-      if(D2BX(i,6)==1){
-        i = i - 64;
-      }else{
-        i = i + 64;
-      }
-      DSP(i);    
-    }
-    pushuButtonE8.onclick = function(){
-      if(D2BX(i,7)==1){
-        i = i - 128;
-      }else{
-        i = i + 128;
-      }
-      DSP(i);    
-    }
-    pushuButtonRst.onclick = function(){
+    pushButtonE2.onclick = function(){if(D2BX(i,1)==1){i=i-2;}else{i=i+2;}DSP(i);}
+    pushButtonE3.onclick = function(){if(D2BX(i,2)==1){i=i-4;}else{i=i+4;}DSP(i);}
+    pushButtonE4.onclick = function(){if(D2BX(i,3)==1){i=i-8;}else{i=i+8;}DSP(i);}
+    pushButtonE5.onclick = function(){if(D2BX(i,4)==1){i=i-16;}else{i=i+16;}DSP(i);}
+    pushButtonE6.onclick = function(){if(D2BX(i,5)==1){i=i-32;}else{i=i+32;}DSP(i);}
+    pushButtonE7.onclick = function(){if(D2BX(i,6)==1){i=i-64;}else{i=i+64;}DSP(i);}
+    pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128; }DSP(i);}
+    pushButtonRst.onclick = function(){
       i = 0;
       DSP(i);
     }
-    pushuButtonUp.onclick = function(){
+    pushButtonUp.onclick = function(){
       i = i + 1;
       if(i>255){
         i=0;
        }
        DSP(i); 
     }
-    pushuButtonDown.onclick = function(){
+    pushButtonDown.onclick = function(){
       i = i - 1;
       if(i<0){
         i=255;
         }
         DSP(i);
     }
-    pushuButtonM1.onclick = function(){
+    pushButtonM1.onclick = function(){
       if(KASU[0] == 1){
         KASU[0] = 0;
       }else{
         KASU[0] = 1;}
       DSPK(KASU);    
     }
-    pushuButtonM2.onclick = function(){if(KASU[1] == 1){KASU[1] = 0;}else{KASU[1] = 1;}DSPK(KASU); }
-    pushuButtonM3.onclick = function(){if(KASU[2] == 1){KASU[2] = 0;}else{KASU[2] = 1;}DSPK(KASU); }
-    pushuButtonM4.onclick = function(){if(KASU[3] == 1){KASU[3] = 0;}else{KASU[3] = 1;}DSPK(KASU); }
-    pushuButtonM5.onclick = function(){if(KASU[4] == 1){KASU[4] = 0;}else{KASU[4] = 1;}DSPK(KASU); }
-    pushuButtonM6.onclick = function(){if(KASU[5] == 1){KASU[5] = 0;}else{KASU[5] = 1;}DSPK(KASU); }
-    pushuButtonM7.onclick = function(){if(KASU[6] == 1){KASU[6] = 0;}else{KASU[6] = 1;}DSPK(KASU); }
-    pushuButtonM8.onclick = function(){if(KASU[7] == 1){KASU[7] = 0;}else{KASU[7] = 1;}DSPK(KASU); }
-    pushuButtonM9.onclick = function(){if(KASU[8] == 1){KASU[8] = 0;}else{KASU[8] = 1;}DSPK(KASU); }
-    pushuButtonM10.onclick = function(){if(KASU[9] == 1){KASU[9] = 0;}else{KASU[9] = 1;}DSPK(KASU); }
-    pushuButtonM11.onclick = function(){if(KASU[10] == 1){KASU[10] = 0;}else{KASU[10] = 1;}DSPK(KASU); }
-    pushuButtonM12.onclick = function(){if(KASU[11] == 1){KASU[11] = 0;}else{KASU[11] = 1;}DSPK(KASU); }
-    pushuButtonM13.onclick = function(){if(KASU[12] == 1){KASU[12] = 0;}else{KASU[12] = 1;}DSPK(KASU); }
-    pushuButtonM14.onclick = function(){if(KASU[13] == 1){KASU[13] = 0;}else{KASU[13] = 1;}DSPK(KASU); }
-    pushuButtonM15.onclick = function(){if(KASU[14] == 1){KASU[14] = 0;}else{KASU[14] = 1;}DSPK(KASU); }
-    pushuButtonM16.onclick = function(){if(KASU[15] == 1){KASU[15] = 0;}else{KASU[15] = 1;}DSPK(KASU); }
-    pushuButtonM17.onclick = function(){if(KASU[16] == 1){KASU[16] = 0;}else{KASU[16] = 1;}DSPK(KASU); }
-    pushuButtonM18.onclick = function(){if(KASU[17] == 1){KASU[17] = 0;}else{KASU[17] = 1;}DSPK(KASU); }
-    pushuButtonM19.onclick = function(){if(KASU[18] == 1){KASU[18] = 0;}else{KASU[18] = 1;}DSPK(KASU); }
-    pushuButtonM20.onclick = function(){if(KASU[19] == 1){KASU[19] = 0;}else{KASU[19] = 1;}DSPK(KASU); }
-    pushuButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20] = 1;}DSPK(KASU); }
-    pushuButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}DSPK(KASU); }
-    pushuButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}DSPK(KASU); }
+    pushButtonM2.onclick = function(){if(KASU[1] == 1){KASU[1] = 0;}else{KASU[1] = 1;}DSPK(KASU); }
+    pushButtonM3.onclick = function(){if(KASU[2] == 1){KASU[2] = 0;}else{KASU[2] = 1;}DSPK(KASU); }
+    pushButtonM4.onclick = function(){if(KASU[3] == 1){KASU[3] = 0;}else{KASU[3] = 1;}DSPK(KASU); }
+    pushButtonM5.onclick = function(){if(KASU[4] == 1){KASU[4] = 0;}else{KASU[4] = 1;}DSPK(KASU); }
+    pushButtonM6.onclick = function(){if(KASU[5] == 1){KASU[5] = 0;}else{KASU[5] = 1;}DSPK(KASU); }
+    pushButtonM7.onclick = function(){if(KASU[6] == 1){KASU[6] = 0;}else{KASU[6] = 1;}DSPK(KASU); }
+    pushButtonM8.onclick = function(){if(KASU[7] == 1){KASU[7] = 0;}else{KASU[7] = 1;}DSPK(KASU); }
+    pushButtonM9.onclick = function(){if(KASU[8] == 1){KASU[8] = 0;}else{KASU[8] = 1;}DSPK(KASU); }
+    pushButtonM10.onclick = function(){if(KASU[9] == 1){KASU[9] = 0;}else{KASU[9] = 1;}DSPK(KASU); }
+    pushButtonM11.onclick = function(){if(KASU[10] == 1){KASU[10] = 0;}else{KASU[10] = 1;}DSPK(KASU); }
+    pushButtonM12.onclick = function(){if(KASU[11] == 1){KASU[11] = 0;}else{KASU[11] = 1;}DSPK(KASU); }
+    pushButtonM13.onclick = function(){if(KASU[12] == 1){KASU[12] = 0;}else{KASU[12] = 1;}DSPK(KASU); }
+    pushButtonM14.onclick = function(){if(KASU[13] == 1){KASU[13] = 0;}else{KASU[13] = 1;}DSPK(KASU); }
+    pushButtonM15.onclick = function(){if(KASU[14] == 1){KASU[14] = 0;}else{KASU[14] = 1;}DSPK(KASU); }
+    pushButtonM16.onclick = function(){if(KASU[15] == 1){KASU[15] = 0;}else{KASU[15] = 1;}DSPK(KASU); }
+    pushButtonM17.onclick = function(){if(KASU[16] == 1){KASU[16] = 0;}else{KASU[16] = 1;}DSPK(KASU); }
+    pushButtonM18.onclick = function(){if(KASU[17] == 1){KASU[17] = 0;}else{KASU[17] = 1;}DSPK(KASU); }
+    pushButtonM19.onclick = function(){if(KASU[18] == 1){KASU[18] = 0;}else{KASU[18] = 1;}DSPK(KASU); }
+    pushButtonM20.onclick = function(){if(KASU[19] == 1){KASU[19] = 0;}else{KASU[19] = 1;}DSPK(KASU); }
+    pushButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20] = 1;}DSPK(KASU); }
+    pushButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}DSPK(KASU); }
+    pushButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}DSPK(KASU); }
 </script>
   
   <script>
@@ -302,15 +257,15 @@
       for(j=0; j<8; j++){
         TX=TX+D[j]
       }
-      hyouji.innerHTML = TX;
-      hyouji2.innerHTML = "指数部"+String(TX)+"(2)は"+String(x)+"(10),よって,"+String(x)+"-"+String(127)+"="+String(x-127)+"乗";
+  
+      hyouji2.innerHTML = "指数部Ｅ＝"+String(TX)+" は10進数で"+String(x)+",よって,"+String(x)+"-"+String(127)+"="+String(x-127)+"乗（指数部は符号がないので,計算するときには,いつも127を引いて使うと決めている）";
 
     }
   </script>
   
   <script>
     function DSPS(x){
-      hyouji3.innerHTML = "符号部"+String(x)+"は"+FUGO[x]
+      hyouji.innerHTML = "符号部Ｓ＝"+String(x)+"は "+FUGO[x]+"を表す"
       LedTbl.rows[0].cells[0].innerHTML=x;
       if (x==1){
           LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
@@ -332,7 +287,7 @@
           LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOff.jpg" width="50">'; 
         }
       }
-      hyouji4.innerHTML = TX;
+      hyouji3.innerHTML = "仮数部Ｍ="+TX+" は２進数で,１."+TX+"を表す（２進数の最上位は必ず１になるので省略すると決めている）";
     }
   </script>
 
