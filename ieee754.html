@@ -297,19 +297,20 @@
   <script>
     function DSP(x){
       D=D2B(x);
+      DSP_LED(D);
       TX="";
       for(j=0; j<8; j++){
         TX=TX+D[j]
       }
       hyouji.innerHTML = TX;
-      hyouji2.innerHTML = x;
-      DSP_LED(D2B(x));
+      hyouji2.innerHTML = "指数部"+String(TX)+"(2)は"+String(x)+"(10),よって,"+String(x)+"-"+String(127)+"="+String(x-127)+"乗";
+
     }
   </script>
   
   <script>
     function DSPS(x){
-      hyouji3.innerHTML = FUGO[x]
+      hyouji3.innerHTML = "符号部"+String(x)+"は"+FUGO[x]
       LedTbl.rows[0].cells[0].innerHTML=x;
       if (x==1){
           LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
@@ -336,7 +337,7 @@
   </script>
 
   <script>
-    function D2B(x) {
+    function D2B(x){
       a=[];
       b=[];
         for(j=0; j<8; j=j+1){
