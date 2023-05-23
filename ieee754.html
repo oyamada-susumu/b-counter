@@ -186,8 +186,15 @@
       DSPS(s);
      }
     pushButtonDtoB.onclick = function(){
-      
-    }
+      var x = numberDEC.value;
+      d=parseFloat(x);
+      if(d<0){s=1;}else{s=0;}DSPS(s);
+      f=Math.abs(d);
+      a=Math.floor(f);
+      b=f-a;
+      hyouji4.innerHTML = "整数部=" + String(a) + ", 小数部=" + String(b);
+     }
+
     pushButtonE1.onclick = function(){
       if(D2BX(i,0)==1){
         i = i - 1;
