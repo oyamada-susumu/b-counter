@@ -186,13 +186,17 @@
       DSPS(s);
      }
     pushButtonDtoB.onclick = function(){
-      var x = numberDEC.value;
-      d=parseFloat(x);
-      if(d<0){s=1;}else{s=0;}DSPS(s);
-      f=Math.abs(d);
-      a=Math.floor(f);
-      b=f-a;
-      hyouji4.innerHTML = "整数部=" + String(a) + ", 小数部=" + String(b);
+      x = numberDEC.value;
+      d = parseFloat(x);
+      if(d < 0){
+        s=1;
+      }else{
+        s=0;}
+      DSPS(s);
+      abs_d = Math.abs(d)
+      a = Math.floor(abs_d);
+      b = abs_d - a
+      hyouji4.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
      }
 
     pushButtonE1.onclick = function(){
