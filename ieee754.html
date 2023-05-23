@@ -148,8 +148,8 @@
   <input type="button" id="pushButtonUp" value="ＵＰ">
   <input type="button" id="pushButtonDown" value="ＤＯＷＮ">
   10進数を入力してください
-  <input type="number" id="numberSUU" value="">
-  <input type="button" id="pushBottonDtoB" value="内部表現に変換する">
+  <input type="number" id="numberDEC" value="">
+  <input type="button" id="pushButtonDtoB" value="内部表現に変換する">
   <input type="button" id="pushButtonBtoD" value="10進数で表示する">
   
   <script>
@@ -185,6 +185,9 @@
       }
       DSPS(s);
      }
+    pushButtonDtoB.onclick = function(){
+      
+    }
     pushButtonE1.onclick = function(){
       if(D2BX(i,0)==1){
         i = i - 1;
