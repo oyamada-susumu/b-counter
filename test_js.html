@@ -1,3 +1,5 @@
+<h1 id="msg0">********</h1>
+<h1 id="msg05">********</h1>
 <h1 id="msg1">********</h1>
 <h1 id="msg2">********</h1>
 <h1 id="msg3">********</h1>
@@ -5,14 +7,18 @@
 <h1 id="msg5">********</h1>
 <h1 id="msg6">********</h1>
 <script>
-    i=-2.718281828;
-    j=Math.abs(i);
-    x=String(j);
-    k=x.split(".");
-    msg1.innerHTML = k[0];
-    msg2.innerHTML = "0."+k[1];
-    a =parseInt(k[0],10);
-    b =parseFloat("0."+k[1],10);
-    msg3.innerHTML = String(a);
-    msg4.innerHTML = String(b);
+    n = -123.56;
+    msg0.innerHTML = "元の数=" + String(n);
+    nabs = Math.abs(n);
+    msg05.innerHTML = "絶対値=" + String(nabs);
+    nabsx = String(nabs);
+    nsp = nabsx.split(".");
+    msg1.innerHTML = "整数部(絶対値の小数点の前:文字で分割)=" + nsp[0];
+    msg2.innerHTML = "小数部(絶対値の小数点の後:文字で分割)=" + nsp[1];
+    a =parseInt(nsp[0], 10);
+    msg3.innerHTML = "parseIntで文字整数部を数値に変換 --> Stringで表示=" + String(a);
+    b =parseFloat("0."+ nsp[1], 10);
+    msg4.innerHTML = "parseFloatで文字小数部を数値に変換 --> Stringで表示=" + String(b);
+    c = nabs - a;
+    msg5.innerHTML = "小数部(元の数の絶対値-整数部)=" + String(c);
 </script>
