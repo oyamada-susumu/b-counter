@@ -1,0 +1,18 @@
+<h1 id="msg1">********</h1>
+<h1 id="msg2">********</h1>
+<h1 id="msg3">********</h1>
+<h1 id="msg4">********</h1>
+<h1 id="msg5">********</h1>
+<h1 id="msg6">********</h1>
+<script>
+    i=-12345.67;
+    j=Math.abs(i);
+    x=String(j);
+    k=x.split(".");
+    msg1.innerHTML = k[0];
+    msg2.innerHTML = "0."+k[1];
+    a =parseInt(k[0],10);
+    b =parseFloat("0."+k[1],10);
+    msg3.innerHTML = String(a);
+    msg4.innerHTML = String(b);
+</script>
