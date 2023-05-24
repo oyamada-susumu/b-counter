@@ -187,7 +187,8 @@
      }
     pushButtonDtoB.onclick = function(){
       x = numberDEC.value;
-      d = parseFloat(x);
+      k = x.split(".")
+      d = parseFloat(x,10);
       if(d < 0){
         s=1;
       }else{
