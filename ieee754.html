@@ -6,6 +6,10 @@
   <h3 id="hyouji4">10進数= </h3>
   <h3 id="hyouji45">********</h3>  
   <h5 id="hyouji5">********</h5>
+  <h5 id="hyouji6">********</h5>
+  <h5 id="hyouji7">********</h5>
+  <h5 id="hyouji8">********</h5>
+  <h5 id="hyouji9">********</h5>
   <table id="LedTbl" border="1">
     <tr>
       <td>0</td>
@@ -186,6 +190,8 @@
       }
       DSPS(s);
      }
+
+
     pushButtonDtoB.onclick = function(){
       x = numberDEC.value;
       k = x.split(".")
@@ -195,12 +201,45 @@
       }else{
         s=0;}
       DSPS(s);
-      abs_d = Math.abs(d)
+
+      abs_d = Math.abs(d);
       hyouji4.innerHTML = String(abs_d) + "の整数部=" + k[0] + ", 小数部=" + k[1];
       a = Math.floor(abs_d);
-      b = abs_d - a
+      b = abs_d - a;
       hyouji45.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
-     }
+      /* 小数部を引き算で求めると誤差がでるので、筆算のように１桁づづ計算する */
+      syousu=[];
+      carry=[];
+      syousuy=[];
+      syousux=k[1];
+      syousub=[];                               /*２進数小数部 */
+      /* 初期設定 */
+      for(var i=0; i<syousux.length; i++) {
+        syousu[i] = syousux.charAt(i);          /* 10進数小数部文字を１けたづつ配列に格納する */
+        syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
+        carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
+      }
+      carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
+      hyouji6.innerHTML= syousu;
+      for(var j=0; j<33; j++){
+        /* 小数最下位から１桁づつ２をかけていく */     
+        for(var i=syousux.length-1; i>-1; i--) {
+          syousuy[i] = syousuy[i] * 2;
+          if(syousuy[i] > 9){                     /* 繰り上がりの計算 */
+            carry[i] = 1;
+            syousuy[i] = syousuy[i] - 10 + carry[i+1];
+            };
+        };
+        syousub[j]=carry[0];
+        for(var t=0; t<syousux.length-1; t++) {
+          carry[t]=0;
+          };
+        hyouji7.innerHTML = carry;
+        }
+      
+      hyouji8.innerHTML = syousuy;
+      hyouji9.innerHTML = syousub;
+    }
 
     pushButtonE1.onclick = function(){
       if(D2BX(i,0)==1){
