@@ -10,6 +10,7 @@
   <h5 id="hyouji7">********</h5>
   <h5 id="hyouji8">********</h5>
   <h5 id="hyouji9">********</h5>
+  <h5 id="hyouji10">****10****</h5>
   <table id="LedTbl" border="1">
     <tr>
       <td>0</td>
@@ -148,249 +149,262 @@
     </tr>
   </table>
   <br>
-  指数部
-  <input type="button" id="pushButtonRst" value="ＲＥＳＥＴ">
-  <input type="button" id="pushButtonUp" value="ＵＰ">
-  <input type="button" id="pushButtonDown" value="ＤＯＷＮ">
-  10進数を入力してください
-  <input type="number" id="numberDEC" value="">
-  <input type="button" id="pushButtonDtoB" value="内部表現に変換する">
-  <input type="button" id="pushButtonBtoD" value="10進数で表示する">
+指数部
+<input type="button" id="pushButtonRst" value="ＲＥＳＥＴ">
+<input type="button" id="pushButtonUp" value="ＵＰ">
+<input type="button" id="pushButtonDown" value="ＤＯＷＮ">
+10進数を入力してください
+<input type="number" id="numberDEC" value="">
+<input type="button" id="pushButtonDtoB" value="内部表現に変換する">
+<input type="button" id="pushButtonBtoD" value="10進数で表示する">
   
-  <script>
-  LedTbl.style.textAlign = "center";
-  LedTbl.style.verticalAlign = "middle";
-  window.onload = function(){
-    i = 0;
-    DSP(i);
-    FUGO=[];
-    FUGO[0]="＋";
-    FUGO[1]="－";
-    s = 0;
-    DSPS(s);
-    KASU=[];
-    KASU=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-    DSPK(KASU);
-    M=[];
-    u=-1;
-    for(t=0; t < 23; t++) {
-      M[t]=2**u;
-      u--;
+<script>
+LedTbl.style.textAlign = "center";
+LedTbl.style.verticalAlign = "middle";
+window.onload = function(){
+  i = 0;
+  DSP(i);
+  FUGO=[];
+  FUGO[0]="＋";
+  FUGO[1]="－";
+  s = 0;
+  DSPS(s);
+  KASU=[];
+  KASU=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+  DSPK(KASU);
+  M=[];
+  u=-1;
+  for(t=0; t < 23; t++) {
+    M[t]=2**u;
+    u--; 
     }
-    hyouji5.innerHTML = M;
+  hyouji5.innerHTML = M;
   }
-  </script>
-  
-  <script>
-    pushButtonS.onclick = function(){
-      if(s==1){
-        s=0;
-      }else{
-        s=1;
-      }
-      DSPS(s);
-     }
-
-/* 10進数を内部表現に変換する　*/
-    pushButtonDtoB.onclick = function(){
-      x = numberDEC.value;                 /* 入力された文字を変数xに代入する */
-      k = x.split(".")                     /* 小数点で区切って,整数部と小数部に分割する */ 
-      d = parseFloat(x,10);                /* 文字を浮動小数点数に変換する */  
-      if(d < 0){                           /* 符号を検出する */
-        s=1;
-      }else{
-        s=0;}
-      DSPS(s);                            /* 符号を表示する */
-      abs_d = Math.abs(d);                /* 絶対値をとる */
-      hyouji4.innerHTML = String(abs_d) + "の整数部=" + k[0] + ", 小数部=" + k[1];
-      a = Math.floor(abs_d);              /* 絶対値を浮動小数点数に変換する */
-      b = abs_d - a;                      /* 絶対値の小数部を引き算でとりだす */
-      hyouji45.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
-      /* ↑これはダメ！　小数部を引き算で求めると誤差がでるので、筆算のように１桁ずつ計算することにする */
-      syousu=[];                                /* 元の小数部 */
-      carry=[];                                 /* 繰り上がり */
-      syousuy=[];                               /* 計算用 */
-      syousux=k[1];                             /* 小数部（文字）*/
-      syousub=[];                               /* 計算結果 ２進数小数部 */
-      seisux=k[0];                              /* 整数部(文字) */
-      seisub=[];                                /* 計算結果　２進数整数部 */
-      /* 初期設定 */
-      for(var i=0; i<syousux.length; i++) {
-        syousu[i] = syousux.charAt(i);          /* 10進数小数部文字を１けたずつ配列に格納する */
-        syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
-        carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
-      }
-      carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
-      hyouji6.innerHTML= syousu;
-      /* 筆算方式の算譜 */
-      for(var j=0; j<100; j++){                    /* ２進数で少数点以下100桁まで求める j=0から99 */         
-        for(var i=syousux.length-1; i>-1; i--) {   /* 小数最下位から１桁ずつ２をかけていく */   
-          syousuy[i] = syousuy[i] * 2;             /* 小数部を２倍する */ 
-          if(syousuy[i] > 9) {                     /* 繰り上がりの計算 */
-            carry[i] = 1;                          /* 9より大きければ,繰り上がりは1 */
-            syousuy[i] = syousuy[i] - 10;          /* 10を引いて1桁にする */
-          }
-          /* 下位からの繰り上がりをたす
-            {x*2|0<=x<=9},0から9かける2は0から18となり
-            繰り上がりはoか1しかないので,ここで繰り上がりの１を加えても
-            1から9となり,さらなる繰り上げは発生しない　*/
-          syousuy[i] = syousuy[i] + carry[i+1];
-        }
-        syousub[j]=carry[0];                        /* 小数点以下第一位のくりあげ（整数1の位)を2進数小数点以下の各位の計算結果として保存する */
-        for(var t=0; t<syousux.length; t++) {       /* 繰り上げをすべて0にリセットする */
-          carry[t]=0;
-        };
-      }
-      hyouji7.innerHTML = carry;
-      hyouji8.innerHTML = syousuy;
-      hyouji9.innerHTML = syousub;
-      DSPK(syousub);
-    }
-
-    pushButtonE1.onclick = function(){
-      if(D2BX(i,0)==1){
-        i = i - 1;
-      }else{
-        i = i + 1;
-      }
-      DSP(i);    
-    }
-    pushButtonE2.onclick = function(){if(D2BX(i,1)==1){i=i-2;}else{i=i+2;}DSP(i);}
-    pushButtonE3.onclick = function(){if(D2BX(i,2)==1){i=i-4;}else{i=i+4;}DSP(i);}
-    pushButtonE4.onclick = function(){if(D2BX(i,3)==1){i=i-8;}else{i=i+8;}DSP(i);}
-    pushButtonE5.onclick = function(){if(D2BX(i,4)==1){i=i-16;}else{i=i+16;}DSP(i);}
-    pushButtonE6.onclick = function(){if(D2BX(i,5)==1){i=i-32;}else{i=i+32;}DSP(i);}
-    pushButtonE7.onclick = function(){if(D2BX(i,6)==1){i=i-64;}else{i=i+64;}DSP(i);}
-    pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128; }DSP(i);}
-    pushButtonRst.onclick = function(){
-      i = 0;
-      DSP(i);
-    }
-    pushButtonUp.onclick = function(){
-      i = i + 1;
-      if(i>255){
-        i=0;
-       }
-       DSP(i); 
-    }
-    pushButtonDown.onclick = function(){
-      i = i - 1;
-      if(i<0){
-        i=255;
-        }
-        DSP(i);
-    }
-    pushButtonM1.onclick = function(){
-      if(KASU[0] == 1){
-        KASU[0] = 0;
-      }else{
-        KASU[0] = 1;}
-      DSPK(KASU);    
-    }
-    pushButtonM2.onclick = function(){if(KASU[1] == 1){KASU[1] = 0;}else{KASU[1] = 1;}DSPK(KASU); }
-    pushButtonM3.onclick = function(){if(KASU[2] == 1){KASU[2] = 0;}else{KASU[2] = 1;}DSPK(KASU); }
-    pushButtonM4.onclick = function(){if(KASU[3] == 1){KASU[3] = 0;}else{KASU[3] = 1;}DSPK(KASU); }
-    pushButtonM5.onclick = function(){if(KASU[4] == 1){KASU[4] = 0;}else{KASU[4] = 1;}DSPK(KASU); }
-    pushButtonM6.onclick = function(){if(KASU[5] == 1){KASU[5] = 0;}else{KASU[5] = 1;}DSPK(KASU); }
-    pushButtonM7.onclick = function(){if(KASU[6] == 1){KASU[6] = 0;}else{KASU[6] = 1;}DSPK(KASU); }
-    pushButtonM8.onclick = function(){if(KASU[7] == 1){KASU[7] = 0;}else{KASU[7] = 1;}DSPK(KASU); }
-    pushButtonM9.onclick = function(){if(KASU[8] == 1){KASU[8] = 0;}else{KASU[8] = 1;}DSPK(KASU); }
-    pushButtonM10.onclick = function(){if(KASU[9] == 1){KASU[9] = 0;}else{KASU[9] = 1;}DSPK(KASU); }
-    pushButtonM11.onclick = function(){if(KASU[10] == 1){KASU[10] = 0;}else{KASU[10] = 1;}DSPK(KASU); }
-    pushButtonM12.onclick = function(){if(KASU[11] == 1){KASU[11] = 0;}else{KASU[11] = 1;}DSPK(KASU); }
-    pushButtonM13.onclick = function(){if(KASU[12] == 1){KASU[12] = 0;}else{KASU[12] = 1;}DSPK(KASU); }
-    pushButtonM14.onclick = function(){if(KASU[13] == 1){KASU[13] = 0;}else{KASU[13] = 1;}DSPK(KASU); }
-    pushButtonM15.onclick = function(){if(KASU[14] == 1){KASU[14] = 0;}else{KASU[14] = 1;}DSPK(KASU); }
-    pushButtonM16.onclick = function(){if(KASU[15] == 1){KASU[15] = 0;}else{KASU[15] = 1;}DSPK(KASU); }
-    pushButtonM17.onclick = function(){if(KASU[16] == 1){KASU[16] = 0;}else{KASU[16] = 1;}DSPK(KASU); }
-    pushButtonM18.onclick = function(){if(KASU[17] == 1){KASU[17] = 0;}else{KASU[17] = 1;}DSPK(KASU); }
-    pushButtonM19.onclick = function(){if(KASU[18] == 1){KASU[18] = 0;}else{KASU[18] = 1;}DSPK(KASU); }
-    pushButtonM20.onclick = function(){if(KASU[19] == 1){KASU[19] = 0;}else{KASU[19] = 1;}DSPK(KASU); }
-    pushButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20] = 1;}DSPK(KASU); }
-    pushButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}DSPK(KASU); }
-    pushButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}DSPK(KASU); }
 </script>
-  
-  <script>
-    function DSP(x){
-      D=D2B(x);
-      DSP_LED(D);
-      TX="";
-      for(j=0; j<8; j++){
-        TX=TX+D[j]
+// 
+<script>
+pushButtonS.onclick = function(){
+  if(s==1){
+    s=0;
+    }else{
+    s=1;
+    }
+  DSPS(s);
+}
+/* 10進数を内部表現に変換する　*/
+pushButtonDtoB.onclick = function(){
+  x = numberDEC.value;                 /* 入力された文字を変数xに代入する */
+  k = x.split(".")                     /* 小数点で区切って,整数部と小数部に分割する */ 
+  d = parseFloat(x,10);                /* 文字を浮動小数点数に変換する */  
+  if(d < 0){                           /* 符号を検出する */
+    s=1;
+    }else{
+    s=0;
+    }
+  DSPS(s);                            /* 符号を表示する */
+  /* 10進小数部を2進数に変換する */
+  abs_d = Math.abs(d);                /* 絶対値をとる */
+  hyouji4.innerHTML = String(abs_d) + "の整数部=" + k[0] + ", 小数部=" + k[1];
+  a = Math.floor(abs_d);              /* 絶対値を浮動小数点数に変換する */
+  b = abs_d - a;                      /* 絶対値の小数部を引き算でとりだす */
+  hyouji45.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
+  /* ↑これはダメ！　小数部を引き算で求めると誤差がでるので、筆算のように１桁ずつ計算することにする */
+  syousu=[];                                /* 元の小数部 */
+  carry=[];                                 /* 繰り上がり */
+  syousuy=[];                               /* 計算用 */
+  syousux=k[1];                             /* 小数部（文字）*/
+  syousub=[];                               /* 計算結果 ２進数小数部 */
+  /* 初期設定 */
+  for(var i=0; i<syousux.length; i++) {
+    syousu[i] = syousux.charAt(i);          /* 10進数小数部文字を１けたずつ配列に格納する */
+    syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
+    carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
+    }
+  carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
+  hyouji6.innerHTML= syousu;
+  /* 筆算方式の算譜 */
+  for(var j=0; j<100; j++){                    /* ２進数で少数点以下100桁まで求める j=0から99 */         
+    for(var i=syousux.length-1; i>-1; i--) {   /* 小数最下位から１桁ずつ２をかけていく */   
+      syousuy[i] = syousuy[i] * 2;             /* 小数部を２倍する */ 
+      if(syousuy[i] > 9) {                     /* 繰り上がりの計算 */
+        carry[i] = 1;                          /* 9より大きければ,繰り上がりは1 */
+        syousuy[i] = syousuy[i] - 10;          /* 10を引いて1桁にする */
+        }
+    syousuy[i] = syousuy[i] + carry[i+1];       /* 下位からの繰り上がりをたす */
       }
-  
-      hyouji2.innerHTML = "指数部Ｅ＝"+String(TX)+" は10進数で"+String(x)+",よって,"
-      +String(x)+"-"+String(127)+"="+String(x-127)
-      +"乗（指数部は符号がないので,いつも127を引く）";
-
-    }
-  </script>
-  
-  <script>
-    function DSPS(x){
-      hyouji.innerHTML = "符号部Ｓ＝"+String(x)+"は "+FUGO[x]+"を表す"
-      LedTbl.rows[0].cells[0].innerHTML=x;
-      if (x==1){
-          LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
-        }else{
-          LedTbl.rows[1].cells[0].innerHTML='<img src="LedOff.jpg" width="50">';
-        } 
-    }
-  </script>
-
-  <script>
-    function DSPK(K){
-      TX="";
-      for(j=0; j<23; j++){
-        LedTbl.rows[0].cells[j+9].innerHTML=K[j];
-        TX=TX+K[j];
-        if(K[j]==1){
-          LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOn.jpg" width="50">';
-        }else{
-          LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOff.jpg" width="50">'; 
-        }
-      }
-      hyouji3.innerHTML = "仮数部Ｍ="+TX+" は２進数で,１."+TX+"を表す（２進数の最上位は必ず１になるので省略すると決めている）";
-    }
-  </script>
-
-  <script>
-    function D2B(x){
-      a=[];
-      b=[];
-        for(j=0; j<8; j=j+1){
-          a[j]=x%2
-          x = Math.floor(x/2);
-        }
-        for(k=0; k<8; k=k+1){
-          b[7-k]=a[k];
-        }
-       return b;
-    }
-  </script>
-  
-  <script>
-    function DSP_LED(c){
-      r=1; n=0;
-      for(k=0; k<8; k++){
-        LedTbl.rows[n].cells[k+1].innerHTML= c[k] ;
-        if (c[k]==1){
-          LedTbl.rows[r].cells[k+1].innerHTML='<img src="LedOn.jpg" width="50">';
-        }else{
-          LedTbl.rows[r].cells[k+1].innerHTML='<img src="LedOff.jpg" width="50">';
-        } 
+    syousub[j]=carry[0];                        /* 小数点以下第一位のくりあげ（整数1の位)を2進数小数点以下の各位の計算結果として保存する */
+    for(var t=0; t<syousux.length; t++) {       /* 繰り上げをすべて0にリセットする */
+      carry[t]=0;
       }
     }
-  </script>
-  
-  <script>
-    function D2BX(x,n) {
-      a=[];
-        for(j=0; j<8; j=j+1){
-          a[j]=x%2
-          x = Math.floor(x/2);
-        }
-      return a[n];
+  hyouji7.innerHTML = carry;
+  hyouji8.innerHTML = syousuy;
+  hyouji9.innerHTML = syousub;
+  DSPK(syousub);
+  /* {x*2|0<=x<=9},0から9かける2は0から18となり
+  繰り上がりはoか1しかないので,ここで繰り上がりの１を加えても
+  1から9となり,さらなる繰り上げは発生しない　*/
+  /* 10進数整数部を2進数に変換する */
+  seisux=k[0];      
+  seisu=parseInt(seisux,10);                /* 整数部(文字) */
+  seisub=[];                                /* 計算結果　２進数整数部 */
+  seisuc=[];                                /* 計算結果　２進数整数部 表示用 */
+  j=0;
+  while(seisu >= 1){                        /* 10進数を商が１になるまで割る */
+    seisub[j] = seisu % 2                   /* あまりが２進数の各位になる */
+    seisu = Math.floor(seisu / 2);          /* 商を求める */
+    j++;
     }
-  </script>
+  for(var k=0; k<seisub.length; k++){       /* 表示用に順番を逆転させる */
+    seisuc[k] = seisub[seisub.length-k-1];
+    }
+  hyouji10.innerHTML = seisuc
+  }
+/* 指数部 */
+pushButtonE1.onclick = function(){
+  if(D2BX(i,0)==1){
+    i = i - 1;
+    }else{
+    i = i + 1;
+    }
+  DSP(i);    
+  }
+pushButtonE2.onclick = function(){if(D2BX(i,1)==1){i=i-2;}else{i=i+2;}DSP(i);}
+pushButtonE3.onclick = function(){if(D2BX(i,2)==1){i=i-4;}else{i=i+4;}DSP(i);}
+pushButtonE4.onclick = function(){if(D2BX(i,3)==1){i=i-8;}else{i=i+8;}DSP(i);}
+pushButtonE5.onclick = function(){if(D2BX(i,4)==1){i=i-16;}else{i=i+16;}DSP(i);}
+pushButtonE6.onclick = function(){if(D2BX(i,5)==1){i=i-32;}else{i=i+32;}DSP(i);}
+pushButtonE7.onclick = function(){if(D2BX(i,6)==1){i=i-64;}else{i=i+64;}DSP(i);}
+pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128; }DSP(i);}
+pushButtonRst.onclick = function(){
+  i = 0;
+  DSP(i);
+  }
+pushButtonUp.onclick = function(){
+  i = i + 1;
+  if(i>255){
+    i=0;
+    }
+  DSP(i); 
+  }
+pushButtonDown.onclick = function(){
+  i = i - 1;
+  if(i<0){
+    i=255;
+    }
+  DSP(i);
+  }
+pushButtonM1.onclick = function(){
+  if(KASU[0] == 1){
+    KASU[0] = 0;
+    }else{
+    KASU[0] = 1;
+    }
+  DSPK(KASU);    
+  }
+pushButtonM2.onclick = function(){if(KASU[1] == 1){KASU[1] = 0;}else{KASU[1] = 1;}DSPK(KASU); }
+pushButtonM3.onclick = function(){if(KASU[2] == 1){KASU[2] = 0;}else{KASU[2] = 1;}DSPK(KASU); }
+pushButtonM4.onclick = function(){if(KASU[3] == 1){KASU[3] = 0;}else{KASU[3] = 1;}DSPK(KASU); }
+pushButtonM5.onclick = function(){if(KASU[4] == 1){KASU[4] = 0;}else{KASU[4] = 1;}DSPK(KASU); }
+pushButtonM6.onclick = function(){if(KASU[5] == 1){KASU[5] = 0;}else{KASU[5] = 1;}DSPK(KASU); }
+pushButtonM7.onclick = function(){if(KASU[6] == 1){KASU[6] = 0;}else{KASU[6] = 1;}DSPK(KASU); }
+pushButtonM8.onclick = function(){if(KASU[7] == 1){KASU[7] = 0;}else{KASU[7] = 1;}DSPK(KASU); }
+pushButtonM9.onclick = function(){if(KASU[8] == 1){KASU[8] = 0;}else{KASU[8] = 1;}DSPK(KASU); }
+pushButtonM10.onclick = function(){if(KASU[9] == 1){KASU[9] = 0;}else{KASU[9] = 1;}DSPK(KASU); }
+pushButtonM11.onclick = function(){if(KASU[10] == 1){KASU[10] = 0;}else{KASU[10] = 1;}DSPK(KASU); }
+pushButtonM12.onclick = function(){if(KASU[11] == 1){KASU[11] = 0;}else{KASU[11] = 1;}DSPK(KASU); }
+pushButtonM13.onclick = function(){if(KASU[12] == 1){KASU[12] = 0;}else{KASU[12] = 1;}DSPK(KASU); }
+pushButtonM14.onclick = function(){if(KASU[13] == 1){KASU[13] = 0;}else{KASU[13] = 1;}DSPK(KASU); }
+pushButtonM15.onclick = function(){if(KASU[14] == 1){KASU[14] = 0;}else{KASU[14] = 1;}DSPK(KASU); }
+pushButtonM16.onclick = function(){if(KASU[15] == 1){KASU[15] = 0;}else{KASU[15] = 1;}DSPK(KASU); }
+pushButtonM17.onclick = function(){if(KASU[16] == 1){KASU[16] = 0;}else{KASU[16] = 1;}DSPK(KASU); }
+pushButtonM18.onclick = function(){if(KASU[17] == 1){KASU[17] = 0;}else{KASU[17] = 1;}DSPK(KASU); }
+pushButtonM19.onclick = function(){if(KASU[18] == 1){KASU[18] = 0;}else{KASU[18] = 1;}DSPK(KASU); }
+pushButtonM20.onclick = function(){if(KASU[19] == 1){KASU[19] = 0;}else{KASU[19] = 1;}DSPK(KASU); }
+pushButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20] = 1;}DSPK(KASU); }
+pushButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}DSPK(KASU); }
+pushButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}DSPK(KASU); }
+</script>
+//
+<script>
+function DSP(x){
+  D=D2B(x);
+  DSP_LED(D);
+  TX="";
+  for(j=0; j<8; j++){
+    TX=TX+D[j]
+    }
+  hyouji2.innerHTML = "指数部Ｅ＝"+String(TX)+" は10進数で"+String(x)+",よって,"
+  +String(x)+"-"+String(127)+"="+String(x-127)
+  +"乗（指数部は符号がないので,いつも127を引く）";
+  }
+</script>
+//  
+<script>
+function DSPS(x){
+  hyouji.innerHTML = "符号部Ｓ＝"+String(x)+"は "+FUGO[x]+"を表す"
+  LedTbl.rows[0].cells[0].innerHTML=x;
+  if (x==1){
+    LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
+    }else{
+    LedTbl.rows[1].cells[0].innerHTML='<img src="LedOff.jpg" width="50">';
+    } 
+  }
+</script>
+//
+<script>
+function DSPK(K){
+  TX="";
+  for(j=0; j<23; j++){
+    LedTbl.rows[0].cells[j+9].innerHTML=K[j];
+    TX=TX+K[j];
+    if(K[j]==1){
+      LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOn.jpg" width="50">';
+      }else{
+      LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOff.jpg" width="50">'; 
+      }
+    }
+  hyouji3.innerHTML = "仮数部Ｍ="+TX+" は２進数で,１."+TX+"を表す（２進数の最上位は必ず１になるので省略すると決めている）";
+  }
+</script>
+//
+<script>
+function D2B(x){
+  a=[];
+  b=[];
+  for(j=0; j<8; j=j+1){
+    a[j]=x%2
+    x = Math.floor(x/2);
+    }
+  for(k=0; k<8; k=k+1){
+    b[7-k]=a[k];
+    }
+  return b;
+  }
+</script>
+//  
+<script>
+function DSP_LED(c){
+  r=1; n=0;
+  for(k=0; k<8; k++){
+    LedTbl.rows[n].cells[k+1].innerHTML= c[k] ;
+    if (c[k]==1){
+      LedTbl.rows[r].cells[k+1].innerHTML='<img src="LedOn.jpg" width="50">';
+      }else{
+      LedTbl.rows[r].cells[k+1].innerHTML='<img src="LedOff.jpg" width="50">';
+      } 
+    }
+  }
+</script>
+//  
+<script>
+function D2BX(x,n) {
+  a=[];
+  for(j=0; j<8; j=j+1){
+    a[j]=x%2
+    x = Math.floor(x/2);
+    }
+  return a[n];
+  }
+</script>
+//
