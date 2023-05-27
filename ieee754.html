@@ -191,23 +191,22 @@
       DSPS(s);
      }
 
-
+/* 10進数を内部表現に変換する　*/
     pushButtonDtoB.onclick = function(){
-      x = numberDEC.value;
-      k = x.split(".")
-      d = parseFloat(x,10);
-      if(d < 0){
+      x = numberDEC.value;                 /* 入力された文字を変数xに代入する */
+      k = x.split(".")                     /* 小数点で区切って,整数部と小数部に分割する */ 
+      d = parseFloat(x,10);                /* 文字を浮動小数点数に変換する */  
+      if(d < 0){                           /* 符号を検出する */
         s=1;
       }else{
         s=0;}
-      DSPS(s);
-
-      abs_d = Math.abs(d);
+      DSPS(s);                            /* 符号を表示する */
+      abs_d = Math.abs(d);                /* 絶対値をとる */
       hyouji4.innerHTML = String(abs_d) + "の整数部=" + k[0] + ", 小数部=" + k[1];
-      a = Math.floor(abs_d);
-      b = abs_d - a;
+      a = Math.floor(abs_d);              /* 絶対値を浮動小数点数に変換する */
+      b = abs_d - a;                      /* 絶対値の小数部を引き算でとりだす */
       hyouji45.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
-      /* 小数部を引き算で求めると誤差がでるので、筆算のように１桁づづ計算する */
+      /* ↑これはダメ！　小数部を引き算で求めると誤差がでるので、筆算のように１桁づづ計算することにする */
       syousu=[];
       carry=[];
       syousuy=[];
@@ -222,29 +221,29 @@
       }
       carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
       hyouji6.innerHTML= syousu;
-
-      for(var j=0; j<100; j++){
-
-        /* 小数最下位から１桁づつ２をかけていく */     
-        for(var i=syousux.length-1; i>-1; i--) {
-          syousuy[i] = syousuy[i] * 2;
+      /* 筆算方式のけいさん */
+      for(var j=0; j<100; j++){                    /* ２進数で少数点以下100桁まで求める j=0から99 */         
+        for(var i=syousux.length-1; i>-1; i--) {   /* 小数最下位から１桁づつ２をかけていく */   
+          syousuy[i] = syousuy[i] * 2;             /* 小数部を２倍する */ 
           if(syousuy[i] > 9) {                     /* 繰り上がりの計算 */
-            carry[i] = 1;
-            syousuy[i] = syousuy[i] - 10;
-          };
-        syousuy[i] = syousuy[i] + carry[i+1];
-        };
-
-        syousub[j]=carry[0];
-
-        for(var t=0; t<syousux.length; t++) {
+            carry[i] = 1;                          /* 9より大きければ,繰り上がりは1 */
+            syousuy[i] = syousuy[i] - 10;          /* 10を引いて1桁にする */
+          }
+          /* 下位からの繰り上がりをたす
+            {x*2|0<=x<=9},0から9かける2は0から18となり
+            繰り上がりはoか1しかないので,ここで繰り上がりの１を加えても
+            1から9となりさらなる繰り上げは発生しなし　*/
+          syousuy[i] = syousuy[i] + carry[i+1];
+        }
+        syousub[j]=carry[0];                        /* 小数点以下第一位のくりあげ（整数1の位)を2進数小数点以下の各位の計算結果として保存する */
+        for(var t=0; t<syousux.length; t++) {       /* 繰り上げをすべて0にリセットする */
           carry[t]=0;
         };
       }
       hyouji7.innerHTML = carry;
       hyouji8.innerHTML = syousuy;
       hyouji9.innerHTML = syousub;
-
+      DSPK(syousub);
     }
 
     pushButtonE1.onclick = function(){
