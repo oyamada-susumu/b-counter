@@ -334,15 +334,15 @@ function DSP(x){
   for(j=0; j<8; j++){
     TX=TX+D[j]
     }
-  hyouji2.innerHTML = "指数部Ｅ＝"+String(TX)+" は10進数で"+String(x)+",よって,"
-  +String(x)+"-"+String(127)+"="+String(x-127)
-  +"乗（指数部は符号がないので,いつも127を引く）";
+  hyouji2.innerHTML = "指数部Ｅ＝" + String(TX) + " は10進数で" + String(x) +
+  ",よって," + String(x) + "-" + String(127) + "=" + String(x-127) +
+  "乗（指数部は符号がないので,いつも127を引く）";
   }
 </script>
 //  
 <script>
 function DSPS(x){
-  hyouji.innerHTML = "符号部Ｓ＝"+String(x)+"は "+FUGO[x]+"を表す"
+  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + FUGO[x] + "を表す"
   LedTbl.rows[0].cells[0].innerHTML=x;
   if (x==1){
     LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
@@ -364,7 +364,8 @@ function DSPK(K){
       LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOff.jpg" width="50">'; 
       }
     }
-  hyouji3.innerHTML = "仮数部Ｍ="+TX+" は２進数で,１."+TX+"を表す（２進数の最上位は必ず１になるので省略すると決めている）";
+  hyouji3.innerHTML = "仮数部Ｍ=" + TX + " は２進数で,１." + TX +
+  "を表す（２進数の最上位は必ず１になるので省略すると決めている）";
   }
 </script>
 //
