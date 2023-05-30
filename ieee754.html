@@ -275,7 +275,7 @@ pushButtonE4.onclick = function(){if(D2BX(i,3)==1){i=i-8;}else{i=i+8;}DSP(i);}
 pushButtonE5.onclick = function(){if(D2BX(i,4)==1){i=i-16;}else{i=i+16;}DSP(i);}
 pushButtonE6.onclick = function(){if(D2BX(i,5)==1){i=i-32;}else{i=i+32;}DSP(i);}
 pushButtonE7.onclick = function(){if(D2BX(i,6)==1){i=i-64;}else{i=i+64;}DSP(i);}
-pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128; }DSP(i);}
+pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128;}DSP(i);}
 pushButtonRst.onclick = function(){
   i = 0;
   DSP(i);
@@ -325,7 +325,7 @@ pushButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20]
 pushButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}DSPK(KASU); }
 pushButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}DSPK(KASU); }
 </script>
-//
+
 <script>
 function DSP(x){
   D=D2B(x);
@@ -339,7 +339,7 @@ function DSP(x){
   "(2の)乗（指数部は符号がないので,いつも127を引く）";
   }
 </script>
-//  
+
 <script>
 function DSPS(x){
   hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + FUGO[x] + "を表す"
@@ -351,7 +351,7 @@ function DSPS(x){
     } 
   }
 </script>
-//
+
 <script>
 function DSPK(K){
   TX="";
@@ -368,7 +368,7 @@ function DSPK(K){
   "を表す（２進数の最上位は必ず１になるので省略すると決めている）";
   }
 </script>
-//
+
 <script>
 function D2B(x){
   a=[];
@@ -383,7 +383,7 @@ function D2B(x){
   return b;
   }
 </script>
-//  
+
 <script>
 function DSP_LED(c){
   r=1; n=0;
@@ -397,7 +397,7 @@ function DSP_LED(c){
     }
   }
 </script>
-//  
+
 <script>
 function D2BX(x,n) {
   a=[];
@@ -408,4 +408,3 @@ function D2BX(x,n) {
   return a[n];
   }
 </script>
-//
