@@ -11,6 +11,7 @@
   <h5 id="hyouji8">********</h5>
   <h5 id="hyouji9">********</h5>
   <h5 id="hyouji10">****10****</h5>
+  <h5 id="hyouji11">****BB****</h5>
   <table id="LedTbl" border="1">
     <tr>
       <td>0</td>
@@ -259,7 +260,17 @@ pushButtonDtoB.onclick = function(){
     seisuc[k] = seisub[seisub.length-k-1];
     }
   hyouji10.innerHTML = seisuc
+  /* 整数部と小数部を連結させて、指数部を得る */
+  bnum=[]
+  for(var k=0; k<seisuc.length; k++){
+    bnum[k]=seisuc[k]
   }
+  i = seisuc.length - 1
+  for(var k=0; k<syousub.length; k++) {
+    bnum[seisuc.length + k] = syousub[k]
+  } 
+hyouji11.innerHTML = bnum
+}
 /* 指数部 */
 pushButtonE1.onclick = function(){
   if(D2BX(i,0)==1){
