@@ -205,10 +205,10 @@ pushButtonDtoB.onclick = function(){
   DSPS(s);                            /* 符号を表示する */
   /* 10進小数部を2進数に変換する */
   abs_d = Math.abs(d);                /* 絶対値をとる */
-  hyouji4.innerHTML = String(abs_d) + "の整数部=" + k[0] + ", 小数部=" + k[1];
-  a = Math.floor(abs_d);              /* 絶対値を浮動小数点数に変換する */
-  b = abs_d - a;                      /* 絶対値の小数部を引き算でとりだす */
-  hyouji45.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
+  hyouji4.innerHTML = "10進数"+String(abs_d) + "の整数部は" + k[0] + ", 小数部は" + k[1];
+  /* a = Math.floor(abs_d);              /* 絶対値を浮動小数点数に変換する */
+  /* b = abs_d - a;                      /* 絶対値の小数部を引き算でとりだす */
+  /* hyouji45.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
   /* ↑これはダメ！　小数部を引き算で求めると誤差がでるので、筆算のように１桁ずつ計算することにする */
   syousu=[];                                /* 元の小数部 */
   carry=[];                                 /* 繰り上がり */
@@ -245,14 +245,15 @@ pushButtonDtoB.onclick = function(){
   /* {x*2|0<=x<=9},0から9かける2は0から18となり
   繰り上がりはoか1しかないので,ここで繰り上がりの１を加えても
   1から9となり,さらなる繰り上げは発生しない　*/
+  /* */
   /* 10進数整数部を2進数に変換する */
-  seisux=k[0];      
-  seisu=parseInt(seisux,10);                /* 整数部(文字) */
-  seisub=[];                                /* 計算結果　２進数整数部 */
-  seisuc=[];                                /* 計算結果　２進数整数部 表示用 */
+  seisux=k[0];                              /* 整数部（文字） */
+  seisu=parseInt(seisux,10);                /* 整数部（整数） */
+  seisub=[];                                /* 計算結果　２進数整数部 最下位から最上位へ格納 */
+  seisuc=[];                                /* 計算結果　２進数整数部 最上位から最下位へ表示用 */
   j=0;
   while(seisu >= 1){                        /* 10進数を商が１になるまで割る */
-    seisub[j] = seisu % 2                   /* あまりが２進数の各位になる */
+    seisub[j] = seisu % 2                   /* ２で割ったあまりが２進数の各位になる */
     seisu = Math.floor(seisu / 2);          /* 商を求める */
     j++;
     }
@@ -265,11 +266,12 @@ pushButtonDtoB.onclick = function(){
   for(var k=0; k<seisuc.length; k++){
     bnum[k]=seisuc[k]
   }
-  i = seisuc.length - 1
   for(var k=0; k<syousub.length; k++) {
     bnum[seisuc.length + k] = syousub[k]
   } 
 hyouji11.innerHTML = bnum
+i = (seisuc.length - 1) + 127
+DSP(i)
 }
 /* 指数部 */
 pushButtonE1.onclick = function(){
@@ -346,8 +348,8 @@ function DSP(x){
     TX=TX+D[j]
     }
   hyouji2.innerHTML = "指数部Ｅ＝" + String(TX) + " は10進数で" + String(x) +
-  ",よって," + String(x) + "-" + String(127) + "=" + String(x-127) +
-  "(2の)乗（指数部は符号がないので,いつも127を引く）";
+  ",よって" + String(x) + "-" + String(127) + "=" + String(x-127) +
+  ",つまり 2の"+String(x-127)+" 乗を表す。（指数部は符号がないので,いつも127を引く）";
   }
 </script>
 
