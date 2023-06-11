@@ -272,18 +272,16 @@ pushButtonDtoB.onclick = function(){
   hyouji11.innerHTML = bnum
   i = (seisuc.length - 1) + 127
   DSP(i)
-  /* 仮数部24桁目25桁目を用いいて丸めて23桁目を決定する */
+  /* 仮数部24桁目25桁目を用いて丸めて23桁目を決定する */
   /* kasub[23] kasub[24]        kasub[22] */
   kasubu=[]
   for(var k=0; k < bnum.length-1; k++) {
     kasubu[k]=bnum[k+1]
   }
-  if(kasubu[23]==0){
-    if(kasubu[24]==0){
-      kasub[22]=0
-  }
+  k2324=kasubu[23]*10+kasub[24]
+  if(k2324<10){kasub[22]=0}else{kasubu[22]=1}
   /* 仮数部を表示する */
-
+  DSPK(kasubu) 
 }
 /* 指数部 */
 pushButtonE1.onclick = function(){
