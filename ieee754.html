@@ -221,7 +221,7 @@ pushButtonDtoB.onclick = function(){
     syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
     carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
     }
-  /* 小数点以下の前ZEROを数える 0.00045 → 3 など???/
+  /* 整数部が0のときに、小数点以下の前ZEROを数える 0.00045 → 3 など　/
   i=0;
   while(syousu[i] == 0) {
     i++ ;
