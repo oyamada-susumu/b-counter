@@ -1,17 +1,17 @@
 
   <h1>32ビット浮動小数点数の内部表現</h1>
-  <h3 id="hyouji">********</h3>
-  <h3 id="hyouji2">********</h3>
-  <h3 id="hyouji3">********</h3>
-  <h3 id="hyouji4">10進数= </h3>
-  <h3 id="hyouji45">********</h3>  
-  <h5 id="hyouji5">********</h5>
-  <h5 id="hyouji6">********</h5>
-  <h5 id="hyouji7">********</h5>
-  <h5 id="hyouji8">********</h5>
-  <h5 id="hyouji9">********</h5>
-  <h5 id="hyouji10">****10****</h5>
-  <h5 id="hyouji11">****BB****</h5>
+  <h3 id="hyouji">***1***</h3>
+  <h3 id="hyouji2">***2***</h3>
+  <h3 id="hyouji3">***3***</h3>
+  <h3 id="hyouji4">***4*** </h3>
+  <h3 id="hyouji45">***45***</h3>  
+  <h5 id="hyouji5">***5***</h5>
+  <h5 id="hyouji6">***6***</h5>
+  <h5 id="hyouji7">***7***</h5>
+  <h5 id="hyouji8">***8***</h5>
+  <h5 id="hyouji9">***9***</h5>
+  <h5 id="hyouji10">***10***</h5>
+  <h5 id="hyouji11">***11***</h5>
   <table id="LedTbl" border="1">
     <tr>
       <td>0</td>
@@ -221,6 +221,12 @@ pushButtonDtoB.onclick = function(){
     syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
     carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
     }
+  /* 整数部が0のときに、小数部の前ZEROを数える 0.00045 → 3 など */
+  i=0;
+  while(syousu[i] == 0) {
+    i++ ;
+    }
+  hyouji45.innerHTML=i;
   carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
   hyouji6.innerHTML= syousu;
   /* 筆算方式の算譜 */
