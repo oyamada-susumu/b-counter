@@ -221,12 +221,8 @@ pushButtonDtoB.onclick = function(){
     syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
     carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
     }
-  /* 整数部が0のときに、小数点以下の前ZEROを数える 0.00045 → 3 など　/
-  i=0;
-  while(syousu[i] == 0) {
-    i++ ;
-    }
-  hyouji45.innerHTML=i;
+  
+  
   carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
   hyouji6.innerHTML= syousu;
   /* 筆算方式の算譜 */
@@ -244,6 +240,13 @@ pushButtonDtoB.onclick = function(){
       carry[t]=0;
       }
     }
+  /* 10進数の整数部が0のときに、小数点以下の前ZEROを数える 0.000125 → 3 など　*/
+  /* その後、1.25E-04 とする */
+  i=0;
+  while(syousub[i] == 0) {
+    i++ ;
+    }
+  hyouji45.innerHTML=i;
   hyouji7.innerHTML = carry;
   hyouji8.innerHTML = syousuy;
   hyouji9.innerHTML = syousub;
