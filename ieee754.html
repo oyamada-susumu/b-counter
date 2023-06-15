@@ -218,11 +218,31 @@ pushButtonDtoB.onclick = function(){
   /* 初期設定 */
   for(var i=0; i<syousux.length; i++) {
     syousu[i] = syousux.charAt(i);          /* 10進数小数部文字を１けたずつ配列に格納する */
-    syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
-    carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
     }
+  /* 10進数の整数部が0のときに、小数点以下の前ZEROを数える 0.000125 → 3 など　*/
+  /* その後、1.25e-04 とする */
+  mae_zero=0;
+  if(k[0]=="0") {
+    while(syousu[mae_zero] == "0") {
+      mae_zero++ ;
+      }
+    k[0]=syousu[mae_zero]
+    for(var i=0; i<syousux.length; i++) {
+      if(i<(syousux.length - mae_zero - 1)) {
+        syousu[i]=syousu[i + mae_zero + 1];
+        }else{
+        syousu[i]="0"
+      }
+    }
+    } 
+  hyouji45.innerHTML= k[0] + "." + syousu + mae_zero;
+  /* hyouji45.innerHTML = k[0] + " " + k[1] + String(mae_zero); */
+  /* hyouji45.innerHTML = "10進数"+String(abs_d) + "の整数部は" + k[0] + ", 小数部は" + k[1]; */
   
-  
+  for(var i=0; i<syousux.length; i++) {
+      syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
+      carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
+    }
   carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
   hyouji6.innerHTML= syousu;
   /* 筆算方式の算譜 */
@@ -240,13 +260,7 @@ pushButtonDtoB.onclick = function(){
       carry[t]=0;
       }
     }
-  /* 10進数の整数部が0のときに、小数点以下の前ZEROを数える 0.000125 → 3 など　*/
-  /* その後、1.25E-04 とする */
-  i=0;
-  while(syousub[i] == 0) {
-    i++ ;
-    }
-  hyouji45.innerHTML=i;
+  
   hyouji7.innerHTML = carry;
   hyouji8.innerHTML = syousuy;
   hyouji9.innerHTML = syousub;
