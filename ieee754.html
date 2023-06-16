@@ -219,8 +219,8 @@ pushButtonDtoB.onclick = function(){
   for(var i=0; i<syousux.length; i++) {
     syousu[i] = syousux.charAt(i);          /* 10進数小数部文字を１けたずつ配列に格納する */
     }
-  /* 10進数の整数部が0のときに、小数点以下の前ZEROを数える 0.000125 → 3 など　*/
-  /* その後、1.25e-04 とする */
+/* 10進数の整数部が0のときに、小数点以下の前ZEROを数える 0.000125 → 3 など　*/
+/* その後、1.25e-04 とする コメントアウト　勘違い↓　必要なし
   mae_zero=0;
   if(k[0]=="0") {
     while(syousu[mae_zero] == "0") {
@@ -234,11 +234,10 @@ pushButtonDtoB.onclick = function(){
         syousu[i]="0"
       }
     }
+    hyouji45.innerHTML= k[0] + "." + syousu + "e-"+ (mae_zero+1);
     } 
-  hyouji45.innerHTML= k[0] + "." + syousu + mae_zero;
-  /* hyouji45.innerHTML = k[0] + " " + k[1] + String(mae_zero); */
-  /* hyouji45.innerHTML = "10進数"+String(abs_d) + "の整数部は" + k[0] + ", 小数部は" + k[1]; */
-  
+*/
+   
   for(var i=0; i<syousux.length; i++) {
       syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
       carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
@@ -296,13 +295,20 @@ pushButtonDtoB.onclick = function(){
   i = (seisuc.length - 1) + 127
   DSP(i)
   /* 仮数部24桁目25桁目を用いて丸めて23桁目を決定する */
-  /* kasub[23] kasub[24]        kasub[22] */
+  /* kasub[23] kasub[24]        kasub[22] 
   kasubu=[]
   for(var k=0; k < bnum.length-1; k++) {
     kasubu[k]=bnum[k+1]
   }
   k2324=kasubu[23]*10+kasub[24]
-  if(k2324<10){kasub[22]=0}else{kasubu[22]=1}
+  if(k2324<10){kasubu[22]=0}else{kasubu[22]=1}
+  */
+  kasubu=[]
+  for(var k=0; k < bnum.length-1; k++) {
+    kasubu[k]=bnum[k+1];
+  }
+  hyouji45.innerHTML = kasubu
+
   /* 仮数部を表示する */
   DSPK(kasubu) 
 }
