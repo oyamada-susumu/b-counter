@@ -1,18 +1,6 @@
-
   <h1>32ビット浮動小数点数の内部表現</h1>
-  <h3 id="hyouji">***1***</h3>
-  <h3 id="hyouji2">***2***</h3>
-  <h3 id="hyouji3">***3***</h3>
-  <h3 id="hyouji4">***4*** </h3>
-  <h3 id="hyouji45">***45***</h3>  
-  <h5 id="hyouji5">***5***</h5>
-  <h5 id="hyouji6">***6***</h5>
-  <h5 id="hyouji7">***7***</h5>
-  <h5 id="hyouji8">***8***</h5>
-  <h5 id="hyouji9">***9***</h5>
-  <h5 id="hyouji10">***10***</h5>
-  <h5 id="hyouji11">***11***</h5>
   <table id="LedTbl" border="1">
+ 
     <tr>
       <td>0</td>
       <td>0</td>
@@ -115,7 +103,7 @@
       <td><input type="button" id="pushButtonM23" value="M23"></td>
     </tr>
     <tr>
-      <td>符号</td>
+      <td>正0,負1</td>
       <td>128</td>
       <td>64</td>
       <td>32</td>
@@ -148,8 +136,13 @@
       <td>2**(-22)</td>
       <td>2**(-23)</td>
     </tr>
+    <tr>
+      <td>符号</td>
+      <td colspan="8">指数部</td>
+      <td colspan="23">仮数部</td>
+    </tr>
   </table>
-  <br>
+<br>
 指数部
 <input type="button" id="pushButtonRst" value="ＲＥＳＥＴ">
 <input type="button" id="pushButtonUp" value="ＵＰ">
@@ -158,19 +151,28 @@
 <input type="number" id="numberDEC" value="">
 <input type="button" id="pushButtonDtoB" value="内部表現に変換する">
 <input type="button" id="pushButtonBtoD" value="10進数で表示する">
-  
+<h5 id="hyouji">***1***</h5>
+<h5 id="hyouji2">***2***</h5>
+<h5 id="hyouji3">***3***</h5>
+<h5 id="hyouji4">***4*** </h5>
+<h5 id="hyouji45">***45***</h5>  
+<h5 id="hyouji5">***5***</h5>
+<h5 id="hyouji6">***6***</h5>
+<h5 id="hyouji7">***7***</h5>
+<h5 id="hyouji8">***8***</h5>
+<h5 id="hyouji9">***9***</h5>
+<h5 id="hyouji10">***10***</h5>
+<h5 id="hyouji11">***11***</h5>
+
 <script>
 LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle";
 window.onload = function(){
   i = 0;
   DSP(i);
-  FUGO=[];
-  FUGO[0]="＋";
-  FUGO[1]="－";
+  FUGO=["＋","－"];
   s = 0;
   DSPS(s);
-  KASU=[];
   KASU=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
   DSPK(KASU);
   M=[];
