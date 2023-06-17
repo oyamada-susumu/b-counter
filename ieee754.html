@@ -112,29 +112,29 @@
       <td>4</td>
       <td>2</td>
       <td>1</td>
-      <td>1/2</td>
-      <td>1/4</td>
-      <td>1/8</td>
-      <td>1/16</td>
-      <td>1/32</td>
-      <td>1/64</td>
-      <td>1/128</td>
-      <td>1/256</td>
-      <td>1/512</td>
-      <td>1/1024</td>
-      <td>1/2048</td>
-      <td>1/4096</td>
-      <td>1/8192</td>
-      <td>1/16384</td>
-      <td>1/32768</td>
-      <td>1/65536</td>
-      <td>2**(-17)</td>
-      <td>2**(-18)</td>
-      <td>2**(-19)</td>
-      <td>2**(-20)</td>
-      <td>2**(-21)</td>
-      <td>2**(-22)</td>
-      <td>2**(-23)</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
     </tr>
     <tr>
       <td>符号</td>
@@ -208,10 +208,6 @@ pushButtonDtoB.onclick = function(){
   /* 10進小数部を2進数に変換する */
   abs_d = Math.abs(d);                /* 絶対値をとる */
   hyouji4.innerHTML = "10進数"+String(abs_d) + "の整数部は" + k[0] + ", 小数部は" + k[1];
-  /* a = Math.floor(abs_d);              /* 絶対値を浮動小数点数に変換する */
-  /* b = abs_d - a;                      /* 絶対値の小数部を引き算でとりだす */
-  /* hyouji45.innerHTML = String(abs_d) + "の整数部=" + a + ", 小数部=" + b;
-  /* ↑これはダメ！　小数部を引き算で求めると誤差がでるので、筆算のように１桁ずつ計算することにする */
   syousu=[];                                /* 元の小数部 */
   carry=[];                                 /* 繰り上がり */
   syousuy=[];                               /* 計算用 */
