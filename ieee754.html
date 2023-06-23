@@ -169,12 +169,12 @@ LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle";
 window.onload = function(){
   i = 0;
-  DSP(i);
+  displayExponent(i);
   FUGO=["＋","－"];
   s = 0;
-  DSPS(s);
+  displaySing(s);
   KASU=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-  DSPK(KASU);
+  displayMantissa(KASU);
   M=[];
   u=-1;
   for(t=0; t < 23; t++) {
@@ -192,7 +192,7 @@ pushButtonS.onclick = function(){
     }else{
     s=1;
     }
-  DSPS(s);
+  displaySing(s);
 }
 /* 10進数を内部表現に変換する　*/
 pushButtonDtoB.onclick = function(){
@@ -204,7 +204,7 @@ pushButtonDtoB.onclick = function(){
     }else{
     s=0;
     }
-  DSPS(s);                            /* 符号を表示する */
+  displaySing(s);                            /* 符号を表示する */
   /* 10進小数部を2進数に変換する */
   abs_d = Math.abs(d);                /* 絶対値をとる */
   hyouji4.innerHTML = "10進数"+String(abs_d) + "の整数部は" + k[0] + ", 小数部は" + k[1];
@@ -262,7 +262,7 @@ pushButtonDtoB.onclick = function(){
   hyouji7.innerHTML = carry;
   hyouji8.innerHTML = syousuy;
   hyouji9.innerHTML = syousub;
-  DSPK(syousub);
+  displayMantissa(syousub);
   /* {x*2|0<=x<=9},0から9かける2は0から18となり
   繰り上がりはoか1しかないので,ここで繰り上がりの１を加えても
   1から9となり,さらなる繰り上げは発生しない　*/
@@ -293,7 +293,7 @@ pushButtonDtoB.onclick = function(){
   } 
   hyouji11.innerHTML = bnum
   i = (seisuc.length - 1) + 127
-  DSP(i)
+  displayExponent(i)
   /* 仮数部24桁目25桁目を用いて丸めて23桁目を決定する */
   /* kasub[23] kasub[24]        kasub[22] 
   kasubu=[]
@@ -310,7 +310,7 @@ pushButtonDtoB.onclick = function(){
   hyouji45.innerHTML = kasubu
 
   /* 仮数部を表示する */
-  DSPK(kasubu) 
+  displayMantissa(kasubu) 
 }
 /* 指数部 */
 pushButtonE1.onclick = function(){
@@ -319,32 +319,32 @@ pushButtonE1.onclick = function(){
     }else{
     i = i + 1;
     }
-  DSP(i);    
+  displayExponent(i);    
   }
-pushButtonE2.onclick = function(){if(D2BX(i,1)==1){i=i-2;}else{i=i+2;}DSP(i);}
-pushButtonE3.onclick = function(){if(D2BX(i,2)==1){i=i-4;}else{i=i+4;}DSP(i);}
-pushButtonE4.onclick = function(){if(D2BX(i,3)==1){i=i-8;}else{i=i+8;}DSP(i);}
-pushButtonE5.onclick = function(){if(D2BX(i,4)==1){i=i-16;}else{i=i+16;}DSP(i);}
-pushButtonE6.onclick = function(){if(D2BX(i,5)==1){i=i-32;}else{i=i+32;}DSP(i);}
-pushButtonE7.onclick = function(){if(D2BX(i,6)==1){i=i-64;}else{i=i+64;}DSP(i);}
-pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128;}DSP(i);}
+pushButtonE2.onclick = function(){if(D2BX(i,1)==1){i=i-2;}else{i=i+2;}displayExponent(i);}
+pushButtonE3.onclick = function(){if(D2BX(i,2)==1){i=i-4;}else{i=i+4;}displayExponent(i);}
+pushButtonE4.onclick = function(){if(D2BX(i,3)==1){i=i-8;}else{i=i+8;}displayExponent(i);}
+pushButtonE5.onclick = function(){if(D2BX(i,4)==1){i=i-16;}else{i=i+16;}displayExponent(i);}
+pushButtonE6.onclick = function(){if(D2BX(i,5)==1){i=i-32;}else{i=i+32;}displayExponent(i);}
+pushButtonE7.onclick = function(){if(D2BX(i,6)==1){i=i-64;}else{i=i+64;}displayExponent(i);}
+pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128;}displayExponent(i);}
 pushButtonRst.onclick = function(){
   i = 0;
-  DSP(i);
+  displayExponent(i);
   }
 pushButtonUp.onclick = function(){
   i = i + 1;
   if(i>255){
     i=0;
     }
-  DSP(i); 
+  displayExponent(i); 
   }
 pushButtonDown.onclick = function(){
   i = i - 1;
   if(i<0){
     i=255;
     }
-  DSP(i);
+  displayExponent(i);
   }
 pushButtonM1.onclick = function(){
   if(KASU[0] == 1){
@@ -352,36 +352,36 @@ pushButtonM1.onclick = function(){
     }else{
     KASU[0] = 1;
     }
-  DSPK(KASU);    
+  displayMantissa(KASU);    
   }
-pushButtonM2.onclick = function(){if(KASU[1] == 1){KASU[1] = 0;}else{KASU[1] = 1;}DSPK(KASU); }
-pushButtonM3.onclick = function(){if(KASU[2] == 1){KASU[2] = 0;}else{KASU[2] = 1;}DSPK(KASU); }
-pushButtonM4.onclick = function(){if(KASU[3] == 1){KASU[3] = 0;}else{KASU[3] = 1;}DSPK(KASU); }
-pushButtonM5.onclick = function(){if(KASU[4] == 1){KASU[4] = 0;}else{KASU[4] = 1;}DSPK(KASU); }
-pushButtonM6.onclick = function(){if(KASU[5] == 1){KASU[5] = 0;}else{KASU[5] = 1;}DSPK(KASU); }
-pushButtonM7.onclick = function(){if(KASU[6] == 1){KASU[6] = 0;}else{KASU[6] = 1;}DSPK(KASU); }
-pushButtonM8.onclick = function(){if(KASU[7] == 1){KASU[7] = 0;}else{KASU[7] = 1;}DSPK(KASU); }
-pushButtonM9.onclick = function(){if(KASU[8] == 1){KASU[8] = 0;}else{KASU[8] = 1;}DSPK(KASU); }
-pushButtonM10.onclick = function(){if(KASU[9] == 1){KASU[9] = 0;}else{KASU[9] = 1;}DSPK(KASU); }
-pushButtonM11.onclick = function(){if(KASU[10] == 1){KASU[10] = 0;}else{KASU[10] = 1;}DSPK(KASU); }
-pushButtonM12.onclick = function(){if(KASU[11] == 1){KASU[11] = 0;}else{KASU[11] = 1;}DSPK(KASU); }
-pushButtonM13.onclick = function(){if(KASU[12] == 1){KASU[12] = 0;}else{KASU[12] = 1;}DSPK(KASU); }
-pushButtonM14.onclick = function(){if(KASU[13] == 1){KASU[13] = 0;}else{KASU[13] = 1;}DSPK(KASU); }
-pushButtonM15.onclick = function(){if(KASU[14] == 1){KASU[14] = 0;}else{KASU[14] = 1;}DSPK(KASU); }
-pushButtonM16.onclick = function(){if(KASU[15] == 1){KASU[15] = 0;}else{KASU[15] = 1;}DSPK(KASU); }
-pushButtonM17.onclick = function(){if(KASU[16] == 1){KASU[16] = 0;}else{KASU[16] = 1;}DSPK(KASU); }
-pushButtonM18.onclick = function(){if(KASU[17] == 1){KASU[17] = 0;}else{KASU[17] = 1;}DSPK(KASU); }
-pushButtonM19.onclick = function(){if(KASU[18] == 1){KASU[18] = 0;}else{KASU[18] = 1;}DSPK(KASU); }
-pushButtonM20.onclick = function(){if(KASU[19] == 1){KASU[19] = 0;}else{KASU[19] = 1;}DSPK(KASU); }
-pushButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20] = 1;}DSPK(KASU); }
-pushButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}DSPK(KASU); }
-pushButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}DSPK(KASU); }
+pushButtonM2.onclick = function(){if(KASU[1] == 1){KASU[1] = 0;}else{KASU[1] = 1;}displayMantissa(KASU); }
+pushButtonM3.onclick = function(){if(KASU[2] == 1){KASU[2] = 0;}else{KASU[2] = 1;}displayMantissa(KASU); }
+pushButtonM4.onclick = function(){if(KASU[3] == 1){KASU[3] = 0;}else{KASU[3] = 1;}displayMantissa(KASU); }
+pushButtonM5.onclick = function(){if(KASU[4] == 1){KASU[4] = 0;}else{KASU[4] = 1;}displayMantissa(KASU); }
+pushButtonM6.onclick = function(){if(KASU[5] == 1){KASU[5] = 0;}else{KASU[5] = 1;}displayMantissa(KASU); }
+pushButtonM7.onclick = function(){if(KASU[6] == 1){KASU[6] = 0;}else{KASU[6] = 1;}displayMantissa(KASU); }
+pushButtonM8.onclick = function(){if(KASU[7] == 1){KASU[7] = 0;}else{KASU[7] = 1;}displayMantissa(KASU); }
+pushButtonM9.onclick = function(){if(KASU[8] == 1){KASU[8] = 0;}else{KASU[8] = 1;}displayMantissa(KASU); }
+pushButtonM10.onclick = function(){if(KASU[9] == 1){KASU[9] = 0;}else{KASU[9] = 1;}displayMantissa(KASU); }
+pushButtonM11.onclick = function(){if(KASU[10] == 1){KASU[10] = 0;}else{KASU[10] = 1;}displayMantissa(KASU); }
+pushButtonM12.onclick = function(){if(KASU[11] == 1){KASU[11] = 0;}else{KASU[11] = 1;}displayMantissa(KASU); }
+pushButtonM13.onclick = function(){if(KASU[12] == 1){KASU[12] = 0;}else{KASU[12] = 1;}displayMantissa(KASU); }
+pushButtonM14.onclick = function(){if(KASU[13] == 1){KASU[13] = 0;}else{KASU[13] = 1;}displayMantissa(KASU); }
+pushButtonM15.onclick = function(){if(KASU[14] == 1){KASU[14] = 0;}else{KASU[14] = 1;}displayMantissa(KASU); }
+pushButtonM16.onclick = function(){if(KASU[15] == 1){KASU[15] = 0;}else{KASU[15] = 1;}displayMantissa(KASU); }
+pushButtonM17.onclick = function(){if(KASU[16] == 1){KASU[16] = 0;}else{KASU[16] = 1;}displayMantissa(KASU); }
+pushButtonM18.onclick = function(){if(KASU[17] == 1){KASU[17] = 0;}else{KASU[17] = 1;}displayMantissa(KASU); }
+pushButtonM19.onclick = function(){if(KASU[18] == 1){KASU[18] = 0;}else{KASU[18] = 1;}displayMantissa(KASU); }
+pushButtonM20.onclick = function(){if(KASU[19] == 1){KASU[19] = 0;}else{KASU[19] = 1;}displayMantissa(KASU); }
+pushButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20] = 1;}displayMantissa(KASU); }
+pushButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}displayMantissa(KASU); }
+pushButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}displayMantissa(KASU); }
 </script>
 
 <script>
-function DSP(x){
-  D=D2B(x);
-  DSP_LED(D);
+function displayExponent(x){
+  D=decimal_to_binary(x);
+  displayLed(D);
   TX="";
   for(j=0; j<8; j++){
     TX=TX+D[j]
@@ -393,7 +393,7 @@ function DSP(x){
 </script>
 
 <script>
-function DSPS(x){
+function displaySing(x){
   hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + FUGO[x] + "を表す"
   LedTbl.rows[0].cells[0].innerHTML=x;
   if (x==1){
@@ -405,7 +405,7 @@ function DSPS(x){
 </script>
 
 <script>
-function DSPK(K){
+function displayMantissa(K){
   TX="";
   for(j=0; j<23; j++){
     LedTbl.rows[0].cells[j+9].innerHTML=K[j];
@@ -422,7 +422,7 @@ function DSPK(K){
 </script>
 
 <script>
-function D2B(x){
+function decimal_to_binary(x){
   a=[];
   b=[];
   for(j=0; j<8; j=j+1){
@@ -437,7 +437,7 @@ function D2B(x){
 </script>
 
 <script>
-function DSP_LED(c){
+function displayLed(c){
   r=1; n=0;
   for(k=0; k<8; k++){
     LedTbl.rows[n].cells[k+1].innerHTML= c[k] ;
