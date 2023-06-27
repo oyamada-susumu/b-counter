@@ -1,4 +1,5 @@
-  <h1>32ビット浮動小数点数の内部表現</h1>
+
+<h1>32ビット浮動小数点数の内部表現</h1>
   <table id="LedTbl" border="1">
      <tr>
       <td>0</td>
@@ -196,14 +197,19 @@ pushButtonS.onclick = function(){
 /* 10進数を内部表現に変換する　*/
 pushButtonDtoB.onclick = function(){
   x = numberDEC.value;                 /* 入力された文字を変数xに代入する */
-  k = x.split(".")                     /* 小数点で区切って,整数部と小数部に分割する */ 
-  d = parseFloat(x,10);                /* 文字を浮動小数点数に変換する */  
-  if(d < 0){                           /* 符号を検出する */
+  d = parseFloat(x,10);                /* 文字を浮動小数点数に変換する */ 
+    if(d < 0){                         /* 符号を検出する */
     s=1;
     }else{
     s=0;
     }
   displaySing(s);                            /* 符号を表示する */
+  k = x.split(".");                     /* 小数点で区切って,整数部と小数部に分割する */ 
+  if(k[0]==null){k[0]="0"};             /* .5など0.5に変換する */
+  if(k[1]==null){k[1]="0"};             /* 1などを1.0に変換する*/
+  if(k[0]=="-"){
+    k[0]="0"} else if(k[0][:1]={}                           /* -.125　など符号をはずして0.125に変換する */
+ 
   /* 10進小数部を2進数に変換する */
   abs_d = Math.abs(d);                /* 絶対値をとる */
   hyouji4.innerHTML = "10進数"+String(abs_d) + "の整数部は" + k[0] + ", 小数部は" + k[1];
