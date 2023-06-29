@@ -197,26 +197,27 @@ pushButtonS.onclick = function(){
 /* 10進数を内部表現に変換する　*/
 pushButtonDtoB.onclick = function(){
   x = numberDEC.value;                 /* 入力された文字を変数xに代入する */
-  d = parseFloat(x,10);                /* 文字を浮動小数点数に変換する */ 
-    if(d < 0){                         /* 符号を検出する */
+  d = parseFloat(x,10);             /* 文字を浮動小数点数に変換する */ 
+    if(d < 0){                            /* 符号を検出する */
     s=1;
     }else{
     s=0;
     }
-  displaySing(s);                            /* 符号を表示する */
+  displaySing(s);                          /* 符号を表示する */
   k = x.split(".");                     /* 小数点で区切って,整数部と小数部に分割する */ 
   if(k[0]==null){k[0]="0"};             /* .5など0.5に変換する */
   if(k[1]==null){k[1]="0"};             /* 1などを1.0に変換する*/
-  if(k[0]=="-"){
-    k[0]="0"} else if(k[0][:1]={}                           /* -.125　など符号をはずして0.125に変換する */
- 
+  if(k[0]=="-"){k[0]="0"};              /* -.125　など符号をはずして0.125に変換する */
+  
   /* 10進小数部を2進数に変換する */
   abs_d = Math.abs(d);                /* 絶対値をとる */
-  hyouji4.innerHTML = "10進数"+String(abs_d) + "の整数部は" + k[0] + ", 小数部は" + k[1];
+  abs_d_seisu = Math.floor(abs_d);    /* 切り捨てる */
+  abs_d_syousu = k[1];      /* 小数部は文字のまま処理することに注意! */
+  hyouji4.innerHTML = "10進数"+abs_d + "の整数部は" + abs_d_seisu + ", 小数部は" + abs_d_syousu ;
   syousu=[];                                /* 元の小数部 */
   carry=[];                                 /* 繰り上がり */
   syousuy=[];                               /* 計算用 */
-  syousux=k[1];                             /* 小数部（文字）*/
+  syousux=abs_d_syousu;             /* 小数部（文字）*/
   syousub=[];                               /* 計算結果 ２進数小数部 */
   /* 初期設定 */
   for(var i=0; i<syousux.length; i++) {
@@ -264,21 +265,23 @@ pushButtonDtoB.onclick = function(){
       }
     }
   
-  hyouji7.innerHTML = carry;
-  hyouji8.innerHTML = syousuy;
-  hyouji9.innerHTML = syousub;
+  /* hyouji7.innerHTML = "Carry="+carry; */
+  /* hyouji8.innerHTML = "小数部="+syousuy; */
+  hyouji9.innerHTML = "小数部="+syousub;
   displayMantissa(syousub);
   /* {x*2|0<=x<=9},0から9かける2は0から18となり
   繰り上がりはoか1しかないので,ここで繰り上がりの１を加えても
   1から9となり,さらなる繰り上げは発生しない　*/
   /* */
   /* 10進数整数部を2進数に変換する */
-  seisux=k[0];                              /* 整数部（文字） */
-  seisu=parseInt(seisux,10);                /* 整数部（整数） */
+  /* seisux=k[0];                              /* 整数部（文字） */
+  seisux=String(abs_d_seisu);
+  /* seisu=parseInt(seisux,10);                /* 整数部（整数） */
+  seisu=abs_d_seisu;
   seisub=[];                                /* 計算結果　２進数整数部 最下位から最上位へ格納 */
   seisuc=[];                                /* 計算結果　２進数整数部 最上位から最下位へ表示用 */
   j=0;
-  /*seisub[0]=0;                              /* 整数部0のときは何もしないので、整数部1桁目(添字0)に0を代入しておく */  
+  seisub[0]=0;                              /* 整数部0のときは何もしないので、整数部1桁目(添字0)に0を代入しておく */  
   while(seisu >= 1){                        /* 10進数を商が１になるまで割る */
     seisub[j] = seisu % 2                   /* ２で割ったあまりが２進数の各位になる */
     seisu = Math.floor(seisu / 2);          /* 商を求める */
@@ -287,7 +290,7 @@ pushButtonDtoB.onclick = function(){
   for(var k=0; k<seisub.length; k++){       /* 表示用に順番を逆転させる */
     seisuc[k] = seisub[seisub.length-k-1];
     }
-  hyouji10.innerHTML = seisuc
+  hyouji10.innerHTML = "整数部="+seisuc
   /* 整数部と小数部を連結させて、指数部を得る */
   bnum=[]
   for(var k=0; k<seisuc.length; k++) {
@@ -296,7 +299,8 @@ pushButtonDtoB.onclick = function(){
   for(var k=0; k<syousub.length; k++) {
     bnum[seisuc.length + k] = syousub[k]
   } 
-  hyouji11.innerHTML = bnum
+  hyouji11.innerHTML = "整数部+小数部="+bnum
+  /* 2023/06/30 */
   i = (seisuc.length - 1) + 127
   displayExponent(i)
   /* 仮数部24桁目25桁目を用いて丸めて23桁目を決定する */
