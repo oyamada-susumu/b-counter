@@ -1,4 +1,3 @@
-
 <h1>32ビット浮動小数点数の内部表現</h1>
   <table id="LedTbl" border="1">
      <tr>
@@ -168,13 +167,13 @@
 LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle";
 window.onload = function(){
-  i = 0;
-  displayExponent(i);
-  FUGO=["＋","－"];
-  s = 0;
-  displaySing(s);
-  KASU=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-  displayMantissa(KASU);
+  fugo = 0;                                              /* GLOBAL fugo 符号 0は+, 1は- */
+  fugoKanji=["＋","－"];
+  shisu = 0;                                             /* GLOBAL shisu 指数 */
+  kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];  /* GLOBAL kasu 仮数 */                   
+  displaySign(fugo);
+  displayExponent(shisu);
+  displayMantissa(kasu);
   M=[];
   u=-1;
   for(t=0; t < 23; t++) {
@@ -182,44 +181,42 @@ window.onload = function(){
     u--; 
     }
   hyouji5.innerHTML = M;
-  }
+}
 </script>
-
 <script>
 pushButtonS.onclick = function(){
-  if(s==1){
-    s=0;
+  if(fugo==1){
+    fugo=0;
     }else{
-    s=1;
+    fugo=1;
     }
-  displaySing(s);
+  displaySign(fugo);
 }
-/* 10進数を内部表現に変換する　*/
+/* 10進数を内部表現に変換する */
 pushButtonDtoB.onclick = function(){
-  x = numberDEC.value;                 /* 入力された文字を変数xに代入する */
+  x = numberDEC.value;              /* 入力された文字を変数xに代入する */
   d = parseFloat(x,10);             /* 文字を浮動小数点数に変換する */ 
-    if(d < 0){                            /* 符号を検出する */
-    s=1;
+    if(d < 0){                      /* 符号を検出する */
+    fugo=1;
     }else{
-    s=0;
+    fugo=0;
     }
-  displaySing(s);                          /* 符号を表示する */
-  k = x.split(".");                     /* 小数点で区切って,整数部と小数部に分割する */ 
+  displaySign(fugo);                    /* 符号を表示する */
+  k = x.split(".");                     /* 小数点で区切って,k[0]整数部とk[1]小数部に分割する */ 
   if(k[0]==null){k[0]="0"};             /* .5など0.5に変換する */
   if(k[1]==null){k[1]="0"};             /* 1などを1.0に変換する*/
-  if(k[0]=="-"){k[0]="0"};              /* -.125　など符号をはずして0.125に変換する */
-  
+  if(k[0]=="-"){k[0]="0"};              /* -.125　など符号をはずして0.125に変換する */ 
   /* 10進小数部を2進数に変換する */
-  abs_d = Math.abs(d);                /* 絶対値をとる */
-  abs_d_seisu = Math.floor(abs_d);    /* 切り捨てる */
-  abs_d_syousu = k[1];      /* 小数部は文字のまま処理することに注意! */
+  abs_d = Math.abs(d);                  /* 絶対値をとる */
+  abs_d_seisu = Math.floor(abs_d);      /* 切り捨てる */
+  abs_d_syousu = k[1];                  /* 小数部は文字のまま処理することに注意! */
+  syousux=abs_d_syousu;                 /* 小数部（文字）*/
   hyouji4.innerHTML = "10進数"+abs_d + "の整数部は" + abs_d_seisu + ", 小数部は" + abs_d_syousu ;
-  syousu=[];                                /* 元の小数部 */
-  carry=[];                                 /* 繰り上がり */
-  syousuy=[];                               /* 計算用 */
-  syousux=abs_d_syousu;             /* 小数部（文字）*/
-  syousub=[];                               /* 計算結果 ２進数小数部 */
+  carry=[];                             /* 繰り上がり */
+  syousuy=[];                           /* 計算用 */
+  syousub=[];                           /* 計算結果 ２進数小数部 */
   /* 初期設定 */
+  syousu=[];                            /* 元の小数部 */
   for(var i=0; i<syousux.length; i++) {
     syousu[i] = syousux.charAt(i);          /* 10進数小数部文字を１けたずつ配列に格納する */
     }
@@ -242,7 +239,6 @@ pushButtonDtoB.onclick = function(){
     hyouji45.innerHTML= k[0] + "." + syousu + "e-"+ (mae_zero+1);
     } 
 */
-   
   for(var i=0; i<syousux.length; i++) {
       syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
       carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
@@ -264,13 +260,13 @@ pushButtonDtoB.onclick = function(){
       carry[t]=0;
       }
     }
-  
-  /* hyouji7.innerHTML = "Carry="+carry; */
+
+  /* hyouji7.innerHTML = "carry="+carry; */
   /* hyouji8.innerHTML = "小数部="+syousuy; */
   hyouji9.innerHTML = "小数部="+syousub;
   displayMantissa(syousub);
   /* {x*2|0<=x<=9},0から9かける2は0から18となり
-  繰り上がりはoか1しかないので,ここで繰り上がりの１を加えても
+  繰り上がりは0か1しかないので,ここで繰り上がりの１を加えても
   1から9となり,さらなる繰り上げは発生しない　*/
   /* */
   /* 10進数整数部を2進数に変換する */
@@ -309,7 +305,7 @@ pushButtonDtoB.onclick = function(){
   for(var k=0; k < bnum.length-1; k++) {
     kasubu[k]=bnum[k+1]
   }
-  k2324=kasubu[23]*10+kasub[24]
+  k2324=kasub[23]*10+kasub[24]
   if(k2324<10){kasubu[22]=0}else{kasubu[22]=1}
   */
   kasubu=[]
@@ -323,68 +319,68 @@ pushButtonDtoB.onclick = function(){
 }
 /* 指数部 */
 pushButtonE1.onclick = function(){
-  if(D2BX(i,0)==1){
-    i = i - 1;
+  if(D2BX(shisu,0)==1){
+    shisu = shisu - 1;
     }else{
-    i = i + 1;
+    shisu = shusu + 1;
     }
   displayExponent(i);    
   }
-pushButtonE2.onclick = function(){if(D2BX(i,1)==1){i=i-2;}else{i=i+2;}displayExponent(i);}
-pushButtonE3.onclick = function(){if(D2BX(i,2)==1){i=i-4;}else{i=i+4;}displayExponent(i);}
-pushButtonE4.onclick = function(){if(D2BX(i,3)==1){i=i-8;}else{i=i+8;}displayExponent(i);}
-pushButtonE5.onclick = function(){if(D2BX(i,4)==1){i=i-16;}else{i=i+16;}displayExponent(i);}
-pushButtonE6.onclick = function(){if(D2BX(i,5)==1){i=i-32;}else{i=i+32;}displayExponent(i);}
-pushButtonE7.onclick = function(){if(D2BX(i,6)==1){i=i-64;}else{i=i+64;}displayExponent(i);}
-pushButtonE8.onclick = function(){if(D2BX(i,7)==1){i=i-128;}else{i=i+128;}displayExponent(i);}
+pushButtonE2.onclick = function(){if(D2BX(shisu,1)==1){shisu=shisu-2;}else{shisu=shusu+2;}displayExponent(shisu);}
+pushButtonE3.onclick = function(){if(D2BX(shisu,2)==1){shisu=shisu-4;}else{shisu=shisu+4;}displayExponent(shisu);}
+pushButtonE4.onclick = function(){if(D2BX(shisu,3)==1){shisu=shisu-8;}else{shisu=shisu+8;}displayExponent(shisu);}
+pushButtonE5.onclick = function(){if(D2BX(shisu,4)==1){shisu=shisu-16;}else{shisu=shisu+16;}displayExponent(shisu);}
+pushButtonE6.onclick = function(){if(D2BX(shisu,5)==1){shisu=shisu-32;}else{shisu=shisu+32;}displayExponent(shisu);}
+pushButtonE7.onclick = function(){if(D2BX(shisu,6)==1){shisu=shisu-64;}else{shusu=shisu+64;}displayExponent(shisu);}
+pushButtonE8.onclick = function(){if(D2BX(shisu,7)==1){shisu=shisu-128;}else{shisu=shisu+128;}displayExponent(shisu);}
 pushButtonRst.onclick = function(){
-  i = 0;
-  displayExponent(i);
+  shisu = 0;
+  displayExponent(shisu);
   }
 pushButtonUp.onclick = function(){
-  i = i + 1;
-  if(i>255){
-    i=0;
+  shisu = shisu + 1;
+  if(shisu>255){
+    shisu=0;
     }
-  displayExponent(i); 
+  displayExponent(shisu); 
   }
 pushButtonDown.onclick = function(){
-  i = i - 1;
-  if(i<0){
-    i=255;
+  shisu = shisu - 1;
+  if(shisu<0){
+    shisu=255;
     }
-  displayExponent(i);
+  displayExponent(shisu);
   }
 pushButtonM1.onclick = function(){
-  if(KASU[0] == 1){
-    KASU[0] = 0;
+  if(kasu[0] == 1){
+    kasu[0] = 0;
     }else{
-    KASU[0] = 1;
+    kasu[0] = 1;
     }
-  displayMantissa(KASU);    
+  displayMantissa(kasu);    
   }
-pushButtonM2.onclick = function(){if(KASU[1] == 1){KASU[1] = 0;}else{KASU[1] = 1;}displayMantissa(KASU); }
-pushButtonM3.onclick = function(){if(KASU[2] == 1){KASU[2] = 0;}else{KASU[2] = 1;}displayMantissa(KASU); }
-pushButtonM4.onclick = function(){if(KASU[3] == 1){KASU[3] = 0;}else{KASU[3] = 1;}displayMantissa(KASU); }
-pushButtonM5.onclick = function(){if(KASU[4] == 1){KASU[4] = 0;}else{KASU[4] = 1;}displayMantissa(KASU); }
-pushButtonM6.onclick = function(){if(KASU[5] == 1){KASU[5] = 0;}else{KASU[5] = 1;}displayMantissa(KASU); }
-pushButtonM7.onclick = function(){if(KASU[6] == 1){KASU[6] = 0;}else{KASU[6] = 1;}displayMantissa(KASU); }
-pushButtonM8.onclick = function(){if(KASU[7] == 1){KASU[7] = 0;}else{KASU[7] = 1;}displayMantissa(KASU); }
-pushButtonM9.onclick = function(){if(KASU[8] == 1){KASU[8] = 0;}else{KASU[8] = 1;}displayMantissa(KASU); }
-pushButtonM10.onclick = function(){if(KASU[9] == 1){KASU[9] = 0;}else{KASU[9] = 1;}displayMantissa(KASU); }
-pushButtonM11.onclick = function(){if(KASU[10] == 1){KASU[10] = 0;}else{KASU[10] = 1;}displayMantissa(KASU); }
-pushButtonM12.onclick = function(){if(KASU[11] == 1){KASU[11] = 0;}else{KASU[11] = 1;}displayMantissa(KASU); }
-pushButtonM13.onclick = function(){if(KASU[12] == 1){KASU[12] = 0;}else{KASU[12] = 1;}displayMantissa(KASU); }
-pushButtonM14.onclick = function(){if(KASU[13] == 1){KASU[13] = 0;}else{KASU[13] = 1;}displayMantissa(KASU); }
-pushButtonM15.onclick = function(){if(KASU[14] == 1){KASU[14] = 0;}else{KASU[14] = 1;}displayMantissa(KASU); }
-pushButtonM16.onclick = function(){if(KASU[15] == 1){KASU[15] = 0;}else{KASU[15] = 1;}displayMantissa(KASU); }
-pushButtonM17.onclick = function(){if(KASU[16] == 1){KASU[16] = 0;}else{KASU[16] = 1;}displayMantissa(KASU); }
-pushButtonM18.onclick = function(){if(KASU[17] == 1){KASU[17] = 0;}else{KASU[17] = 1;}displayMantissa(KASU); }
-pushButtonM19.onclick = function(){if(KASU[18] == 1){KASU[18] = 0;}else{KASU[18] = 1;}displayMantissa(KASU); }
-pushButtonM20.onclick = function(){if(KASU[19] == 1){KASU[19] = 0;}else{KASU[19] = 1;}displayMantissa(KASU); }
-pushButtonM21.onclick = function(){if(KASU[20] == 1){KASU[20] = 0;}else{KASU[20] = 1;}displayMantissa(KASU); }
-pushButtonM22.onclick = function(){if(KASU[21] == 1){KASU[21] = 0;}else{KASU[21] = 1;}displayMantissa(KASU); }
-pushButtonM23.onclick = function(){if(KASU[22] == 1){KASU[22] = 0;}else{KASU[22] = 1;}displayMantissa(KASU); }
+pushButtonM2.onclick = function(){if(kasu[1] == 1){kasu[1] = 0;}else{kasu[1] = 1;}displayMantissa(kasu); }
+pushButtonM3.onclick = function(){if(kasu[2] == 1){kasu[2] = 0;}else{kasu[2] = 1;}displayMantissa(kasu); }
+pushButtonM4.onclick = function(){if(kasu[3] == 1){kasu[3] = 0;}else{kasu[3] = 1;}displayMantissa(kasu); }
+pushButtonM5.onclick = function(){if(kasu[4] == 1){kasu[4] = 0;}else{kasu[4] = 1;}displayMantissa(kasu); }
+pushButtonM6.onclick = function(){if(kasu[5] == 1){kasu[5] = 0;}else{kasu[5] = 1;}displayMantissa(kasu); }
+pushButtonM7.onclick = function(){if(kasu[6] == 1){kasu[6] = 0;}else{kasu[6] = 1;}displayMantissa(kasu); }
+pushButtonM8.onclick = function(){if(kasu[7] == 1){kasu[7] = 0;}else{kasu[7] = 1;}displayMantissa(kasu); }
+pushButtonM9.onclick = function(){if(kasu[8] == 1){kasu[8] = 0;}else{kasu[8] = 1;}displayMantissa(kasu); }
+pushButtonM10.onclick = function(){if(kasu[9] == 1){kasu[9] = 0;}else{kasu[9] = 1;}displayMantissa(kasu); }
+pushButtonM11.onclick = function(){if(kasu[10] == 1){kasu[10] = 0;}else{kasu[10] = 1;}displayMantissa(kasu); }
+pushButtonM12.onclick = function(){if(kasu[11] == 1){kasu[11] = 0;}else{kasu[11] = 1;}displayMantissa(kasu); }
+pushButtonM13.onclick = function(){if(kasu[12] == 1){kasu[12] = 0;}else{kasu[12] = 1;}displayMantissa(kasu); }
+pushButtonM14.onclick = function(){if(kasu[13] == 1){kasu[13] = 0;}else{kasu[13] = 1;}displayMantissa(kasu); }
+pushButtonM15.onclick = function(){if(kasu[14] == 1){kasu[14] = 0;}else{kasu[14] = 1;}displayMantissa(kasu); }
+pushButtonM16.onclick = function(){if(kasu[15] == 1){kasu[15] = 0;}else{kasu[15] = 1;}displayMantissa(kasu); }
+pushButtonM17.onclick = function(){if(kasu[16] == 1){kasu[16] = 0;}else{kasu[16] = 1;}displayMantissa(kasu); }
+pushButtonM18.onclick = function(){if(kasu[17] == 1){kasu[17] = 0;}else{kasu[17] = 1;}displayMantissa(kasu); }
+pushButtonM19.onclick = function(){if(kasu[18] == 1){kasu[18] = 0;}else{kasu[18] = 1;}displayMantissa(kasu); }
+pushButtonM20.onclick = function(){if(kasu[19] == 1){kasu[19] = 0;}else{kasu[19] = 1;}displayMantissa(kasu); }
+pushButtonM21.onclick = function(){if(kasu[20] == 1){kasu[20] = 0;}else{kasu[20] = 1;}displayMantissa(kasu); }
+pushButtonM22.onclick = function(){if(kasu[21] == 1){kasu[21] = 0;}else{kasu[21] = 1;}displayMantissa(kasu); }
+pushButtonM23.onclick = function(){if(kasu[22] == 1){kasu[22] = 0;}else{kasu[22] = 1;}displayMantissa(kasu); }
 </script>
 
 <script>
@@ -402,8 +398,8 @@ function displayExponent(x){
 </script>
 
 <script>
-function displaySing(x){
-  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + FUGO[x] + "を表す"
+function displaySign(x){
+  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + fugoKanji[x] + "を表す"
   LedTbl.rows[0].cells[0].innerHTML=x;
   if (x==1){
     LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
