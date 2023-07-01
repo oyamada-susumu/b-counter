@@ -145,6 +145,9 @@
     }
     pushuButtonDown.onclick = function(){
       i = i - 1;
+      if(i<0){
+        i=255;
+       }
       DSP(i);
     }
   </script>
