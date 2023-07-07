@@ -154,15 +154,14 @@
 <h5 id="hyouji2">***2***</h5>
 <h5 id="hyouji3">***3***</h5>
 <h5 id="hyouji4">***4*** </h5>
+<h5 id="hyouji10">***10***</h5>
+<h5 id="hyouji9">***9***</h5>
+<h5 id="hyouji11">***11***</h5>
 <h5 id="hyouji45">***45***</h5>  
 <h5 id="hyouji5">***5***</h5>
 <h5 id="hyouji6">***6***</h5>
 <h5 id="hyouji7">***7***</h5>
 <h5 id="hyouji8">***8***</h5>
-<h5 id="hyouji9">***9***</h5>
-<h5 id="hyouji10">***10***</h5>
-<h5 id="hyouji11">***11***</h5>
-
 <script>
 LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle";
@@ -263,7 +262,7 @@ pushButtonDtoB.onclick = function(){
 
   /* hyouji7.innerHTML = "carry="+carry; */
   /* hyouji8.innerHTML = "小数部="+syousuy; */
-  hyouji9.innerHTML = "小数部="+syousub;
+  hyouji9.innerHTML = "小数部(2進数)="+syousub;
   displayMantissa(syousub);
   /* {x*2|0<=x<=9},0から9かける2は0から18となり
   繰り上がりは0か1しかないので,ここで繰り上がりの１を加えても
@@ -286,7 +285,7 @@ pushButtonDtoB.onclick = function(){
   for(var k=0; k<seisub.length; k++){       /* 表示用に順番を逆転させる */
     seisuc[k] = seisub[seisub.length-k-1];
     }
-  hyouji10.innerHTML = "整数部="+seisuc
+  hyouji10.innerHTML = "整数部(2進数)="+seisuc
   /* 整数部と小数部を連結させて、指数部を得る */
   bnum=[]
   for(var k=0; k<seisuc.length; k++) {
@@ -295,7 +294,7 @@ pushButtonDtoB.onclick = function(){
   for(var k=0; k<syousub.length; k++) {
     bnum[seisuc.length + k] = syousub[k]
   } 
-  hyouji11.innerHTML = "整数部+小数部="+bnum
+  hyouji11.innerHTML = "整数部+小数部(２進数)="+bnum
   /* 2023/06/30 */
   i = (seisuc.length - 1) + 127
   displayExponent(i)
