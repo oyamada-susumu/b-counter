@@ -383,6 +383,18 @@ pushButtonM23.onclick = function(){if(kasu[22] == 1){kasu[22] = 0;}else{kasu[22]
 </script>
 
 <script>
+  function displaySign(x){
+    hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + fugoKanji[x] + "を表す"
+    LedTbl.rows[0].cells[0].innerHTML=x;
+    if (x==1){
+      LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
+      }else{
+      LedTbl.rows[1].cells[0].innerHTML='<img src="LedOff.jpg" width="50">';
+      } 
+    }
+  </script>
+  
+<script>
 function displayExponent(x){
   D=decimal_to_binary(x);
   displayLed(D);
@@ -393,18 +405,6 @@ function displayExponent(x){
   hyouji2.innerHTML = "指数部Ｅ＝" + String(TX) + " は10進数で" + String(x) +
   ",よって" + String(x) + "-" + String(127) + "=" + String(x-127) +
   ",つまり 2の"+String(x-127)+" 乗を表す。（指数部は符号がないので,いつも127を引く）";
-  }
-</script>
-
-<script>
-function displaySign(x){
-  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + fugoKanji[x] + "を表す"
-  LedTbl.rows[0].cells[0].innerHTML=x;
-  if (x==1){
-    LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
-    }else{
-    LedTbl.rows[1].cells[0].innerHTML='<img src="LedOff.jpg" width="50">';
-    } 
   }
 </script>
 
