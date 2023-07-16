@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1 id="msg">***msg***</h1>
 <script>
 window.onload = function(){
 /*  # Python15B (学習ノートP37も可) */
 /* # 疑似言語の命令コードを定義する。*/
 READ=1; WRITE=2; ADD=3; STOP=4; SUB=5; JNZ=8; DATA=9;
 A=6; B=7;                 /* # Aレジスタ、Bレジスタ */
-NUL=-1;                   /* #　空欄を示す。なにも無い、NULL（ヌル、ナル）の略。*/
+NUL = null;                   /* # nullは予約語　空欄　何もしない　何もない ヌル */
 n=["0=未定義","1=READ","2=WRITE","3=ADD","4=STOP","5=SUB","6=A","7=B","8=JNZ","9=DATA"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
 m=[];
@@ -28,15 +27,12 @@ m.push([11,DATA, 2, NUL]);
 m.push([12,DATA, 0, NUL]);      /* #計算結果が入る */
 m.push([13,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
 m.push([14,NUL, NUL, NUL]);
-window.alert("***プログラム　スタート***")
-p=1;            /* #プログラムカウンタに1を代入する。*/
+window.alert("*** PROGRAM START ***")
+p=0;            /* #プログラムカウンタに0を代入する。*/
 rega=0;regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
 regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
-regdump()      /* #プログラムカウンタの値とレジスタの値を表示する。 */
-/* memdump(m) */
-msg.innerHTML = m;
-
-
+/* regdump()      /* #プログラムカウンタの値とレジスタの値を表示する。 */
+memdump(m);
 while (m[p][1] != STOP) {      /* #STOPでない間以下を繰り返す。 */
 /* #c0=行番号,c1=命令,c2=レジスタ名または番地,c3=レジスタ名または番地 */
     c0=m[p][0]; c1=m[p][1]; c2=m[p][2]; c3=m[p][3]
@@ -86,30 +82,40 @@ while (m[p][1] != STOP) {      /* #STOPでない間以下を繰り返す。 */
     } else {                   /* #そうでなければ */
         p = p + 1;           /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
             }
-    regdump()   
+    memdump(m);     
 }
-window.alert("*** プログラム　エンド ***")
-memdump(m)
+memdump(m);
+/* window.alert("*** PROGRAM END ***") */
 }
-
 </script>
+
 <script>
-    /* #メモリーの内容を表示する関数（メモリダンプ） */
-    function memdump(x){
-        msg=x;
-        window.alert(x);
-        window.alert("***メモリダンプ　ここから***");
-        window.alert("内部コード"+n);
-        window.alert("番地　オペコード　オペランド１　オペランド２");
-        for(let i=0; i < len(x); i++ ){
-            msg="";
-            for(let j=0; j < 4; j++ ){
-                msg=msg+x[i][j];
+/* #メモリーの内容を表示する関数（メモリダンプ） */
+function memdump(x){
+    /*
+    msg=x;
+    window.alert(x);
+    window.alert("***メモリダンプ　ここから***"); 
+    window.alert("内部コード"+n);
+    window.alert("番地　オペコード　オペランド１　オペランド２");
+    */
+    msg="PC= "+p+" A= "+rega+" B= "+regb+" F= "+regf+"\n";
+    for(let i=0; i < x.length; i++ ){
+        for(let j=0; j < 4; j++ ){
+            msg=msg+x[i][j]+" ";
             }
-            window.alert(msg);
+        msg=msg+"| "
+        if ( i%5 == 0 ) {
+             msg=msg+"\n" ;    /* キーボードの\（バックシュラッス）￥ではなく　*/
         }
-        window.alert("***メモリダンプ　ここまで***")
-    }   
+    }
+    window.alert(msg);
+    /* console.log(msg); */
+    /*
+    window.alert("***メモリダンプ　ここまで***")
+    */
+}   
+
 /* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
 function flagset(x){
 /*    global regf */
