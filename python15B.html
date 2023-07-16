@@ -1,5 +1,8 @@
-
+<!DOCTYPE html>
+<html>
+<body>
 <script>
+window.onload = function(){
 /*  # Python15B (学習ノートP37も可) */
 /* # 疑似言語の命令コードを定義する。*/
 READ=1; WRITE=2; ADD=3; STOP=4; SUB=5; JNZ=8; DATA=9;
@@ -7,95 +10,120 @@ A=6; B=7;                 /* # Aレジスタ、Bレジスタ */
 NUL=-1;                   /* #　空欄を示す。なにも無い、NULL（ヌル、ナル）の略。*/
 n=["0=未定義","1=READ","2=WRITE","3=ADD","4=STOP","5=SUB","6=A","7=B","8=JNZ","9=DATA"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
-m=[]
+m=[];
 /* # [c0, c1, c2, c3] # */
-m.append([0, NUL, NUL, NUL])
-m.append([1, READ, A, 12])
-m.append([2, READ, B, 11])
-m.append([3, ADD, A, 10])
-m.append([4, SUB, B, 13])
-m.append([5, JNZ, 3, NUL])
-m.append([6, WRITE, 12, A])
-m.append([7, STOP, NUL, NUL])
-m.append([8, NUL, NUL, NUL])
-m.append([9, NUL, NUL, NUL])
-m.append([10,DATA, 5, NUL]) /* # 5×2=10 */
-m.append([11,DATA, 2, NUL])
-m.append([12,DATA, 0, NUL]) /* #計算結果が入る */
-m.append([13,DATA, 1, NUL]) /* #定数1 2-1=1,1-1=0 */
-m.append([14,NUL, NUL, NUL])
-/* #メモリーの内容を表示する関数（メモリダンプ） */
-function memdump(x):
-    print("***メモリダンプ　ここから***")
-    print("内部コード", n)
-    print("番地　オペコード　オペランド１　オペランド２")
-    for i in range(0, len(x), 1):
-        for j in range(0, 4, 1):
-            print(m[i][j]," ",end="")
-        print("")
-    print("***メモリダンプ　ここまで***")
-/* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
-function flagset(x):
-    global regf
-    if x == 0:
-        regf = 1
-    else:
-        regf = 0
-/* #レジスタの内容を表示する関数 */
-function regdump():
-    global p; rega; regb; regf
-    print("プログラムカウンタ=",p,"レジスタA=",rega,"レジスタB=",regb,"フラグレジスタ=",regf)
-/* # */
-memdump(m)
-print("***プログラム　スタート***")
+m.push([0, NUL, NUL, NUL]);
+m.push([1, READ, A, 12]);
+m.push([2, READ, B, 11]);
+m.push([3, ADD, A, 10]);
+m.push([4, SUB, B, 13]);
+m.push([5, JNZ, 3, NUL]);
+m.push([6, WRITE, 12, A]);
+m.push([7, STOP, NUL, NUL]);
+m.push([8, NUL, NUL, NUL]);
+m.push([9, NUL, NUL, NUL]);
+m.push([10,DATA, 5, NUL]);      /* # 5×2=10 */
+m.push([11,DATA, 2, NUL]);
+m.push([12,DATA, 0, NUL]);      /* #計算結果が入る */
+m.push([13,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
+m.push([14,NUL, NUL, NUL]);
+window.alert("***プログラム　スタート***")
 p=1;            /* #プログラムカウンタに1を代入する。*/
 rega=0;regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
 regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 regdump()      /* #プログラムカウンタの値とレジスタの値を表示する。 */
-while m[p][1] != STOP:      /* #STOPでない間以下を繰り返す。 */
+}
+
+while (m[p][1] != STOP) {      /* #STOPでない間以下を繰り返す。 */
 /* #c0=行番号,c1=命令,c2=レジスタ名または番地,c3=レジスタ名または番地 */
     c0=m[p][0]; c1=m[p][1]; c2=m[p][2]; c3=m[p][3]
-    if c1 == NUL:           /* #もしNUL命令ならば */
-        pass                /* #なにもしない。 */
-    elif c1 == READ:        /* #もしREAD命令ならば */
-        if c2 == A:         /* #もしレジスタAならば */
-            rega = m[c3][2] /* #指定番地の値をレジスタAに読み込む。 */
-        elif c2 == B:       /* #もしレジスタBならば */
-            regb = m[c3][2] /* #指定番地の値をレジスタBに読み込む。 */
-    elif c1 == WRITE:       /* #もしWRITE命令ならば */
-        if c3 == A:         /* #もしレジスタAならば */
-            m[c2][1] = DATA /* #指定番地に命令コードDATAの値を書き込む。 */
-            m[c2][2] = rega /* #指定番地にレジスタAの値を書き込む。 */
-        elif c3 == B:       /* #もしレジスタBならば */
-            m[c2][1] = DATA /* #指定番地に命令コードDATAの値を書き込む。 */
-            m[c2][2] = regb /* #指定番地にレジスタBの値を書き込む。 */
-    elif c1 == ADD:         /* #もしADD命令ならば */
-        if c2 == A:         /* #もしレジスタAならば */
-            rega = rega + m[c3][2] /* #レジスタAの値に指定番地の値を足したものをレジスタAに代入する。 */
-            flagset(rega)   /* #関数flagsetを呼び出す。 */
-        elif c2 == B:       /* #もしレジスタBならば */
-            regb = regb + m[c3][2] /* #レジスタBの値に指定番地の値を足したものをレジスタBに代入する。 */
-            flagset(regb)   /* #関数flagsetを呼び出す。 */
-    elif c1 == SUB:         /* #もしSUB命令ならば */
-        if c2 == A:         /* #もしレジスタAならば */
-            rega = rega - m[c3][2] /* #レジスタAの値から指定番地の値を引いたものをAレジスタに代入する。 */
-            flagset(rega)   /* #関数flagsetを呼び出す。 */
-        elif c2 == B:       /* #もしレジスタBならば */
-            regb = regb - m[c3][2] /* #レジスタBの値から指定番地の値を引いたものをBレジスタに代入する。 */
-            flagset(regb)   /* #関数flagsetを呼び出す。 */
-            
+    if (c1 == NUL) {           /* #もしNUL命令ならば */
+        ;                      /* #なにもしない。 */
+        }
+/* 実行命令 */               
+    if (c1 == READ) {               /* #もしREAD命令ならば */
+        if (c2 == A) {              /* #もしレジスタAならば */
+            rega = m[c3][2];        /* #指定番地の値をレジスタAに読み込む。 */
+        } else if (c2 == B) {       /* #もしレジスタBならば */
+            regb = m[c3][2];        /* #指定番地の値をレジスタBに読み込む。 */
+        }   
+    } else if (c1 == WRITE) {       /* #もしWRITE命令ならば */
+        if (c3 == A) {              /* #もしレジスタAならば */
+            m[c2][1] = DATA;        /* #指定番地に命令コードDATAの値を書き込む。 */
+            m[c2][2] = rega;        /* #指定番地にレジスタAの値を書き込む。 */
+        } else if (c3 == B) {       /* #もしレジスタBならば */
+            m[c2][1] = DATA;        /* #指定番地に命令コードDATAの値を書き込む。 */
+            m[c2][2] = regb;        /* #指定番地にレジスタBの値を書き込む。 */
+        }
+    } else if (c1 == ADD ) {        /* #もしADD命令ならば */
+        if (c2 == A) {              /* #もしレジスタAならば */
+            rega = rega + m[c3][2]; /* #レジスタAの値に指定番地の値を足したものをレジスタAに代入する。 */
+            flagset(rega);          /* #関数flagsetを呼び出す。 */
+        } else if (c2 == B) {       /* #もしレジスタBならば */
+            regb = regb + m[c3][2]; /* #レジスタBの値に指定番地の値を足したものをレジスタBに代入する。 */
+            flagset(regb);          /* #関数flagsetを呼び出す。 */
+        }
+    } else if (c1 == SUB) {         /* #もしSUB命令ならば */
+        if (c2 == A) {              /* #もしレジスタAならば */
+            rega = rega - m[c3][2]; /* #レジスタAの値から指定番地の値を引いたものをAレジスタに代入する。 */
+            flagset(rega);          /* #関数flagsetを呼び出す。 */
+        } else if (c2 == B) {       /* #もしレジスタBならば */
+            regb = regb - m[c3][2]; /* #レジスタBの値から指定番地の値を引いたものをBレジスタに代入する。 */
+            flagset(regb);          /* #関数flagsetを呼び出す。 */
+        }
+    }          
 /* # JNZ Jump Not Zero 演算結果が0でなければジャンプする。 */
 /* # 直前の演算結果が0ならば regfに1がセットされている。 */
-    if c1 == JNZ:           /* #もしJNZ命令ならば */
-        if regf != 1:       /* #もしフラグレジスタの値が1でなければ
-            p = c2          /* #プログラムカウンタに指定番地を代入する。 */
-        else:               /* #そうでなければ */
-            p = p + 1       /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
-    else:                   /* #そうでなければ */
-        p = p + 1           /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
-
-    regdump()
-print("*** プログラム　エンド ***")
+    if (c1 == JNZ) {           /* #もしJNZ命令ならば */
+        if (regf != 1) {       /* #もしフラグレジスタの値が1でなければ */
+            p = c2;          /* #プログラムカウンタに指定番地を代入する。 */
+        } else {            /* #そうでなければ */
+            p = p + 1;       /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
+        }
+    } else {                   /* #そうでなければ */
+        p = p + 1;           /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
+        regdump()
+    }   
+window.alert("*** プログラム　エンド ***")
 memdump(m)
-
+}
 </script>
+
+<script>
+    /* #メモリーの内容を表示する関数（メモリダンプ） */
+    function memdump(x){
+        window.alert("***メモリダンプ　ここから***");
+        window.alert("内部コード", n);
+        window.alert("番地　オペコード　オペランド１　オペランド２");
+        for(let i=0; i < len(x); i++ ){
+            for(let j=0; j < 4; j++ ){
+                window.alert(m[i][j]," ")
+            window.alert("\n")
+            }
+        }
+        window.alert("***メモリダンプ　ここまで***")
+    }
+</script>
+    
+<script>
+    /* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
+    function flagset(x){
+    /*    global regf */
+        if (x == 0) {
+            regf = 1;
+        } else {
+            regf = 0;
+        }
+    }
+</script>
+
+<script>
+    /* #レジスタの内容を表示する関数 */
+    function regdump(){
+    /*    global p; rega; regb; regf */
+        window.alert("プログラムカウンタ=",p,"レジスタA=",rega,"レジスタB=",regb,"フラグレジスタ=",regf)
+    }
+</script>
+
+</body>
+</html>
