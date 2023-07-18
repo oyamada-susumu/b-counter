@@ -243,7 +243,7 @@ p=1;            /* #プログラムカウンタに0を代入する。*/
 rega=0;regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
 regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text12_6.innerHTML=m.length
-displayMemory2(m);
+displayMemory(m);
 }
 </script>
 
@@ -260,12 +260,12 @@ pushButtonStop.onclick = function() {
 
 <script>
 function displayMemory(x){
-    for(i =1 ; i < x.length; i++) {
-        for(j = 1; j < 4; j++) {
-            if(x[i][j] != null) {
-                memTbl.rows[i].cells[j].innerHTML=decimal_to_binary(x[i][j]);
+    for(i=1 ; i<x.length; i++) {
+        for(t=1; t<4; t++) {
+            if(x[i][t] != null) {
+                memTbl.rows[i].cells[t].innerHTML=decimal_to_binary(x[i][t]);
             } else {
-                memTbl.rows[i].cells[j].innerHTML=null;
+                memTbl.rows[i].cells[t].innerHTML=null;
             }
         }
     }
