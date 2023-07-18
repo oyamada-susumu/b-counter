@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head><title>15C Assembler</title></head>
-<body bgcolor="#ffffff">
+<body bgcolor="#f0f0f0">
 <center>
-<table id="memTbl" width="40%">
+<table id="memTbl" width="50%">
     <tr>
     <td><id="text0_0">番地</td>
     <td><id="text0_1">オペコード</td>
@@ -14,125 +14,124 @@
     <td><id="text0_6">値</td>
 </tr><tr>
     <td><id="text1_0">0</td>
-    <td><input type="text" style="border:none" id="text1_1" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text1_2" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text1_3" value="NUL"></td>
+    <td><input type="text" style="border:none" id="text1_1" value=""></td>
+    <td><input type="text" style="border:none" id="text1_2" value=""></td>
+    <td><input type="text" style="border:none" id="text1_3" value=""></td>
     <td><id="text1_4"> </td>
     <td><id="text1_5">プログラムカウンタ</td>
-    <td><id="text1_6"> 1 </td>
+    <td><input type="number" id="text_program_counter" value="1"></td>
 </tr><tr>
     <td><id="text2_0">1</td>
     <td><input type="text" style="border:none" id="text2_1" value="READ"></td>
     <td><input type="text" style="border:none" id="text2_2" value="A"></td>
-    <td><input type="text" style="border:none" id="text2_3" value="12"></td>
+    <td><input type="text" style="border:none" id="text2_3" value="10"></td>
     <td><id="text2_4"> </td>
     <td><id="text2_5">命令レジスタ</td>
-    <td><id="text2_6"> </td>
+    <td><id="text_instraction_register"> </td>
 </tr><tr>
     <td><id="text3_0">2</td>
-    <td><input type="text" style="border:none" id="text3_1" value="READ"></td>
-    <td><input type="text" style="border:none" id="text3_2" value="B"></td>
+    <td><input type="text" style="border:none" id="text3_1" value="ADD"></td>
+    <td><input type="text" style="border:none" id="text3_2" value="A"></td>
     <td><input type="text" style="border:none" id="text3_3" value="11"></td>
     <td><id="text3_4"> </td>    
     <td><id="text3_5" >命令読解器</td>
-    <td><id="text3_6" > </td>
+    <td><id="text_instraction_decoda" > </td>
 </tr><tr>
     <td><id="text4_0">3</td>  
-    <td><input type="text" style="border:none" id="text4_1" value="ADD"></td>
-    <td><input type="text" style="border:none" id="text4_2" value="A"></td>
-    <td><input type="text" style="border:none" id="text4_3" value="10"></td>
-    <td></id="text4_4"> </td>
-    <td></id="text4_5">レジスタA </td>
-    <td></id="text4_6"> </td>
+    <td><input type="text" style="border:none" id="text4_1" value="WRITE"></td>
+    <td><input type="text" style="border:none" id="text4_2" value="12"></td>
+    <td><input type="text" style="border:none" id="text4_3" value="A"></td>
+    <td><id="text4_4"> </td>
+    <td><id="text4_5">レジスタA </td>
+    <td><id="text_register_a"> </td>
 </tr><tr>
     <td><id="text5_0">4</td>
-    <td><input type="text" style="border:none" id="text5_1" value="SUB"></td>
-    <td><input type="text" style="border:none" id="text5_2" value="B"></td>
-    <td><input type="text" style="border:none" id="text5_3" value="13"></td>
-    <td></id="text5_4"> </td>
-    <td></id="text5_5">レジスタB</td>
-    <td></id="text5_6"> </td>
+    <td><input type="text" style="border:none" id="text5_1" value="STOP"></td>
+    <td><input type="text" style="border:none" id="text5_2" value=""></td>
+    <td><input type="text" style="border:none" id="text5_3" value=""></td>
+    <td><id="text5_4"> </td>
+    <td><id="text5_5">レジスタB</td>
+    <td><id="text_register_b"> </td>
 
 </tr><tr>
     <td><id="text6_0">5</td>
-    <td><input type="text" style="border:none" id="text6_1" value="JNZ"></td>
-    <td><input type="text" style="border:none" id="text6_2" value="3"></td>
-    <td><input type="text" style="border:none" id="text6_3" value="NUL"></td>
-    <td></id="text6_4"> </td>
-    <td></id="text6_5">フラグレジスタ</td>
-    <td></id="text6_6"> </td>
+    <td><input type="text" style="border:none" id="text6_1" value=""></td>
+    <td><input type="text" style="border:none" id="text6_2" value=""></td>
+    <td><input type="text" style="border:none" id="text6_3" value=""></td>
+    <td><id="text6_4"> </td>
+    <td><id="text6_5">フラグレジスタZF</td>
+    <td><id="text_flag_regisdter_zero"> </td>
 </tr><tr>
     <td><id="text7_0">6</td>
-    <td><input type="text" style="border:none" id="text7_1" value="WRITE"></td>
-    <td><input type="text" style="border:none" id="text7_2" value="12"></td>
-    <td><input type="text" style="border:none" id="text7_3" value="A"></td>
-    <td></id="text7_4"> </td>
-    <td></id="text7_5">演算装置</td>
-    <td></id="text7_6"> </td>
+    <td><input type="text" style="border:none" id="text7_1" value=""></td>
+    <td><input type="text" style="border:none" id="text7_2" value="""></td>
+    <td><input type="text" style="border:none" id="text7_3" value=""></td>
+    <td><id="text7_4"> </td>
+    <td><id="text7_5">演算装置</td>
+    <td><id="text_accumlater"> </td>
 </tr><tr>
     <td><id="text8_0">7</td>
-    <td><input type="text" style="border:none" id="text8_1" value="STOP"></td>
-    <td><input type="text" style="border:none" style="border:none" id="text8_2" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text8_3" value="NUL"></td>
-    <td></id="text8_4"> </td>
-    <td></id="text8_5"> </td>
-    <td></id="text7_6"> </td>
+    <td><input type="text" style="border:none" id="text8_1" value=""></td>
+    <td><input type="text" style="border:none" style="border:none" id="text8_2" value=""></td>
+    <td><input type="text" style="border:none" id="text8_3" value=""></td>
+    <td><id="text8_4"> </td>
+    <td><id="text7_6"> </td>
 </tr><tr>
     <td><id="text9_0">8</td>
-    <td><input type="text" style="border:none" id="text9_1" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text9_2" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text9_3" value="NUL"></td>
-    <td></id="text9_4"> </td>
-    <td></id="text9_5"> </td>
-    <td></id="text9_6"> </td>
+    <td><input type="text" style="border:none" id="text9_1" value=""></td>
+    <td><input type="text" style="border:none" id="text9_2" value=""></td> 
+    <td><input type="text" style="border:none" id="text9_3" value=""></td>
+    <td><id="text9_4"> </td>
+    <td><input type="button" id="pushButtonStep" value="1ステップ実行"> </td>
+    <td><id="text9_6"> </td>
 </tr><tr>
     <td><id="text10_0">9</td>
-    <td><input type="text" style="border:none" id="text10_1" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text10_2" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text10_3" value="NUL"></td>
-    <td></id="text10_4"> </td>
-    <td></id="text10_5"> </td>
-    <td></id="text10_6"> </td>
+    <td><input type="text" style="border:none" id="text10_1" value=""></td>
+    <td><input type="text" style="border:none" id="text10_2" value=""></td>
+    <td><input type="text" style="border:none" id="text10_3" value=""></td>
+    <td><id="text10_4"> </td>
+    <td><input type="button" id="pushButtonRun" value="最後まで実行"> </td>
+    <td><id="text10_6"> </td>
 </tr><tr>
     <td><id="text11_0">10</td>
     <td><input type="text" style="border:none" id="text11_1" value="DATA"></td>
-    <td><input type="text" style="border:none" id="text11_2" value="5"></td>
-    <td><input type="text" style="border:none" id="text11_3" value="NUL"></td>
-    <td></id="text11_4"> </td>
-    <td></id="text11_5"> </td>
-    <td></id="text11_6"> </td>
+    <td><input type="text" style="border:none" id="text11_2" value="3"></td>
+    <td><input type="text" style="border:none" id="text11_3" value=""></td>
+    <td><id="text11_4"> </td>
+    <td><input type="button" id="pushButtonStop" value="停止"> </td>
+    <td><id="text11_6"> </td>
 </tr><tr>
     <td><id="text12_0">11</td>
     <td><input type="text" style="border:none" id="text12_1" value="DATA"></td>
-    <td><input type="text" style="border:none" id="text12_2" value="2"></td>
-    <td><input type="text" style="border:none" id="text12_3" value="NUL"></td>
-    <td></id="text12_4"> </td>
-    <td></id="text12_5"> </td>
-    <td></id="text12_6"> </td>
+    <td><input type="text" style="border:none" id="text12_2" value="5"></td>
+    <td><input type="text" style="border:none" id="text12_3" value=""></td>
+    <td><id="text12_4"> </td>
+    <td><id="text12_5"> </td>
+    <td><type="text" id="text12_6"> </td>
 </tr><tr>
     <td><id="text13_0">12</td>
-    <td><input type="text" style="border:none" id="text13_1" value="DATA"></td>
-    <td><input type="text" style="border:none" id="text13_2" value="0"></td>
-    <td><input type="text" style="border:none" id="text13_3" value="NUL"></td>
-    <td></id="text13_4"> </td>
-    <td></id="text13_5"> </td>
-    <td></id="text13_6"> </td>
+    <td><input type="text" style="border:none" id="text13_1" value=""></td>
+    <td><input type="text" style="border:none" id="text13_2" value=""></td>
+    <td><input type="text" style="border:none" id="text13_3" value=""></td>
+    <td><id="text13_4"> </td>
+    <td><id="text13_5"> </td>
+    <td><id="text13_6"> </td>
 </tr><tr>
     <td><id="text14_0">13</td>
-    <td><input type="text" style="border:none" id="text14_1" value="NUL"></td>
-    <td><input type="text" style="border:none" id="text14_2" value="1"></td>
-    <td><input type="text" style="border:none" id="text14_3" value="NUL"></td>
-    <td></id="text14_4"> </td>
-    <td></id="text14_5"> </td>
-    <td></id="text14_6"> </td>
+    <td><input type="text" style="border:none" id="text14_1" value=""></td>
+    <td><input type="text" style="border:none" id="text14_2" value=""></td>
+    <td><input type="text" style="border:none" id="text14_3" value=""></td>
+    <td><id="text14_4"> </td>
+    <td><id="text14_5"> </td>
+    <td><id="text14_6"> </td>
 </tr><tr>
     <td><id="text15_0">14</td>
     <td><input type="text" style="border:none" id="text15_1" value=""></td>
     <td><input type="text" style="border:none" id="text15_2" value=""></td>
     <td><input type="text" style="border:none" id="text15_3" value=""></td>
-    <td></id="text15_4"> </td>
-    <td></id="text15_5"> </td>
-    <td></id="text15_6"> </td>
+    <td><id="text15_4"> </td>
+    <td><id="text15_5"> </td>
+    <td><id="text15_6"> </td>
 </tr><tr>
     <td><id="text16_0">15</td>
     <td><input type="text" style="border:none" id="text16_1" value=""></td>
@@ -211,16 +210,17 @@
 </tr>
 </table>
 </center>
+
 <script>
-/* memTbl.style.textAlign = "center"; */
-/* memTbl.style.verticalAlign = "middle"; */
 window.onload = function(){
+/*memTbl.style.textAlign = "center"; */
+/*memTbl.style.verticalAlign = "middle"; */
 /* # Python15B (学習ノートP37も可) */
 /* # 疑似言語の命令コードを定義する。*/
 READ=1; WRITE=2; ADD=3; STOP=4; SUB=5; JNZ=8; DATA=9;
 A=6; B=7;                 /* # Aレジスタ、Bレジスタ */
 NUL = null;               /* # nullは予約語 空欄 何もしない 何もない ヌル */
-n=["0=未定義","1=READ","2=WRITE","3=ADD","4=STOP","5=SUB","6=A","7=B","8=JNZ","9=DATA"];
+n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
 m=[];
 /* # [c0, c1, c2, c3] # */
@@ -239,12 +239,57 @@ m.push([11,DATA, 2, NUL]);
 m.push([12,DATA, 0, NUL]);      /* #計算結果が入る */
 m.push([13,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
 m.push([14,NUL, NUL, NUL]);
-window.alert("*** PROGRAM START ***")
-p=0;            /* #プログラムカウンタに0を代入する。*/
+p=1;            /* #プログラムカウンタに0を代入する。*/
 rega=0;regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
 regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
-/* regdump()      /* #プログラムカウンタの値とレジスタの値を表示する。 */
-memdump(m);
+text12_6.innerHTML=m.length
+displayMemory2(m);
+}
+</script>
+
+<script>
+pushButtonStep.onclick = function() {
+}
+   
+pushButtonRun.onclick = function() {
+}
+
+pushButtonStop.onclick = function() {
+}
+</script>
+
+<script>
+function displayMemory(x){
+    for(i =1 ; i < x.length; i++) {
+        for(j = 1; j < 4; j++) {
+            if(x[i][j] != null) {
+                memTbl.rows[i].cells[j].innerHTML=decimal_to_binary(x[i][j]);
+            } else {
+                memTbl.rows[i].cells[j].innerHTML=null;
+            }
+        }
+    }
+}
+function displayMemory2(x){
+    for(i =1 ; i < x.length; i++) {
+    memTbl.rows[i].cells[1].innerHTML=decimal_to_binary(x[i][1]);
+    memTbl.rows[i].cells[2].innerHTML=decimal_to_binary(x[i][2]);
+    memTbl.rows[i].cells[3].innerHTML=decimal_to_binary(x[i][3]);
+    }    
+}
+function decimal_to_binary(x){
+    a=[]; b=[]; c="";
+    for(j=0; j<8; j++) {
+        a[j] = x % 2;
+        x = Math.floor(x/2);
+    }
+    for(k=0; k<8; k++) {
+        b[7-k]=a[k];
+    }
+    for(l=0; l<8; l++) {
+        c=c+String(b[l]);
+    }
+    return c;
 }
 </script>
 
