@@ -3,15 +3,24 @@
 <head><title>15C Assembler</title></head>
 <body bgcolor="#f0f0f0">
 <center>
-<table id="memTbl" width="50%">
+<table id="memTbl" width="40%">
+    <tr>
+        <td colspan="4">アセンブリ言語</td>
+        <td colspan="1"></td>
+        <td colspan="2">中央処理装置</td>
+        <td colspan="3">機械語</td>
+    </tr>
     <tr>
     <td><id="text0_0">番地</td>
     <td><id="text0_1">オペコード</td>
     <td><id="text0_2">オペランド1</td>
     <td><id="text0_3">オペランド2</td>
-    <td><id="text0_4"> </td>
-    <td><id="text0_5">中央処理装置</td>
+    <td><id="text0_4"></td>
+    <td><id="text0_5"></td>
     <td><id="text0_6">値</td>
+    <td>opcode</td>
+    <td>operand1</td>
+    <td>operand2</td>
 </tr><tr>
     <td><id="text1_0">0</td>
     <td><input type="text" style="border:none" id="text1_1" value=""></td>
@@ -20,6 +29,7 @@
     <td><id="text1_4"> </td>
     <td><id="text1_5">プログラムカウンタ</td>
     <td><input type="number" id="text_program_counter" value="1"></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text2_0">1</td>
     <td><input type="text" style="border:none" id="text2_1" value="READ"></td>
@@ -28,14 +38,16 @@
     <td><id="text2_4"> </td>
     <td><id="text2_5">命令レジスタ</td>
     <td><id="text_instraction_register"> </td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text3_0">2</td>
     <td><input type="text" style="border:none" id="text3_1" value="ADD"></td>
     <td><input type="text" style="border:none" id="text3_2" value="A"></td>
     <td><input type="text" style="border:none" id="text3_3" value="11"></td>
     <td><id="text3_4"> </td>    
-    <td><id="text3_5" >命令読解器</td>
+    <td><id="text3_5">命令読解器</td>
     <td><id="text_instraction_decoda" > </td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text4_0">3</td>  
     <td><input type="text" style="border:none" id="text4_1" value="WRITE"></td>
@@ -44,6 +56,7 @@
     <td><id="text4_4"> </td>
     <td><id="text4_5">レジスタA </td>
     <td><id="text_register_a"> </td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text5_0">4</td>
     <td><input type="text" style="border:none" id="text5_1" value="STOP"></td>
@@ -52,6 +65,7 @@
     <td><id="text5_4"> </td>
     <td><id="text5_5">レジスタB</td>
     <td><id="text_register_b"> </td>
+    <td></td><td></td><td></td>
 
 </tr><tr>
     <td><id="text6_0">5</td>
@@ -61,6 +75,7 @@
     <td><id="text6_4"> </td>
     <td><id="text6_5">フラグレジスタZF</td>
     <td><id="text_flag_regisdter_zero"> </td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text7_0">6</td>
     <td><input type="text" style="border:none" id="text7_1" value=""></td>
@@ -69,6 +84,7 @@
     <td><id="text7_4"> </td>
     <td><id="text7_5">演算装置</td>
     <td><id="text_accumlater"> </td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text8_0">7</td>
     <td><input type="text" style="border:none" id="text8_1" value=""></td>
@@ -76,6 +92,8 @@
     <td><input type="text" style="border:none" id="text8_3" value=""></td>
     <td><id="text8_4"> </td>
     <td><id="text7_6"> </td>
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text9_0">8</td>
     <td><input type="text" style="border:none" id="text9_1" value=""></td>
@@ -84,6 +102,8 @@
     <td><id="text9_4"> </td>
     <td><input type="button" id="pushButtonStep" value="1ステップ実行"> </td>
     <td><id="text9_6"> </td>
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text10_0">9</td>
     <td><input type="text" style="border:none" id="text10_1" value=""></td>
@@ -92,6 +112,8 @@
     <td><id="text10_4"> </td>
     <td><input type="button" id="pushButtonRun" value="最後まで実行"> </td>
     <td><id="text10_6"> </td>
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text11_0">10</td>
     <td><input type="text" style="border:none" id="text11_1" value="DATA"></td>
@@ -100,6 +122,8 @@
     <td><id="text11_4"> </td>
     <td><input type="button" id="pushButtonStop" value="停止"> </td>
     <td><id="text11_6"> </td>
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text12_0">11</td>
     <td><input type="text" style="border:none" id="text12_1" value="DATA"></td>
@@ -108,6 +132,7 @@
     <td><id="text12_4"> </td>
     <td><id="text12_5"> </td>
     <td><type="text" id="text12_6"> </td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text13_0">12</td>
     <td><input type="text" style="border:none" id="text13_1" value=""></td>
@@ -116,6 +141,8 @@
     <td><id="text13_4"> </td>
     <td><id="text13_5"> </td>
     <td><id="text13_6"> </td>
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text14_0">13</td>
     <td><input type="text" style="border:none" id="text14_1" value=""></td>
@@ -124,6 +151,8 @@
     <td><id="text14_4"> </td>
     <td><id="text14_5"> </td>
     <td><id="text14_6"> </td>
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text15_0">14</td>
     <td><input type="text" style="border:none" id="text15_1" value=""></td>
@@ -132,81 +161,158 @@
     <td><id="text15_4"> </td>
     <td><id="text15_5"> </td>
     <td><id="text15_6"> </td>
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text16_0">15</td>
     <td><input type="text" style="border:none" id="text16_1" value=""></td>
     <td><input type="text" style="border:none" id="text16_2" value=""></td>
     <td><input type="text" style="border:none" id="text16_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text17_0">16</td>
     <td><input type="text" style="border:none" id="text17_1" value=""></td>
     <td><input type="text" style="border:none" id="text17_2" value=""></td>
     <td><input type="text" style="border:none" id="text17_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text18_0">17</td>
     <td><input type="text" style="border:none" id="text18_1" value=""></td>
     <td><input type="text" style="border:none" id="text18_2" value=""></td>
     <td><input type="text" style="border:none" id="text18_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text19_0">18</td>
     <td><input type="text" style="border:none" id="text19_1" value=""></td>
     <td><input type="text" style="border:none" id="text19_2" value=""></td>
     <td><input type="text" style="border:none" id="text19_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text20_0">19</td>
     <td><input type="text" style="border:none" id="text20_1" value=""></td>
     <td><input type="text" style="border:none" id="text20_2" value=""></td>
     <td><input type="text" style="border:none" id="text20_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text21_0">20</td>
     <td><input type="text" style="border:none" id="text21_1" value=""></td>
     <td><input type="text" style="border:none" id="text21_2" value=""></td>
     <td><input type="text" style="border:none" id="text21_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text22_0">21</td>
     <td><input type="text" style="border:none" id="text22_1" value=""></td>
     <td><input type="text" style="border:none" id="text22_2" value=""></td>
     <td><input type="text" style="border:none" id="text22_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text23_0">22</td>
     <td><input type="text" style="border:none" id="text23_1" value=""></td>
     <td><input type="text" style="border:none" id="text23_2" value=""></td>
     <td><input type="text" style="border:none" id="text23_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text24_0">23</td>
     <td><input type="text" style="border:none" id="text24_1" value=""></td>
     <td><input type="text" style="border:none" id="text24_2" value=""></td>
     <td><input type="text" style="border:none" id="text24_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text25_0">24</td>
     <td><input type="text" style="border:none" id="text25_1" value=""></td>
     <td><input type="text" style="border:none" id="text25_2" value=""></td>
     <td><input type="text" style="border:none" id="text25_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text26_0">25</td>
     <td><input type="text" style="border:none" id="text26_1" value=""></td>
     <td><input type="text" style="border:none" id="text26_2" value=""></td>
     <td><input type="text" style="border:none" id="text26_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text27_0">26</td>
     <td><input type="text" style="border:none" id="text27_1" value=""></td>
     <td><input type="text" style="border:none" id="text27_2" value=""></td>
     <td><input type="text" style="border:none" id="text27_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text28_0">27</td>
     <td><input type="text" style="border:none" id="text28_1" value=""></td>
     <td><input type="text" style="border:none" id="text28_2" value=""></td>
     <td><input type="text" style="border:none" id="text28_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text29_0">28</td>
     <td><input type="text" style="border:none" id="text29_1" value=""></td>
     <td><input type="text" style="border:none" id="text29_2" value=""></td>
     <td><input type="text" style="border:none" id="text29_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr><tr>
     <td><id="text30_0">29</td>
     <td><input type="text" style="border:none" id="text30_1" value=""></td>
     <td><input type="text" style="border:none" id="text30_2" value=""></td>
     <td><input type="text" style="border:none" id="text30_3" value=""></td>
+    <td></td>
+    <td></td>
+    <td></td>   
+    <td></td>
+    <td></td><td></td><td></td>
 </tr>
 </table>
 </center>
@@ -263,18 +369,18 @@ function displayMemory(x){
     for(i=1 ; i<x.length; i++) {
         for(t=1; t<4; t++) {
             if(x[i][t] != null) {
-                memTbl.rows[i].cells[t].innerHTML=decimal_to_binary(x[i][t]);
+                memTbl.rows[i+2].cells[t+6].innerHTML=decimal_to_binary(x[i][t]);
             } else {
-                memTbl.rows[i].cells[t].innerHTML=null;
+                memTbl.rows[i+2].cells[t+6].innerHTML=null;
             }
         }
     }
 }
 function displayMemory2(x){
     for(i =1 ; i < x.length; i++) {
-    memTbl.rows[i].cells[1].innerHTML=decimal_to_binary(x[i][1]);
-    memTbl.rows[i].cells[2].innerHTML=decimal_to_binary(x[i][2]);
-    memTbl.rows[i].cells[3].innerHTML=decimal_to_binary(x[i][3]);
+    memTbl.rows[i].cells[7].innerHTML=decimal_to_binary(x[i][1]);
+    memTbl.rows[i].cells[8].innerHTML=decimal_to_binary(x[i][2]);
+    memTbl.rows[i].cells[9].innerHTML=decimal_to_binary(x[i][3]);
     }    
 }
 function decimal_to_binary(x){
