@@ -355,11 +355,9 @@ displayMemory(m);
 
 <script>
 pushButtonStep.onclick = function() {
-}
-   
+} 
 pushButtonRun.onclick = function() {
 }
-
 pushButtonStop.onclick = function() {
 }
 </script>
@@ -376,6 +374,9 @@ function displayMemory(x){
         }
     }
 }
+</script>
+
+<script>
 function displayMemory2(x){
     for(i =1 ; i < x.length; i++) {
     memTbl.rows[i].cells[7].innerHTML=decimal_to_binary(x[i][1]);
@@ -383,6 +384,9 @@ function displayMemory2(x){
     memTbl.rows[i].cells[9].innerHTML=decimal_to_binary(x[i][3]);
     }    
 }
+</script>
+
+<script>
 function decimal_to_binary(x){
     a=[]; b=[]; c="";
     for(j=0; j<8; j++) {
@@ -499,5 +503,6 @@ function regdump(){
 window.alert("プログラムカウンタ= "+p+" レジスタA= "+rega+" レジスタB= "+regb+" フラグレジスタ= "+regf)
 }
 </script>
+
 </body>
 </html>
