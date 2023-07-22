@@ -6,9 +6,9 @@
 <table id="memTbl">
 <tr>
     <td colspan="4">アセンブリ言語</td>
-    <td></td>
-    <td></td> 
+    <td></td><td>
     <td colspan="2">中央処理装置</td>
+    <td></td>
     <td colspan="3">機械語</td>
 </tr>
 <tr>
@@ -19,7 +19,7 @@
     <td>--</td>
     <td>--</td> 
     <td>値</td>
-    <td></td>
+    <td></td><td></td>
     <td>opcode</td>
     <td>operand1</td>
     <td>operand2</td>
@@ -33,7 +33,7 @@
     <td></td>
     <td><id="text1_5">プログラムカウンタ</td>
     <td><input type="number" id="text_program_counter" value="1"></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>1</td>
@@ -44,7 +44,7 @@
     <td></td> 
     <td>命令レジスタ</td>
     <td><id="text_instraction_register"> </td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text3_0">2</td>
@@ -55,7 +55,7 @@
     <td></td>
     <td>命令読解器</td>
     <td><id="text_instraction_decoda" > </td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>3</td>  
@@ -66,7 +66,7 @@
     <td></td>
     <td>レジスタA </td>
     <td><id="text_register_a"> </td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>4</td>
@@ -77,7 +77,7 @@
     <td></td>
     <td>レジスタB</td>
     <td><id="text_register_b"> </td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>5</td>
@@ -88,7 +88,7 @@
     <td></td>
     <td><id="text6_5">フラグレジスタZF</td>
     <td><id="text_flag_regisdter_zero"> </td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>6</td>
@@ -99,7 +99,7 @@
     <td></td>
     <td>演算装置</td>
     <td><id="text_accumlater"> </td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>7</td>
@@ -111,7 +111,7 @@
     <td><input type="button" id="pushButtonSet" value="セット"></td>
     <td></td>
     <td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>8</td>
@@ -123,7 +123,7 @@
     <td><input type="button" id="pushButtonStep" value="1ステップ実行"> </td>
     <td></td>
     <td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>9</td>
@@ -135,7 +135,7 @@
     <td><input type="button" id="pushButtonRun" value="最後まで実行"> </td>
     <td></td>
     <td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>10</td>
@@ -147,7 +147,7 @@
     <td><input type="button" id="pushButtonStop" value="停止"> </td>
     <td></td>
     <td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>11</td>
@@ -158,7 +158,7 @@
     <td></td>
     <td></td>
     <td><type="text" id="text12_6"> </td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text13_0">12</td>
@@ -166,8 +166,8 @@
     <td><input type="text" style="border:none" id="text13_2" value=""></td>
     <td><input type="text" style="border:none" id="text13_3" value=""></td>
     <td><input type="radio" id="line12" name="lineSelect"></td> 
+    <td></td><td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td>
-    <td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text14_0">13</td>
@@ -179,7 +179,7 @@
     <td>オペコード</td>
     <td>オペランド1</td>
     <td>オペランド2</td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text15_0">14</td>
@@ -274,8 +274,7 @@
             <option value="n29">29</option>            
         </select>
     </td>
-    <td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text16_0">15</td>
@@ -283,8 +282,8 @@
     <td><input type="text" style="border:none" id="text16_2" value=""></td>
     <td><input type="text" style="border:none" id="text16_3" value=""></td>
     <td><input type="radio" id="line15" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text17_0">16</td>
@@ -292,8 +291,8 @@
     <td><input type="text" style="border:none" id="text17_2" value=""></td>
     <td><input type="text" style="border:none" id="text17_3" value=""></td>
     <td><input type="radio" id="line16" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text18_0">17</td>
@@ -301,8 +300,8 @@
     <td><input type="text" style="border:none" id="text18_2" value=""></td>
     <td><input type="text" style="border:none" id="text18_3" value=""></td>
     <td><input type="radio" id="line17" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text19_0">18</td>
@@ -310,8 +309,8 @@
     <td><input type="text" style="border:none" id="text19_2" value=""></td>
     <td><input type="text" style="border:none" id="text19_3" value=""></td>
     <td><input type="radio" id="line18" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text20_0">19</td>
@@ -319,8 +318,8 @@
     <td><input type="text" style="border:none" id="text20_2" value=""></td>
     <td><input type="text" style="border:none" id="text20_3" value=""></td>
     <td><input type="radio" id="line19" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text21_0">20</td>
@@ -328,8 +327,8 @@
     <td><input type="text" style="border:none" id="text21_2" value=""></td>
     <td><input type="text" style="border:none" id="text21_3" value=""></td>
     <td><input type="radio" id="line20" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text22_0">21</td>
@@ -337,8 +336,8 @@
     <td><input type="text" style="border:none" id="text22_2" value=""></td>
     <td><input type="text" style="border:none" id="text22_3" value=""></td>
     <td><input type="radio" id="line21" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text23_0">22</td>
@@ -346,8 +345,8 @@
     <td><input type="text" style="border:none" id="text23_2" value=""></td>
     <td><input type="text" style="border:none" id="text23_3" value=""></td>
     <td><input type="radio" id="line22" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text24_0">23</td>
@@ -355,8 +354,8 @@
     <td><input type="text" style="border:none" id="text24_2" value=""></td>
     <td><input type="text" style="border:none" id="text24_3" value=""></td>
     <td><input type="radio" id="line23" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text25_0">24</td>
@@ -364,8 +363,8 @@
     <td><input type="text" style="border:none" id="text25_2" value=""></td>
     <td><input type="text" style="border:none" id="text25_3" value=""></td>
     <td><input type="radio" id="line24" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text26_0">25</td>
@@ -373,8 +372,8 @@
     <td><input type="text" style="border:none" id="text26_2" value=""></td>
     <td><input type="text" style="border:none" id="text26_3" value=""></td>
     <td><input type="radio" id="line25" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text27_0">26</td>
@@ -382,8 +381,8 @@
     <td><input type="text" style="border:none" id="text27_2" value=""></td>
     <td><input type="text" style="border:none" id="text27_3" value=""></td>
     <td><input type="radio" id="line26" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text28_0">27</td>
@@ -391,8 +390,8 @@
     <td><input type="text" style="border:none" id="text28_2" value=""></td>
     <td><input type="text" style="border:none" id="text28_3" value=""></td>
     <td><input type="radio" id="line27" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text29_0">28</td>
@@ -400,8 +399,8 @@
     <td><input type="text" style="border:none" id="text29_2" value=""></td>
     <td><input type="text" style="border:none" id="text29_3" value=""></td>
     <td><input type="radio" id="line28" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td><id="text30_0">29</td>
@@ -409,8 +408,8 @@
     <td><input type="text" style="border:none" id="text30_2" value=""></td>
     <td><input type="text" style="border:none" id="text30_3" value=""></td>
     <td><input type="radio" id="line29" name="lineSelect"></td> 
-    <td></td><td></td><td></td>
-    <td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
+    <td></td><td></td><td></td><td></td>
 </tr>
 </table>
 </center>
@@ -443,11 +442,26 @@ m.push([11,DATA, 2, NUL]);
 m.push([12,DATA, 0, NUL]);      /* #計算結果が入る */
 m.push([13,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
 m.push([14,NUL, NUL, NUL]);
+m.push([15, NUL, NUL, NUL]);
+m.push([16, READ, A, 12]);
+m.push([17, READ, B, 11]);
+m.push([18, ADD, A, 10]);
+m.push([19, SUB, B, 13]);
+m.push([20, JNZ, 3, NUL]);
+m.push([21, WRITE, 12, A]);
+m.push([22, STOP, NUL, NUL]);
+m.push([23, NUL, NUL, NUL]);
+m.push([24, NUL, NUL, NUL]);
+m.push([25,DATA, 5, NUL]);      /* # 5×2=10 */
+m.push([26,DATA, 2, NUL]);
+m.push([27,DATA, 0, NUL]);      /* #計算結果が入る */
+m.push([28,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
+m.push([29,DATA, 99, 99]);
 p=1;            /* #プログラムカウンタに0を代入する。*/
 rega=0;regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
 regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text12_6.innerHTML=m.length
-// displayMemory(m);
+displayMemory(m);
 // memdump(m)
 }
 pushButtonStep.onclick = function() {   
@@ -460,18 +474,18 @@ function displayMemory(x){
     for(i=1 ; i<x.length; i++) {
         for(t=1; t<4; t++) {            
             if(m[i][t] != null) {
-                memTbl.rows[i+2].cells[t+6].innerHTML=decimal_to_binary(m[i][t]);
+                memTbl.rows[i+2].cells[t+8].innerHTML=decimal_to_binary(m[i][t]);
             } else {
-                memTbl.rows[i+2].cells[t+6].innerHTML=null;
+                memTbl.rows[i+2].cells[t+8].innerHTML=null;
             }
         }
     }
 }
 function displayMemory2(x){
     for(i =1 ; i < x.length; i++) {
-    memTbl.rows[i].cells[7].innerHTML=decimal_to_binary(x[i][1]);
-    memTbl.rows[i].cells[8].innerHTML=decimal_to_binary(x[i][2]);
-    memTbl.rows[i].cells[9].innerHTML=decimal_to_binary(x[i][3]);
+    memTbl.rows[i].cells[10].innerHTML=decimal_to_binary(x[i][1]);
+    memTbl.rows[i].cells[11].innerHTML=decimal_to_binary(x[i][2]);
+    memTbl.rows[i].cells[12].innerHTML=decimal_to_binary(x[i][3]);
     }    
 }
 function decimal_to_binary(x){
