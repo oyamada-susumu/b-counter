@@ -81,7 +81,7 @@
 </tr>
 <tr>
     <td>5</td>
-    <td><input type="text" style="border:none" id="text6_1" value=""></td>
+    <td><input type="text" style="border:none" id="text6_1" value=""" ></td>
     <td><input type="text" style="border:none" id="text6_2" value=""></td>
     <td><input type="text" style="border:none" id="text6_3" value=""></td>
     <td><input type="radio" id="line5" name="lineSelect"></td> 
@@ -420,12 +420,12 @@ window.onload = function(){
 /*memTbl.style.verticalAlign = "middle"; */
 /* # Python15B (学習ノートP37も可) */
 /* # 疑似言語の命令コードを定義する。*/
-READ=1; WRITE=2; ADD=3; STOP=4; SUB=5; JNZ=8; DATA=9;
-A=6; B=7;                 /* # Aレジスタ、Bレジスタ */
-NUL = null;               /* # nullは予約語 空欄 何もしない 何もない ヌル */
-n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA"];
+let READ=1; let WRITE=2; let ADD=3; let STOP=4; let SUB=5; let JNZ=8; let DATA=9;
+let A=6; let B=7;                 /* # Aレジスタ、Bレジスタ */
+let NUL = null;               /* # nullは予約語 空欄 何もしない 何もない ヌル */
+let n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
-m=[];
+let m=[];
 /* # [c0, c1, c2, c3] # */
 m.push([0, NUL, NUL, NUL]);
 m.push([1, READ, A, 12]);
@@ -457,9 +457,9 @@ m.push([26,DATA, 2, NUL]);
 m.push([27,DATA, 0, NUL]);      /* #計算結果が入る */
 m.push([28,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
 m.push([29,DATA, 99, 99]);
-p=1;            /* #プログラムカウンタに0を代入する。*/
-rega=0;regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
-regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
+let p=1;            /* #プログラムカウンタに0を代入する。*/
+let rega=0; let regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
+let regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text12_6.innerHTML=m.length
 displayMemory(m);
 // memdump(m)
@@ -471,34 +471,34 @@ pushButtonRun.onclick = function() {
 pushButtonStop.onclick = function() {
 }
 function displayMemory(x){
-    for(i=1 ; i<x.length; i++) {
-        for(t=1; t<4; t++) {            
-            if(m[i][t] != null) {
-                memTbl.rows[i+2].cells[t+8].innerHTML=decimal_to_binary(m[i][t]);
+    for(let i=1 ; i<x.length; i++) {
+        for(let j=1; j<4; j++) {            
+            if(x[i][j] != null) {
+                memTbl.rows[i+2].cells[j+8].innerHTML=decimal_to_binary(x[i][j]);
             } else {
-                memTbl.rows[i+2].cells[t+8].innerHTML=null;
+                memTbl.rows[i+2].cells[j+8].innerHTML=null;
             }
         }
     }
 }
 function displayMemory2(x){
-    for(i =1 ; i < x.length; i++) {
-    memTbl.rows[i].cells[10].innerHTML=decimal_to_binary(x[i][1]);
-    memTbl.rows[i].cells[11].innerHTML=decimal_to_binary(x[i][2]);
-    memTbl.rows[i].cells[12].innerHTML=decimal_to_binary(x[i][3]);
+    for(let i=1 ; i<x.length; i++) {
+    memTbl.rows[i+2].cells[9].innerHTML=decimal_to_binary(x[i][1]);
+    memTbl.rows[i+2].cells[10].innerHTML=decimal_to_binary(x[i][2]);
+    memTbl.rows[i+2].cells[11].innerHTML=decimal_to_binary(x[i][3]);
     }    
 }
 function decimal_to_binary(x){
-    a=[]; b=[]; c="";
-    for(j=0; j<8; j++) {
-        a[j] = x % 2;
+    let a=[]; let b=[]; let c="";
+    for(let i=0; i<8; i++) {
+        a[i] = x % 2;
         x = Math.floor(x/2);
     }
-    for(k=0; k<8; k++) {
-        b[7-k]=a[k];
+    for(let j=0; j<8; j++) {
+        b[7-j]=a[j];
     }
-    for(l=0; l<8; l++) {
-        c=c+String(b[l]);
+    for(let k=0; k<8; k++) {
+        c=c+String(b[k]);
     }
     return c;
 }
@@ -556,20 +556,7 @@ while (m[p][1] != STOP) {      /* #STOPでない間以下を繰り返す。 */
 }
 memdump(m);
 }
-/* #メモリーの内容を表示する関数（メモリダンプ） */
-function memdump(x){
-    msg="PC= "+p+" A= "+rega+" B= "+regb+" F= "+regf+"\n";
-    for(let i=0; i < x.length; i++ ){
-        for(let j=0; j < 4; j++ ){
-            msg=msg+x[i][j]+" ";
-            }
-        msg=msg+"| "
-        if ( i%5 == 0 ) {
-             msg=msg+"\n" ;    /* キーボードの\（バックシュラッス）￥ではなく　*/
-        }
-    }
-    window.alert(msg);
-}   
+
 /* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
 function flagset(x){
 /*    global regf */
@@ -584,6 +571,20 @@ function regdump(){
 /*    global p; rega; regb; regf */
 window.alert("プログラムカウンタ= "+p+" レジスタA= "+rega+" レジスタB= "+regb+" フラグレジスタ= "+regf)
 }
+/* #メモリーの内容を表示する関数（メモリダンプ） */
+function memdump(x){
+    msg="PC= "+p+" A= "+rega+" B= "+regb+" F= "+regf+"\n";
+    for(let i=0; i < x.length; i++ ){
+        for(let j=0; j < 4; j++ ){
+            msg=msg+x[i][j]+" ";
+            }
+        msg=msg+"| "
+        if ( i%5 == 0 ) {
+             msg=msg+"\n" ;    /* キーボードの\（バックシュラッス）￥ではなく　*/
+        }
+    }
+    window.alert(msg);
+}   
 </script>
 </body>
 </html>
