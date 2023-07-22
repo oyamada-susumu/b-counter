@@ -6,39 +6,43 @@
 <table id="memTbl">
 <tr>
     <td colspan="4">アセンブリ言語</td>
-    <td colspan="1"></td>
+    <td></td>
+    <td></td> 
     <td colspan="2">中央処理装置</td>
     <td colspan="3">機械語</td>
 </tr>
 <tr>
-    <td><id="text0_0">番地</td>
-    <td><id="text0_1">オペコード</td>
-    <td><id="text0_2">オペランド1</td>
-    <td><id="text0_3">オペランド2</td>
-    <td><id="text0_4"></td>
-    <td><id="text0_5"></td>
-    <td><id="text0_6">値</td>
+    <td>番地</td>
+    <td>オペコード</td>
+    <td>オペランド1</td>
+    <td>オペランド2</td>
+    <td>--</td>
+    <td>--</td> 
+    <td>値</td>
+    <td></td>
     <td>opcode</td>
     <td>operand1</td>
     <td>operand2</td>
 </tr>
 <tr>
-    <td><id="text1_0">0</td>
+    <td>0</td>
     <td><input type="text" style="border:none" id="text1_1" value=""></td>
     <td><input type="text" style="border:none" id="text1_2" value=""></td>
     <td><input type="text" style="border:none" id="text1_3" value=""></td>
-    <td><input type="radio" id="line0" name="lineSelect"></td> 
+    <td><input type="radio" id="line0" name="lineSelect"></td>
+    <td></td>
     <td><id="text1_5">プログラムカウンタ</td>
     <td><input type="number" id="text_program_counter" value="1"></td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text2_0">1</td>
+    <td>1</td>
     <td><input type="text" style="border:none" id="text2_1" value="READ"></td>
     <td><input type="text" style="border:none" id="text2_2" value="A"></td>
     <td><input type="text" style="border:none" id="text2_3" value="10"></td>
-    <td><input type="radio" id="line1" name="lineSelect"></td> 
-    <td><id="text2_5">命令レジスタ</td>
+    <td><input type="radio" id="line1" name="lineSelect"></td>
+    <td></td> 
+    <td>命令レジスタ</td>
     <td><id="text_instraction_register"> </td>
     <td></td><td></td><td></td>
 </tr>
@@ -47,102 +51,112 @@
     <td><input type="text" style="border:none" id="text3_1" value="ADD"></td>
     <td><input type="text" style="border:none" id="text3_2" value="A"></td>
     <td><input type="text" style="border:none" id="text3_3" value="11"></td>
-    <td><input type="radio" id="line2" name="lineSelect"></td>  
-    <td><id="text3_5">命令読解器</td>
+    <td><input type="radio" id="line2" name="lineSelect"></td>
+    <td></td>
+    <td>命令読解器</td>
     <td><id="text_instraction_decoda" > </td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text4_0">3</td>  
+    <td>3</td>  
     <td><input type="text" style="border:none" id="text4_1" value="WRITE"></td>
     <td><input type="text" style="border:none" id="text4_2" value="12"></td>
     <td><input type="text" style="border:none" id="text4_3" value="A"></td>
     <td><input type="radio" id="line3" name="lineSelect"></td> 
-    <td><id="text4_5">レジスタA </td>
+    <td></td>
+    <td>レジスタA </td>
     <td><id="text_register_a"> </td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text5_0">4</td>
+    <td>4</td>
     <td><input type="text" style="border:none" id="text5_1" value="STOP"></td>
     <td><input type="text" style="border:none" id="text5_2" value=""></td>
     <td><input type="text" style="border:none" id="text5_3" value=""></td>
     <td><input type="radio" id="line4" name="lineSelect"></td> 
-    <td><id="text5_5">レジスタB</td>
+    <td></td>
+    <td>レジスタB</td>
     <td><id="text_register_b"> </td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text6_0">5</td>
+    <td>5</td>
     <td><input type="text" style="border:none" id="text6_1" value=""></td>
     <td><input type="text" style="border:none" id="text6_2" value=""></td>
     <td><input type="text" style="border:none" id="text6_3" value=""></td>
     <td><input type="radio" id="line5" name="lineSelect"></td> 
+    <td></td>
     <td><id="text6_5">フラグレジスタZF</td>
     <td><id="text_flag_regisdter_zero"> </td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text7_0">6</td>
+    <td>6</td>
     <td><input type="text" style="border:none" id="text7_1" value=""></td>
     <td><input type="text" style="border:none" id="text7_2" value="""></td>
     <td><input type="text" style="border:none" id="text7_3" value=""></td>
     <td><input type="radio" id="line6" name="lineSelect"></td> 
-    <td><id="text7_5">演算装置</td>
+    <td></td>
+    <td>演算装置</td>
     <td><id="text_accumlater"> </td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text8_0">7</td>
+    <td>7</td>
     <td><input type="text" style="border:none" id="text8_1" value=""></td>
     <td><input type="text" style="border:none" style="border:none" id="text8_2" value=""></td>
     <td><input type="text" style="border:none" id="text8_3" value=""></td>
     <td><input type="radio" id="line7" name="lineSelect"></td> 
+    <td></td>
     <td><input type="button" id="pushButtonSet" value="セット"></td>
-    <td><id="text7_6"> </td>
+    <td></td>
     <td></td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text9_0">8</td>
+    <td>8</td>
     <td><input type="text" style="border:none" id="text9_1" value=""></td>
     <td><input type="text" style="border:none" id="text9_2" value=""></td> 
     <td><input type="text" style="border:none" id="text9_3" value=""></td>
     <td><input type="radio" id="line8" name="lineSelect"></td> 
+    <td></td>
     <td><input type="button" id="pushButtonStep" value="1ステップ実行"> </td>
-    <td><id="text9_6"> </td>
+    <td></td>
     <td></td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text10_0">9</td>
+    <td>9</td>
     <td><input type="text" style="border:none" id="text10_1" value=""></td>
     <td><input type="text" style="border:none" id="text10_2" value=""></td>
     <td><input type="text" style="border:none" id="text10_3" value=""></td>
     <td><input type="radio" id="line9" name="lineSelect"></td> 
+    <td></td>
     <td><input type="button" id="pushButtonRun" value="最後まで実行"> </td>
-    <td><id="text10_6"> </td>
+    <td></td>
     <td></td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text11_0">10</td>
+    <td>10</td>
     <td><input type="text" style="border:none" id="text11_1" value="DATA"></td>
     <td><input type="text" style="border:none" id="text11_2" value="3"></td>
     <td><input type="text" style="border:none" id="text11_3" value=""></td>
-    <td><input type="radio" id="line10" name="lineSelect"></td> 
+    <td><input type="radio" id="line10" name="lineSelect"></td>
+    <td></td> 
     <td><input type="button" id="pushButtonStop" value="停止"> </td>
-    <td><id="text11_6"> </td>
+    <td></td>
     <td></td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text12_0">11</td>
+    <td>11</td>
     <td><input type="text" style="border:none" id="text12_1" value="DATA"></td>
     <td><input type="text" style="border:none" id="text12_2" value="5"></td>
     <td><input type="text" style="border:none" id="text12_3" value=""></td>
     <td><input type="radio" id="line11" name="lineSelect"></td> 
-    <td><id="text12_5"> </td>
+    <td></td>
+    <td></td>
     <td><type="text" id="text12_6"> </td>
     <td></td><td></td><td></td>
 </tr>
@@ -152,9 +166,7 @@
     <td><input type="text" style="border:none" id="text13_2" value=""></td>
     <td><input type="text" style="border:none" id="text13_3" value=""></td>
     <td><input type="radio" id="line12" name="lineSelect"></td> 
-    <td><id="text13_5"> </td>
-    <td><id="text13_6"> </td>
-    <td></td>
+    <td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td>
 </tr>
 <tr>
@@ -162,7 +174,8 @@
     <td><input type="text" style="border:none" id="text14_1" value=""></td>
     <td><input type="text" style="border:none" id="text14_2" value=""></td>
     <td><input type="text" style="border:none" id="text14_3" value=""></td>
-    <td><input type="radio" id="line13" name="lineSelect"></td> 
+    <td><input type="radio" id="line13" name="lineSelect"></td>
+    <td></td>
     <td>オペコード</td>
     <td>オペランド1</td>
     <td>オペランド2</td>
@@ -174,6 +187,7 @@
     <td><input type="text" style="border:none" id="text15_2" value=""></td>
     <td><input type="text" style="border:none" id="text15_3" value=""></td>
     <td><input type="radio" id="line14" name="lineSelect"></td>
+    <td></td>
     <td>
         <select id="opc">
             <option value="read">DATA</option>
