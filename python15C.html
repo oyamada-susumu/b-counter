@@ -183,7 +183,7 @@
     <td></td><td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td>
-</tr>
+</tr>value="1
 <tr>
     <td>13</td>
     <td><input type="text" style="border:none" required minlength="0" maxlength="4" size="4" value=""></td>
@@ -499,21 +499,21 @@ m.push([11,DATA, 2, NUL]);
 m.push([12,DATA, 0, NUL]);      /* #計算結果が入る */
 m.push([13,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
 m.push([14,NUL, NUL, NUL]);
-m.push([15, NUL, NUL, NUL]);
-m.push([16, READ, A, 12]);
-m.push([17, READ, B, 11]);
-m.push([18, ADD, A, 10]);
-m.push([19, SUB, B, 13]);
-m.push([20, JNZ, 3, NUL]);
-m.push([21, WRITE, 12, A]);
-m.push([22, STOP, NUL, NUL]);
-m.push([23, NUL, NUL, NUL]);
-m.push([24, NUL, NUL, NUL]);
-m.push([25,DATA, 5, NUL]);      /* # 5×2=10 */
-m.push([26,DATA, 2, NUL]);
-m.push([27,DATA, 0, NUL]);      /* #計算結果が入る */
-m.push([28,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
-m.push([29,DATA, 99, 99]);
+m.push([15,NUL, NUL, NUL]);
+m.push([16,NUL, NUL, NUL]);
+m.push([17,NUL, NUL, NUL]);
+m.push([18,NUL, NUL, NUL]);
+m.push([19,NUL, NUL, NUL]);
+m.push([20,NUL, NUL, NUL]);
+m.push([21,NUL, NUL, NUL]);
+m.push([22,NUL, NUL, NUL]);
+m.push([23,NUL, NUL, NUL]);
+m.push([24,NUL, NUL, NUL]);
+m.push([25,NUL, NUL, NUL]);
+m.push([26,NUL, NUL, NUL]);
+m.push([27,NUL, NUL, NUL]);
+m.push([28,NUL, NUL, NUL]);
+m.push([29,NUL, NUL, NUL]);
 let p=1;                        /* #プログラムカウンタに0を代入する。*/
 let rega=0; let regb=0;         /* #レジスタAに0，レジスタBに0を代入する。 */
 let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
