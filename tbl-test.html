@@ -29,5 +29,19 @@
         <td>セル20 200px</td><td>セル21</td><td>セル22</td>
     </tr>
 </table>
+    <select name="food-name" id="food-name">
+</select>
+
+<script>
+//select要素を取得する
+const selectFoodName = document.getElementById('food-name');
+//option要素を新しく作る
+const option1 = document.createElement('option');
+//option要素にvalueと表示名を設定
+option1.value = ["tempura","sushi"];
+option1.textContent = ["天ぷら","寿司"];
+//select要素にoption要素を追加する
+selectFoodName.appendChild(option1)
+</script>
 </body>
 </html>
