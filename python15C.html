@@ -447,7 +447,6 @@
 </tr>
 </table>
 </center>
-
 <script>
 window.onload = function(){
 /*memTbl.style.textAlign = "center"; */
@@ -491,18 +490,21 @@ m.push([26,DATA, 2, NUL]);
 m.push([27,DATA, 0, NUL]);      /* #計算結果が入る */
 m.push([28,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
 m.push([29,DATA, 99, 99]);
-let p=1;            /* #プログラムカウンタに0を代入する。*/
-let rega=0; let regb=0;  /* #レジスタAに0，レジスタBに0を代入する。 */
-let regf=0;         /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
+let p=1;                        /* #プログラムカウンタに0を代入する。*/
+let rega=0; let regb=0;         /* #レジスタAに0，レジスタBに0を代入する。 */
+let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text12_6.innerHTML=m.length
 displayMemory(m);
-// memdump(m)
+}
+pushButtononSet.oncrick =function() {
 }
 pushButtonStep.onclick = function() {   
 } 
 pushButtonRun.onclick = function() {
 }
 pushButtonStop.onclick = function() {
+}
+pushButtonSetline.onclick = function() {
 }
 function displayMemory(x){
     let ofsty=9
@@ -515,13 +517,6 @@ function displayMemory(x){
             }
         }
     }
-}
-function displayMemory2(x){
-    for(let i=1 ; i<x.length; i++) {
-    memTbl.rows[i+2].cells[9].innerHTML=decimal_to_binary(x[i][1]);
-    memTbl.rows[i+2].cells[10].innerHTML=decimal_to_binary(x[i][2]);
-    memTbl.rows[i+2].cells[11].innerHTML=decimal_to_binary(x[i][3]);
-    }    
 }
 function decimal_to_binary(x){
     let a=[]; let b=[]; let c="";
@@ -591,7 +586,6 @@ while (m[p][1] != STOP) {      /* #STOPでない間以下を繰り返す。 */
 }
 memdump(m);
 }
-
 /* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
 function flagset(x){
 /*    global regf */
