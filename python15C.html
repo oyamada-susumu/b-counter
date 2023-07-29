@@ -7,24 +7,14 @@
 <center>
 <table id="memTbl">
 <tr>
-    <td colspan="4">アセンブリ言語</td>
-    <td></td><td>
-    <td colspan="2">中央処理装置</td>
-    <td></td><td></td>
+    <td colspan="4">アセンブリ言語</td><td></td><td>
+    <td colspan="2">中央処理装置</td><td></td><td></td>
     <td colspan="3">機械語</td>
 </tr>
 <tr>
-    <td>番地</td>
-    <td>ｵﾍﾟｺｰﾄﾞ</td>
-    <td>オペランド1</td>
-    <td>オペランド2</td>
-    <td>選択行</td>
-    <td>　</td> 
-    <td>値</td>
-    <td></td><td></td><td></td>
-    <td>opcode</td>
-    <td>operand1</td>
-    <td>operand2</td>
+    <td>番地</td><td>ｵﾍﾟｺｰﾄﾞ</td><td>オペランド1</td><td>オペランド2</td><td>選択行</td>
+    <td>　</td><td>値</td><td></td><td></td><td></td>
+    <td>opcode</td><td>operand1</td><td>operand2</td>
 </tr>
 <tr>
     <td>0</td>
@@ -542,23 +532,26 @@ pushButtonSetline.onclick = function() {
     let op1 = operand1select.value;
     let op2 = operand2select.value;
     console.log(checkValue+" "+opc+" "+op1+" "+op2 + " です");
-    memTbl.rows[line+2].cells[1].innerHTML = opc;
-    memTbl.rows[line+2].cells[2].innerHTML = op1;
-    memTbl.rows[line+2].cells[3].innerHTML = op2;
+    let opcx ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + opc + '">';
+    let op1x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op1 + '">';
+    let op2x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op2 + '">';
+    memTbl.rows[line+2].cells[1].innerHTML = opcx;
+    memTbl.rows[line+2].cells[2].innerHTML = op1x;
+    memTbl.rows[line+2].cells[3].innerHTML = op2x;
 }
 function displayMemory(x){
-    let ofsty=9
-    for(let i=1 ; i<x.length; i++) {
+    let offsetx=9;
+    let offsety=2;
+    for(let i=1; i<x.length; i++) {
         for(let j=1; j<4; j++) {            
             if(x[i][j] != null) {
-                memTbl.rows[i+2].cells[j+ofsty].innerHTML=decimal_to_binary(x[i][j]);
+                memTbl.rows[i+offsety].cells[j+offsetx].innerHTML=decimal_to_binary(x[i][j]);
             } else {
-                memTbl.rows[i+2].cells[j+ofsty].innerHTML=null;
+                memTbl.rows[i+offsety].cells[j+offsetx].innerHTML=null;
             }
         }
     }
 }
-
 function decimal_to_binary(x){
     let a=[]; let b=[]; let c="";
     for(let i=0; i<8; i++) {
