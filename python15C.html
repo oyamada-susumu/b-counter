@@ -24,7 +24,7 @@
     <td><input type="radio" name="lineSelect" value="0"></td>
     <td></td>
     <td>ﾌﾟﾛｸﾞﾗﾑｶｳﾝﾀ</td>
-    <td><input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="1"></td>
+    <td><input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5"></td>
     <td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td>
 </tr>
@@ -440,13 +440,14 @@
 </table>
 </center>
 <script>
-window.onload = function(){
+/*window.onload = function(){ */
 /*memTbl.style.textAlign = "center"; */
 /*memTbl.style.verticalAlign = "middle"; */
 /* # Python15B (学習ノートP37も可) */
 /* # 疑似言語の命令コードを定義する。*/
+/* *** Scope is Gloabal *** */
 let READ=1; let WRITE=2; let ADD=3; let STOP=4; let SUB=5; let JNZ=8; let DATA=9;
-let A=6; let B=7;                 /* # Aレジスタ、Bレジスタ */
+let A=6; let B=7;              /* # Aレジスタ、Bレジスタ */
 let NUL = null;               /* # nullは予約語 空欄 何もしない 何もない ヌル */
 let n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
@@ -482,23 +483,24 @@ m.push([26,NUL, NUL, NUL]);
 m.push([27,NUL, NUL, NUL]);
 m.push([28,NUL, NUL, NUL]);
 m.push([29,NUL, NUL, NUL]);
-let p=1;                        /* #プログラムカウeタに0を代入する。*/
+let p=1;                        /* #プログラムカウンタに0を代入する。*/
 let rega=2; let regb=3;         /* #レジスタAに0，レジスタBに0を代入する。 */
 let regf=1;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text_program_length.innerHTML=m.length
-displayCPU(p,m[p][1],m[p][2],m[p][3],rega,regb,regf)
-displayMemory(m);
+displayCPU()
+displayMemory();
+/* } */
+/* *** scope global end *** */
+/* *** function start *** */
+function displayCPU(){
+    text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
+    text_instraction_register.innerHTML = m[p][1]+"-"+m[p][2]+"-"+m[p][3];
+    text_instraction_decoda.innerHTML = n[m[p][1]];
+    text_register_a.innerHTML = rega;
+    text_register_b.innerHTML = regb;
+    text_flag_register_zero.innerHTML = regf; 
 }
-function displayCPU(pc,a1,a2,a3,ra,rb,rf){
-    let ic=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA"];
-    text_program_counter.innerHTML = pc;
-    text_instraction_register.innerHTML = String(a1)+"-"+String(a2)+"-"+String(a3);
-    text_instraction_decoda.innerHTML = ic[a1];
-    text_register_a.innerHTML = ra;
-    text_register_b.innerHTML = rb;
-    text_flag_register_zero.innerHTML = rf; 
-}
-pushButtonSet.oncrick =function() {
+pushButtonSet.oncrick = function() {
 }
 pushButtonSetline.onclick = function() {
     let elements = document.getElementsByName('lineSelect');
@@ -528,21 +530,22 @@ pushButtonRun.onclick = function() {
             break;
         }
         forwardonestep();
+        displayMemory();                
+        displayCPU()
         }
     }
 pushButtonStep.onclick = function() {
         forwardonestep();
+        displayMemory();                
+        displayCPU()
     }
-/* pushButtonStop.onclick = function() {       
-    }
-*/
-function displayMemory(x){
+function displayMemory(){
     let offsetx=9;
     let offsety=2;
-    for(let i=1; i<x.length; i++) {
+    for(let i=1; i<m.length; i++) {
         for(let j=1; j<4; j++) {            
-            if(x[i][j] != null) {
-                memTbl.rows[i+offsety].cells[j+offsetx].innerHTML=decimal_to_binary(x[i][j]);
+            if(m[i][j] != null) {
+                memTbl.rows[i+offsety].cells[j+offsetx].innerHTML=decimal_to_binary(m[i][j]);
             } else {
                 memTbl.rows[i+offsety].cells[j+offsetx].innerHTML=null;
             }
@@ -563,10 +566,9 @@ function decimal_to_binary(x){
     }
     return c;
 }
-
 function forwardonestep() {
     /* #c0=行番号,c1=命令,c2=レジスタ名または番地,c3=レジスタ名または番地 */
-    c0=m[p][0]; c1=m[p][1]; c2=m[p][2]; c3=m[p][3]
+    let c0=m[p][0]; let c1=m[p][1]; let c2=m[p][2]; let c3=m[p][3]
     if (c1 == NUL) {           /* #もしNUL命令ならば */
         ;                      /* #なにもしない。 */
         }
@@ -601,8 +603,7 @@ function forwardonestep() {
             regb = regb - m[c3][2]; /* #レジスタBの値から指定番地の値を引いたものをBレジスタに代入する。 */
             flagset(regb);          /* #関数flagsetを呼び出す。 */
         }
-    }
-    displayMemory(m);            
+    }           
 /* # JNZ Jump Not Zero 演算結果が0でなければジャンプする。 */
 /* # 直前の演算結果が0ならば regfに1がセットされている。 */
     if (c1 == JNZ) {                /* #もしJNZ命令ならば */
@@ -613,9 +614,8 @@ function forwardonestep() {
         }
     } else {                        /* #そうでなければ */
         p = p + 1;                  /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
-            }   
+            }
 }
-
 /* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
 function flagset(x){
 /*    global regf */
