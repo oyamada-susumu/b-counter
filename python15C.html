@@ -24,7 +24,7 @@
     <td><input type="radio" name="lineSelect" value="0"></td>
     <td></td>
     <td>ﾌﾟﾛｸﾞﾗﾑｶｳﾝﾀ</td>
-    <td><input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5"></td>
+    <td><type="text" id="text_program_counter"></td>
     <td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td>
 </tr>
@@ -454,10 +454,10 @@ let n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA"];
 let m=[];
 /* # [c0, c1, c2, c3] # */
 m.push([0, NUL, NUL, NUL]);
-m.push([1, READ, A, 12]);
-m.push([2, READ, B, 11]);
-m.push([3, ADD, A, 10]);
-m.push([4, SUB, B, 13]);
+m.push([1, READ, A, 10]);
+m.push([2, ADD, A, 11]);
+m.push([3, WRITE, 12, A]);
+m.push([4, STOP, NUL, NUL]);
 m.push([5, JNZ, 3, NUL]);
 m.push([6, WRITE, 12, A]);
 m.push([7, STOP, NUL, NUL]);
@@ -483,9 +483,9 @@ m.push([26,NUL, NUL, NUL]);
 m.push([27,NUL, NUL, NUL]);
 m.push([28,NUL, NUL, NUL]);
 m.push([29,NUL, NUL, NUL]);
-let p=1;                        /* #プログラムカウンタに0を代入する。*/
-let rega=2; let regb=3;         /* #レジスタAに0，レジスタBに0を代入する。 */
-let regf=1;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
+let p=0;                        /* #プログラムカウンタに0を代入する。*/
+let rega=0; let regb=0;         /* #レジスタAに0，レジスタBに0を代入する。 */
+let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text_program_length.innerHTML=m.length
 displayCPU()
 displayMemory();
@@ -493,12 +493,13 @@ displayMemory();
 /* *** scope global end *** */
 /* *** function start *** */
 function displayCPU(){
-    text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
+    //text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
+    text_program_counter.innerHTML = String(p);
     text_instraction_register.innerHTML = m[p][1]+"-"+m[p][2]+"-"+m[p][3];
     text_instraction_decoda.innerHTML = n[m[p][1]];
-    text_register_a.innerHTML = rega;
-    text_register_b.innerHTML = regb;
-    text_flag_register_zero.innerHTML = regf; 
+    text_register_a.innerHTML = String(rega);
+    text_register_b.innerHTML = String(regb);
+    text_flag_register_zero.innerHTML = String(regf); 
 }
 pushButtonSet.oncrick = function() {
 }
@@ -535,10 +536,12 @@ pushButtonRun.onclick = function() {
         }
     }
 pushButtonStep.onclick = function() {
+    if (m[p][1] != STOP) { 
         forwardonestep();
         displayMemory();                
         displayCPU()
     }
+}
 function displayMemory(){
     let offsetx=9;
     let offsety=2;
@@ -572,14 +575,15 @@ function forwardonestep() {
     if (c1 == NUL) {           /* #もしNUL命令ならば */
         ;                      /* #なにもしない。 */
         }
-/* 実行命令 */               
+    /* 実行命令 */               
     if (c1 == READ) {               /* #もしREAD命令ならば */
         if (c2 == A) {              /* #もしレジスタAならば */
             rega = m[c3][2];        /* #指定番地の値をレジスタAに読み込む。 */
         } else if (c2 == B) {       /* #もしレジスタBならば */
             regb = m[c3][2];        /* #指定番地の値をレジスタBに読み込む。 */
-        }   
-    } else if (c1 == WRITE) {       /* #もしWRITE命令ならば */
+        } 
+    }  
+    if (c1 == WRITE) {       /* #もしWRITE命令ならば */
         if (c3 == A) {              /* #もしレジスタAならば */
             m[c2][1] = DATA;        /* #指定番地に命令コードDATAの値を書き込む。 */
             m[c2][2] = rega;        /* #指定番地にレジスタAの値を書き込む。 */
@@ -587,7 +591,8 @@ function forwardonestep() {
             m[c2][1] = DATA;        /* #指定番地に命令コードDATAの値を書き込む。 */
             m[c2][2] = regb;        /* #指定番地にレジスタBの値を書き込む。 */
         }
-    } else if (c1 == ADD ) {        /* #もしADD命令ならば */
+    }
+    if (c1 == ADD ) {        /* #もしADD命令ならば */
         if (c2 == A) {              /* #もしレジスタAならば */
             rega = rega + m[c3][2]; /* #レジスタAの値に指定番地の値を足したものをレジスタAに代入する。 */
             flagset(rega);          /* #関数flagsetを呼び出す。 */
@@ -595,7 +600,8 @@ function forwardonestep() {
             regb = regb + m[c3][2]; /* #レジスタBの値に指定番地の値を足したものをレジスタBに代入する。 */
             flagset(regb);          /* #関数flagsetを呼び出す。 */
         }
-    } else if (c1 == SUB) {         /* #もしSUB命令ならば */
+    }
+    if (c1 == SUB) {         /* #もしSUB命令ならば */
         if (c2 == A) {              /* #もしレジスタAならば */
             rega = rega - m[c3][2]; /* #レジスタAの値から指定番地の値を引いたものをAレジスタに代入する。 */
             flagset(rega);          /* #関数flagsetを呼び出す。 */
