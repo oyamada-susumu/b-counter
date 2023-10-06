@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>15C Assembler</title>
-</head>
+<head><title>15C Assembler</title></head>
 <body bgcolor="#f0f0f0">
 <center>
 <table id="memTbl">
@@ -39,7 +37,7 @@
     <td></td><td></td><td></td><td></td>
 </tr>
 <tr>
-    <td><id="text3_0">2</td>
+    <td>2</td>
     <td><input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
@@ -448,10 +446,11 @@
 /* *** Scope is Gloabal *** */
 let READ=1; let WRITE=2; let ADD=3; let STOP=4; let SUB=5; let JNZ=8; let DATA=9;
 let A=6; let B=7;              /* # Aレジスタ、Bレジスタ */
+let JEZ=10;
 let NUL = null;               /* # nullは予約語 空欄 何もしない 何もない ヌル */
-let n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA"];
+let n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
-let m=[];
+let m=[]; let mx=[]
 /* # [c0, c1, c2, c3] # */
 m.push([0, NUL, NUL, NUL]);
 m.push([1, READ, A, 10]);
@@ -576,7 +575,7 @@ function forwardonestep() {
         ;                      /* #なにもしない。 */
         }
     /* 実行命令 */               
-    if (c1 == READ) {               /* #もしREAD命令ならば */
+    if (c1 == READ) {         /* #もしREAD命令ならば */
         if (c2 == A) {              /* #もしレジスタAならば */
             rega = m[c3][2];        /* #指定番地の値をレジスタAに読み込む。 */
         } else if (c2 == B) {       /* #もしレジスタBならば */
@@ -614,6 +613,17 @@ function forwardonestep() {
 /* # 直前の演算結果が0ならば regfに1がセットされている。 */
     if (c1 == JNZ) {                /* #もしJNZ命令ならば */
         if (regf != 1) {            /* #もしフラグレジスタの値が1でなければ */
+            p = c2;                 /* #プログラムカウンタに指定番地を代入する。 */
+        } else {                    /* #そうでなければ */
+            p = p + 1;              /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
+        }
+    } else {                        /* #そうでなければ */
+        p = p + 1;                  /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
+            }
+/* # JEZ Jump Equal Zero 演算結果が0ならばジャンプする。 */
+/* # 直前の演算結果が0ならば regfに1がセットされている。 */
+    if (c1 == JEZ) {                /* #もしJEZ命令ならば */
+        if (regf = 1) {             /* #もしフラグレジスタの値が1ならば */
             p = c2;                 /* #プログラムカウンタに指定番地を代入する。 */
         } else {                    /* #そうでなければ */
             p = p + 1;              /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
