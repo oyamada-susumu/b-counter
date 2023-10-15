@@ -444,7 +444,7 @@
 /* # Python15B (学習ノートP37も可) */
 /* # 疑似言語の命令コードを定義する。*/
 /* *** Scope is Gloabal *** */
-let READ=1; let WRITE=2; let ADD=3; let STOP=4; let SUB=5; let JNZ=8; let DATA=9;
+let READ=1; let WRITE=2; let ADD=3; let SUB=4; let STOP=5; let JNZ=8; let DATA=9;
 let A=6; let B=7;              /* # Aレジスタ、Bレジスタ */
 let JEZ=10;
 let NUL = null;               /* # nullは予約語 空欄 何もしない 何もない ヌル */
@@ -500,7 +500,15 @@ function displayCPU(){
     text_register_b.innerHTML = String(regb);
     text_flag_register_zero.innerHTML = String(regf); 
 }
-pushButtonSet.oncrick = function() {
+pushButtonSet.onclick = function() {
+    m=[]; mx=[];
+    for (let i=0; i<30; i++){
+        let opcx = memTbl.rows[i+2].cells[1].value;
+        let op1x = memTbl.rows[i+2].cells[2].value;
+        let op2x = memTbl.rows[i+2].cells[3].value;
+        mx.push([i, opcx, op1x, op2x]);
+        console.log("OPC="+opcx+"OP1="+op1x+"OP2="+op2x);
+        }
 }
 pushButtonSetline.onclick = function() {
     let elements = document.getElementsByName('lineSelect');
