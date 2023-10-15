@@ -318,47 +318,18 @@ pushButtonDtoB.onclick = function(){
   displayMantissa(kasubu) 
 }
 /* 指数部 */
-pushButtonE1.onclick = function(){
-  if(D2BX(shisu,0)==1){
-    shisu = shisu - 1;
-    }else{
-    shisu = shusu + 1;
-    }
-  displayExponent(i);    
-  }
-pushButtonE2.onclick = function(){if(D2BX(shisu,1)==1){shisu=shisu-2;}else{shisu=shusu+2;}displayExponent(shisu);}
+pushButtonE1.onclick = function(){if(D2BX(shisu,0)==1){shisu=shisu-1;}else{shisu=shisu+1;}displayExponent(shisu);}
+pushButtonE2.onclick = function(){if(D2BX(shisu,1)==1){shisu=shisu-2;}else{shisu=shisu+2;}displayExponent(shisu);}
 pushButtonE3.onclick = function(){if(D2BX(shisu,2)==1){shisu=shisu-4;}else{shisu=shisu+4;}displayExponent(shisu);}
 pushButtonE4.onclick = function(){if(D2BX(shisu,3)==1){shisu=shisu-8;}else{shisu=shisu+8;}displayExponent(shisu);}
 pushButtonE5.onclick = function(){if(D2BX(shisu,4)==1){shisu=shisu-16;}else{shisu=shisu+16;}displayExponent(shisu);}
 pushButtonE6.onclick = function(){if(D2BX(shisu,5)==1){shisu=shisu-32;}else{shisu=shisu+32;}displayExponent(shisu);}
-pushButtonE7.onclick = function(){if(D2BX(shisu,6)==1){shisu=shisu-64;}else{shusu=shisu+64;}displayExponent(shisu);}
+pushButtonE7.onclick = function(){if(D2BX(shisu,6)==1){shisu=shisu-64;}else{shisu=shisu+64;}displayExponent(shisu);}
 pushButtonE8.onclick = function(){if(D2BX(shisu,7)==1){shisu=shisu-128;}else{shisu=shisu+128;}displayExponent(shisu);}
-pushButtonRst.onclick = function(){
-  shisu = 0;
-  displayExponent(shisu);
-  }
-pushButtonUp.onclick = function(){
-  shisu = shisu + 1;
-  if(shisu>255){
-    shisu=0;
-    }
-  displayExponent(shisu); 
-  }
-pushButtonDown.onclick = function(){
-  shisu = shisu - 1;
-  if(shisu<0){
-    shisu=255;
-    }
-  displayExponent(shisu);
-  }
-pushButtonM1.onclick = function(){
-  if(kasu[0] == 1){
-    kasu[0] = 0;
-    }else{
-    kasu[0] = 1;
-    }
-  displayMantissa(kasu);    
-  }
+pushButtonRst.onclick = function(){shisu=0;displayExponent(shisu);}
+pushButtonUp.onclick = function(){shisu=shisu+1;if(shisu>255){shisu=0;}displayExponent(shisu);}
+pushButtonDown.onclick = function(){shisu=shisu-1;if(shisu<0){shisu=255;}displayExponent(shisu);}
+pushButtonM1.onclick = function(){if(kasu[0] == 1){kasu[0] = 0;}else{kasu[0] = 1;}displayMantissa(kasu); }
 pushButtonM2.onclick = function(){if(kasu[1] == 1){kasu[1] = 0;}else{kasu[1] = 1;}displayMantissa(kasu); }
 pushButtonM3.onclick = function(){if(kasu[2] == 1){kasu[2] = 0;}else{kasu[2] = 1;}displayMantissa(kasu); }
 pushButtonM4.onclick = function(){if(kasu[3] == 1){kasu[3] = 0;}else{kasu[3] = 1;}displayMantissa(kasu); }
