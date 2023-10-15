@@ -528,6 +528,11 @@ pushButtonSetline.onclick = function() {
     let opcx ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + opc + '">';
     let op1x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op1 + '">';
     let op2x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op2 + '">';
+    /*
+    memTbl.rows[line+2].cells[1].value = opc;
+    memTbl.rows[line+2].cells[2].value = op1;
+    memTbl.rows[line+2].cells[3].value = op2;
+    */
     memTbl.rows[line+2].cells[1].innerHTML = opcx;
     memTbl.rows[line+2].cells[2].innerHTML = op1x;
     memTbl.rows[line+2].cells[3].innerHTML = op2x;
