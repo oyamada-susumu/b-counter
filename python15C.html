@@ -23,9 +23,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="0"></td>
-    <td></td>
-    <td>ﾌﾟﾛｸﾞﾗﾑｶｳﾝﾀ</td>
-    <td><type="text" id="text_program_counter"></td>
+    <td></td><td>ﾌﾟﾛｸﾞﾗﾑｶｳﾝﾀ</td><td><type="text" id="text_program_counter">PC</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -34,7 +32,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="1"></td>
-    <td></td><td>命令レジスタ</td><td><type="text" id="text_instraction_register"> </td>
+    <td></td><td>命令レジスタ</td><td><type="text" id="text_instraction_register">IR</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -43,7 +41,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="2"></td>
-    <td></td><td>命令読解器</td><td><type="text" id="text_instraction_decoda"> </td>
+    <td></td><td>命令読解器</td><td><type="text" id="text_instraction_decoda">ID</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -52,7 +50,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="3"></td> 
-    <td></td><td>レジスタA </td><td><type="text" id="text_register_a"> </td>
+    <td></td><td>レジスタA </td><td><type="text" id="text_register_a">RA</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -61,7 +59,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="4"></td> 
-    <td></td><td>レジスタB</td><td><type="text" id="text_register_b"></td>
+    <td></td><td>レジスタB</td><td><type="text" id="text_register_b">RB</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -70,7 +68,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="5"></td> 
-    <td></td><td>ﾌﾗｸﾞﾚｼﾞｽﾀZF</td><td><type="text" id="text_flag_register_zero"></td>
+    <td></td><td>ﾌﾗｸﾞﾚｼﾞｽﾀZF</td><td><type="text" id="text_flag_register_zero">RF</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -79,7 +77,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="6"></td> 
-    <td></td><td>演算装置</td><td><type="text" id="text_accumlater"></td>
+    <td></td><td>演算装置</td><td><type="text" id="text_accumlater">AC</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -456,7 +454,7 @@ let p=0;                        /* #プログラムカウンタに0を代入す�
 let rega=0; let regb=0;         /* #レジスタAに0，レジスタBに0を代入する。 */
 let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text_program_length.innerHTML=m.length
-displayCPU()
+displayCPU();
 displayMemory();
 /* } */
 /* *** scope global end *** */
