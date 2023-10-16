@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head><title>test_input2</title></head>
+<body bgcolor="#f0f0f0">
+<table id="myTable">
+  <tr>
+    <td><input type="text" class="inputField"></td>
+    <td><input type="text" class="inputField"></td>
+  </tr>
+  <tr>
+    <td><input type="text" class="inputField"></td>
+    <td><input type="text" class="inputField"></td>
+  </tr>
+</table>
+<button onclick="getData()">データ取得</button>
+
+<script>
+function getData() {
+  // テーブル要素を取得
+  var table = document.getElementById("myTable");
+
+  // テーブル内の全ての<input>要素を取得
+  var inputs = table.getElementsByClassName("inputField");
+
+  // データを格納するための配列を作成
+  var inputData = [];
+
+  // 各<input>要素から値を取得し、配列に追加
+  for (var i = 0; i < inputs.length; i++) {
+    var value = inputs[i].value;
+    inputData.push(value);
+  }
+
+  // 取得したデータを表示
+  console.log(inputData);
+}
+</script>
+</body>
+</html>
