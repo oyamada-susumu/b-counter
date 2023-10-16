@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head><title>15C Assembler</title></head>
+<head>
+    <title>15C Assembler</title>
+</head>
 <body bgcolor="#f0f0f0">
 <table id="memTbl">
 <tr>
-    <td colspan="4">アセンブリ言語</td><td></td><td>
-    <td colspan="2">中央処理装置</td><td></td><td></td>
+    <td colspan="6">アセンブリ言語</td>
+    <td colspan="2">中央処理装置(CPU)</td>
+    <td colspan="2">説明</td>
     <td colspan="3">機械語</td>
 </tr>
 <tr>
-    <td>番地</td><td>ｵﾍﾟｺｰﾄﾞ</td><td>オペランド1</td><td>オペランド2</td><td>選択行</td>
-    <td>　</td><td>値</td><td></td><td></td><td></td>
-    <td>opcode</td><td>operand1</td><td>operand2</td>
+    <td>番地</td><td>ｵﾍﾟｺｰﾄﾞ</td><td>ｵﾍﾟﾗﾝﾄﾞ1</td><td>ｵﾍﾟﾗﾝﾄﾞ2</td><td>選択行</td><td>　</td>
+    <td>CPU内部</td><td>値</td>
+    <td>説明</td><td>説明</td>
+    <td>ｵﾍﾟｺｰﾄﾞ</td><td>ｵﾍﾟﾗﾝﾄﾞ1</td><td>ｵﾍﾟﾗﾝﾄﾞ2</td>
 </tr>
 <tr>
     <td>0</td>
@@ -154,7 +158,7 @@
     <td></td>
     <td>
         <select name="opcode" id="opcodeselect">
-            <option value="     ">----</option>
+            <option value="     ">-----</option>
             <option value="READ">READ</option>
             <option value="WRITE">WRITE</option>
             <option value="ADD">ADD</option>
@@ -163,6 +167,7 @@
             <option value="STOP">STOP</option>
             <option value="DATA">DATA</option>
             <option value="NOP">NOP</option>
+            <option value="JEZ">JEZ</option>
         </select>
     </td> 
     <td>
@@ -400,19 +405,20 @@
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 </table>
-
 <script>
-/*window.onload = function(){ */
-/*memTbl.style.textAlign = "center"; */
-/*memTbl.style.verticalAlign = "middle"; */
+/* *** SCRIPT START***  */
+/* window.onload = function(){ */
+/* memTbl.style.textAlign = "center"; */
+/* memTbl.style.verticalAlign = "middle"; */
 /* # Python15B (学習ノートP37も可) */
 /* # 疑似言語の命令コードを定義する。*/
 /* *** Scope is Gloabal *** */
-let READ=1; let WRITE=2; let ADD=3; let SUB=4; let STOP=5; let JNZ=8; let DATA=9;
-let A=6; let B=7;              /* # Aレジスタ、Bレジスタ */
-let JEZ=10;
-let NUL = null;               /* # nullは予約語 空欄 何もしない 何もない ヌル */
-let n=["","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ"];
+const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5; const JNZ=8; const DATA=9;
+const A=6; const B=7;          /* # Aレジスタ、Bレジスタ */
+const JEZ=10; NOP=11;
+const NUL = 0;               /* # 注意！nullは予約語 空欄 何もしない 何もない ヌル */
+const n=[" ","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ","NOP","N12","N13","N14","NUL"];
+const n_under=[" ","read","write","add","stop","sub","a","b","jnz","data","jez","nop","n12","n13","n14","nul"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
 let m=[]; let mx=[]
 /* # [c0, c1, c2, c3] # */
@@ -466,14 +472,14 @@ function displayCPU(){
 }
 pushButtonSet.onclick = function() {
   // テーブル要素を取得
-  var table = document.getElementById("memTbl");
+  let table = document.getElementById("memTbl");
   // テーブル内の全ての<input>要素を取得
-  var inputs = memTbl.getElementsByClassName("inputField");
+  let inputs = memTbl.getElementsByClassName("inputField");
   // データを格納するための配列を作成
-  var inputData = [];
+  let inputData = [];
   // 各<input>要素から値を取得し、配列に追加
-  for (var i = 0; i < inputs.length; i++) {
-    var value = inputs[i].value;
+  for (let i = 0; i < inputs.length; i++) {
+    let value = inputs[i].value;
     inputData.push(value);
   }
   // 取得したデータを表示
@@ -526,7 +532,7 @@ pushButtonStep.onclick = function() {
 function displayMemory(){
     let offsetx=9;
     let offsety=2;
-    for(let i=1; i<m.length; i++) {
+    for(let i=0; i<m.length; i++) {
         for(let j=1; j<4; j++) {            
             if(m[i][j] != null) {
                 memTbl.rows[i+offsety].cells[j+offsetx].innerHTML=decimal_to_binary(m[i][j]);
