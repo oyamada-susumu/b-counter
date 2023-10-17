@@ -469,8 +469,8 @@ function displayCPU(){
     text_flag_register_zero.innerHTML = String(regf); 
 }
 pushButtonSet.onclick = function() {
-  // テーブル要素を取得
-  let table = document.getElementById("memTbl");
+  // テーブル要素を取得(これは不要)　asssted by Chat-GPT 20231017
+  // let table = document.getElementById("memTbl");
   // テーブル内の全ての<input>要素を取得
   let inputs = memTbl.getElementsByClassName("inputField");
   // データを格納するための配列を作成
@@ -482,15 +482,29 @@ pushButtonSet.onclick = function() {
   }
   // 取得したデータを表示
   console.log(inputData);
+  // Chat-GPT ここまで
   // 小文字を大文字に変換する
   for (let i = 0; i < inputs.length; i++) {
     for (let j = 0; j < 16; j++) {
         if (inputData[i] == n_under[j]) {
-            let inputData[i] = n[j];
+            inputData[i] = n[j];
             }
         }
     }
+  // 変換したデータを表示
   console.log(inputData);
+  /* 疑似プログラミング言語（文字）と機械語（数値）メモリにセットする */
+  m=[]; mx=[];
+  console.log(m);   /*機械語（数値）*/
+  console.log(mx);  /*疑似プログラミング言語の命令（文字）*/
+  let m_code=[];
+  for (let i = 0; i < inputs.lrngth; i++) {
+    m_code[i]=inputData[i]
+    for (let j = 0; j <16; j++) {
+        if (inputData[i] == n[j]) {
+            }
+    }
+  }
 }
 pushButtonSetline.onclick = function() {
     let elements = document.getElementsByName('lineSelect');
