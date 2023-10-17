@@ -6,7 +6,7 @@
 <body bgcolor="#f0f0f0">
 <table id="memTbl">
 <tr>
-    <td colspan="6">アセンブリ言語</td>
+    <td colspan="6">主記憶装置(仮想プログラミング言語)</td>
     <td colspan="2">中央処理装置(CPU)</td>
     <td colspan="2">説明</td>
     <td colspan="3">機械語</td>
@@ -126,7 +126,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="11"></td> 
-    <td></td><td></td><td><type="text" id="text_program_length"></td>
+    <td></td><td>最大行数</td><td><type="text" id="text_program_length"></td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -271,7 +271,7 @@
     <td>15</td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField"  style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="15"></td> 
     <td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
@@ -481,6 +481,15 @@ pushButtonSet.onclick = function() {
     inputData.push(value);
   }
   // 取得したデータを表示
+  console.log(inputData);
+  // 小文字を大文字に変換する
+  for (let i = 0; i < inputs.length; i++) {
+    for (let j = 0; j < 16; j++) {
+        if (inputData[i] == n_under[j]) {
+            let inputData[i] = n[j];
+            }
+        }
+    }
   console.log(inputData);
 }
 pushButtonSetline.onclick = function() {
