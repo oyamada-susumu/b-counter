@@ -481,7 +481,7 @@ pushButtonSet.onclick = function() {
     inputData.push(value);
   }
   // 取得したデータを表示
-  console.log(inputData);
+  // console.log(inputData);
   // Chat-GPT ここまで
   // 小文字を大文字に変換する
   for (let i = 0; i < inputs.length; i++) {
@@ -495,14 +495,14 @@ pushButtonSet.onclick = function() {
   console.log(inputData);
   /* 疑似プログラミング言語（文字）と機械語（数値）メモリにセットする */
   m=[]; mx=[];
-  console.log(m);   /*機械語（数値）*/
-  console.log(mx);  /*疑似プログラミング言語の命令（文字）*/
+  // console.log(m);   /*機械語（数値）*/
+  // console.log(mx);  /*疑似プログラミング言語の命令（文字）*/
   let m_code=[];
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < inputs.length; i=i+3) {
     c0 = i;
-    c1 = inputData[i+1];
-    c2 = inputData[i+2];
-    c3 = inputData[i+3];
+    c1 = inputData[i];
+    c2 = inputData[i+1];
+    c3 = inputData[i+2];
     for (let j = 0; j <16; j++) {
         if (c1 == n[j]) {
             c1 = j;
@@ -510,12 +510,13 @@ pushButtonSet.onclick = function() {
         if (c2 == n[j]) {
             c2 = j;
             }
-        if (c1 == n[j]) {
+        if (c3 == n[j]) {
             c3 = j;
             }      
     }
     m.push([c0,c1,c2,c3]);
   }
+  console.log(m);
   displayMemory();
 }
 pushButtonSetline.onclick = function() {
@@ -552,14 +553,14 @@ pushButtonRun.onclick = function() {
         }
         forwardonestep();
         displayMemory();                
-        displayCPU()
+        displayCPU();
         }
     }
 pushButtonStep.onclick = function() {
     if (m[p][1] != STOP) { 
         forwardonestep();
         displayMemory();                
-        displayCPU()
+        displayCPU();
     }
 }
 function displayMemory(){
