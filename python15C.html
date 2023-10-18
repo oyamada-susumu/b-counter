@@ -415,8 +415,8 @@ const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5; const JNZ=8
 const A=6; const B=7;          /* # Aレジスタ、Bレジスタ */
 const JEZ=10; NOP=11;
 const NUL = 0;               /* # 注意！nullは予約語 空欄 何もしない 何もない ヌル */
-const n=[" ","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ","NOP","N12","N13","N14","NUL"];
-const n_under=[" ","read","write","add","stop","sub","a","b","jnz","data","jez","nop","n12","n13","n14","nul"];
+const n=["NUL","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ","NOP","N12","N13","N14","N15"];
+const n_under=["nul","read","write","add","stop","sub","a","b","jnz","data","jez","nop","n12","n13","n14","N15"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
 let m=[]; let mx=[]
 /* # [c0, c1, c2, c3] # */
@@ -498,13 +498,25 @@ pushButtonSet.onclick = function() {
   console.log(m);   /*機械語（数値）*/
   console.log(mx);  /*疑似プログラミング言語の命令（文字）*/
   let m_code=[];
-  for (let i = 0; i < inputs.lrngth; i++) {
-    m_code[i]=inputData[i]
+  for (let i = 0; i < 30; i++) {
+    c0 = i;
+    c1 = inputData[i+1];
+    c2 = inputData[i+2];
+    c3 = inputData[i+3];
     for (let j = 0; j <16; j++) {
-        if (inputData[i] == n[j]) {
+        if (c1 == n[j]) {
+            c1 = j;
             }
+        if (c2 == n[j]) {
+            c2 = j;
+            }
+        if (c1 == n[j]) {
+            c3 = j;
+            }      
     }
+    m.push([c0,c1,c2,c3]);
   }
+  displayMemory();
 }
 pushButtonSetline.onclick = function() {
     let elements = document.getElementsByName('lineSelect');
