@@ -4,6 +4,7 @@
     <title>15C Assembler</title>
 </head>
 <body bgcolor="#c0c0c0">
+<center>
 <table id="memTbl">
 <tr>
     <td colspan="6">主記憶装置</td>
@@ -156,16 +157,16 @@
     <td></td>
     <td>
         <select name="opcode" id="opcodeselect">
-            <option value="     ">-----</option>
+            <option value="NUL">-----</option>
             <option value="READ">READ</option>
             <option value="WRITE">WRITE</option>
             <option value="ADD">ADD</option>
             <option value="SUB">SUB</option>
-            <option value="JNZ">JNZ</option>
             <option value="STOP">STOP</option>
+            <option value="JNZ">JNZ</option>
             <option value="DATA">DATA</option>
-            <option value="NOP">NOP</option>
             <option value="JEZ">JEZ</option>
+            <option value="NOP">NOP</option>
         </select>
     </td> 
     <td>
@@ -403,6 +404,7 @@
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 </table>
+</center>
 <script>
 // *** SCRIPT START ***
 // window.onload = function(){
@@ -411,16 +413,19 @@
 // # Python15B (学習ノートP37も可)
 // # 疑似言語の命令コードを定義する
 // *** Scope is Gloabal ***
-const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5; const JNZ=8; const DATA=9;
-const A=6; const B=7;        /* # Aレジスタ、Bレジスタ */
-const JEZ=10; NOP=11;
-const NUL = 0;               /* # 注意！nullは予約語 空欄 何もしない 何もない ヌル */
+const NUL=0; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
+const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11;
+// 注意！nullは予約語なので,null,NULL,Nullなどの名前は使わない。
+// NUL=0とした。意味は空欄、何もしない、何もない。読み方は「ヌル」。
 /*        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15 */
-const n=["NUL","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ","NOP","NOP","NOP","NOP","NOP"];
-const n_under=["nul","read","write","add","stop","sub","a","b","jnz","data","jez","nop","nop","nop","nop","nop"];
-/* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
+const n=["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","NOP","NOP","NOP","NOP"];
+const n_under=["nul","read","write","add","sub","stop","a","b","jnz","data","jez","nop","nop","nop","nop","nop"];
+const charUnder=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+const charUpper=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+// 主記憶(メモリ)この下にプログラムやデータを記入する。Python版では,m.append([1, READ, A, 10])とした。
+// 見本のプログラム 10番地と11番地の値を加算して12番地に書く。
 let m=[];
-// # [c0, c1, c2, c3]
+// [c0, c1, c2, c3]
 m.push([0, NUL, NUL, NUL]);
 m.push([1, READ, A, 10]);
 m.push([2, ADD, A, 11]);
@@ -458,8 +463,12 @@ let regf=0;                     /* #フラグレジスタに0を代入する。 
 text_program_length.innerHTML=m.length
 displayCPU();
 displayMemory();
-/* *** scope global end *** */
-/* *** function start *** */
+// *** scope global end ***
+// *** function start ****
+function resetCPU(){
+p=0; rega=0; regb=0; regf=0;
+text_program_length.innerHTML=m.length
+}
 function displayCPU(){
     //text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
     text_program_counter.innerHTML = String(p);
@@ -470,7 +479,7 @@ function displayCPU(){
     text_flag_register_zero.innerHTML = String(regf); 
 }
 pushButtonSet.onclick = function() {
-  // テーブル要素を取得(これは不要)　asssted by Chat-GPT 20231017
+  // テーブル要素を取得(これは不要) assisted by Chat-GPT 20231017
   // let table = document.getElementById("memTbl");
   // テーブル内の全ての<input>要素を取得
   let inputs = memTbl.getElementsByClassName("inputField");
@@ -496,8 +505,9 @@ pushButtonSet.onclick = function() {
   console.log(inputData);
   /* 機械語（数値）メモリにセットする */
   m=[];
+  let adr=0;
   for (let i = 0; i < inputs.length; i=i+3) {
-    c0 = i;
+    c0 = adr;
     c1 = inputData[i];
     c2 = inputData[i+1];
     c3 = inputData[i+2];
@@ -513,9 +523,12 @@ pushButtonSet.onclick = function() {
             }      
     }
     m.push([c0,c1,c2,c3]);
-  }
+    adr=adr+1;
+}
   console.log(m);
   displayMemory();
+  resetCPU();
+  displayCPU();
 }
 pushButtonSetline.onclick = function() {
     let elements = document.getElementsByName('lineSelect');
