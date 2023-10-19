@@ -3,10 +3,10 @@
 <head>
     <title>15C Assembler</title>
 </head>
-<body bgcolor="#f0f0f0">
+<body bgcolor="#c0c0c0">
 <table id="memTbl">
 <tr>
-    <td colspan="6">主記憶装置(仮想プログラミング言語)</td>
+    <td colspan="6">主記憶装置</td>
     <td colspan="2">中央処理装置(CPU)</td>
     <td colspan="2">説明</td>
     <td colspan="3">機械語</td>
@@ -415,25 +415,26 @@ const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5; const JNZ=8
 const A=6; const B=7;          /* # Aレジスタ、Bレジスタ */
 const JEZ=10; NOP=11;
 const NUL = 0;               /* # 注意！nullは予約語 空欄 何もしない 何もない ヌル */
-const n=["NUL","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ","NOP","N12","N13","N14","N15"];
-const n_under=["nul","read","write","add","stop","sub","a","b","jnz","data","jez","nop","n12","n13","n14","N15"];
+/*        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15 */
+const n=["NUL","READ","WRITE","ADD","STOP","SUB","A","B","JNZ","DATA","JEZ","NOP","NOP","NOP","NOP","NOP"];
+const n_under=["nul","read","write","add","stop","sub","a","b","jnz","data","jez","nop","nop","nop","nop","nop"];
 /* # 主記憶(メモリ)この下にプログラムやデータを記入する。 */
-let m=[]; let mx=[]
-/* # [c0, c1, c2, c3] # */
+let m=[];
+// # [c0, c1, c2, c3]
 m.push([0, NUL, NUL, NUL]);
 m.push([1, READ, A, 10]);
 m.push([2, ADD, A, 11]);
 m.push([3, WRITE, 12, A]);
 m.push([4, STOP, NUL, NUL]);
-m.push([5, JNZ, 3, NUL]);
-m.push([6, WRITE, 12, A]);
-m.push([7, STOP, NUL, NUL]);
+m.push([5, NUL, NUL, NUL]);
+m.push([6, NUL, NUL, NUL]);
+m.push([7, NUL, NUL, NUL]);
 m.push([8, NUL, NUL, NUL]);
 m.push([9, NUL, NUL, NUL]);
-m.push([10,DATA, 5, NUL]);      /* # 5×2=10 */
-m.push([11,DATA, 2, NUL]);
-m.push([12,DATA, 0, NUL]);      /* #計算結果が入る */
-m.push([13,DATA, 1, NUL]);      /* #定数1 2-1=1,1-1=0 */
+m.push([10,DATA, 3, NUL]); 
+m.push([11,DATA, 5, NUL]);
+m.push([12,NUL, NUL, NUL]);
+m.push([13,NUL, NUL, NUL]);
 m.push([14,NUL, NUL, NUL]);
 m.push([15,NUL, NUL, NUL]);
 m.push([16,NUL, NUL, NUL]);
@@ -450,13 +451,13 @@ m.push([26,NUL, NUL, NUL]);
 m.push([27,NUL, NUL, NUL]);
 m.push([28,NUL, NUL, NUL]);
 m.push([29,NUL, NUL, NUL]);
+//
 let p=0;                        /* #プログラムカウンタに0を代入する。*/
 let rega=0; let regb=0;         /* #レジスタAに0，レジスタBに0を代入する。 */
 let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
 text_program_length.innerHTML=m.length
 displayCPU();
 displayMemory();
-/* } */
 /* *** scope global end *** */
 /* *** function start *** */
 function displayCPU(){
@@ -485,7 +486,7 @@ pushButtonSet.onclick = function() {
   // Chat-GPT ここまで
   // 小文字を大文字に変換する
   for (let i = 0; i < inputs.length; i++) {
-    for (let j = 0; j < 16; j++) {
+    for (let j = 0; j < n.length; j++) {
         if (inputData[i] == n_under[j]) {
             inputData[i] = n[j];
             }
@@ -493,17 +494,14 @@ pushButtonSet.onclick = function() {
     }
   // 変換したデータを表示
   console.log(inputData);
-  /* 疑似プログラミング言語（文字）と機械語（数値）メモリにセットする */
-  m=[]; mx=[];
-  // console.log(m);   /*機械語（数値）*/
-  // console.log(mx);  /*疑似プログラミング言語の命令（文字）*/
-  let m_code=[];
+  /* 機械語（数値）メモリにセットする */
+  m=[];
   for (let i = 0; i < inputs.length; i=i+3) {
     c0 = i;
     c1 = inputData[i];
     c2 = inputData[i+1];
     c3 = inputData[i+2];
-    for (let j = 0; j <16; j++) {
+    for (let j = 0; j < n.length; j++) {
         if (c1 == n[j]) {
             c1 = j;
             }
@@ -528,20 +526,18 @@ pushButtonSetline.onclick = function() {
             checkValue = elements.item(i).value;
         }
     }
-    console.log('選択されているのは ' + checkValue + ' です');
+    // console.log('選択されているのは ' + checkValue + ' です');
     let line =parseInt(checkValue);
     let opc = opcodeselect.value;
     let op1 = operand1select.value;
     let op2 = operand2select.value;
-    console.log(checkValue+" "+opc+" "+op1+" "+op2 + " です");
+    // console.log(checkValue+" "+opc+" "+op1+" "+op2 + " です");
     let opcx ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + opc + '">';
     let op1x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op1 + '">';
     let op2x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op2 + '">';
-    /*
-    memTbl.rows[line+2].cells[1].value = opc;
-    memTbl.rows[line+2].cells[2].value = op1;
-    memTbl.rows[line+2].cells[3].value = op2;
-    */
+    // memTbl.rows[line+2].cells[1].value = opc;
+    // memTbl.rows[line+2].cells[2].value = op1;
+    // memTbl.rows[line+2].cells[3].value = op2;
     memTbl.rows[line+2].cells[1].innerHTML = opcx;
     memTbl.rows[line+2].cells[2].innerHTML = op1x;
     memTbl.rows[line+2].cells[3].innerHTML = op2x;
@@ -631,20 +627,16 @@ function forwardonestep() {
             flagset(regb);          /* #関数flagsetを呼び出す。 */
         }
     }           
-/* # JNZ Jump Not Zero 演算結果が0でなければジャンプする。 */
 /* # 直前の演算結果が0ならば regfに1がセットされている。 */
-    if (c1 == JNZ) {                /* #もしJNZ命令ならば */
+/* # JNZ Jump Not Zero 演算結果が0でなければジャンプする。 */
+/* # JEZ Jump Equal Zero 演算結果が0ならばジャンプする。 */
+if (c1 == JNZ) {                    /* #もしJNZ命令ならば */
         if (regf != 1) {            /* #もしフラグレジスタの値が1でなければ */
             p = c2;                 /* #プログラムカウンタに指定番地を代入する。 */
         } else {                    /* #そうでなければ */
             p = p + 1;              /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
         }
-    } else {                        /* #そうでなければ */
-        p = p + 1;                  /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
-            }
-/* # JEZ Jump Equal Zero 演算結果が0ならばジャンプする。 */
-/* # 直前の演算結果が0ならば regfに1がセットされている。 */
-    if (c1 == JEZ) {                /* #もしJEZ命令ならば */
+    } else if (c1 == JEZ) {         /* #そうでなくて、もしJEZ命令ならば */              
         if (regf = 1) {             /* #もしフラグレジスタの値が1ならば */
             p = c2;                 /* #プログラムカウンタに指定番地を代入する。 */
         } else {                    /* #そうでなければ */
