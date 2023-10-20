@@ -413,7 +413,7 @@
 // # Python15B (学習ノートP37も可)
 // # 疑似言語の命令コードを定義する
 // *** Scope is Gloabal ***
-const NUL=null; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
+const NUL=0; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
 const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11;
 // 注意！nullは予約語なので,null,NULL,Nullなどの名前は使わない。
 // NUL=0とした。意味は空欄、何もしない、何もない。読み方は「ヌル」。
@@ -459,7 +459,7 @@ m.push([29,NUL, NUL, NUL]);
 //
 let p=0;                        /* #プログラムカウンタに0を代入する。*/
 let rega=0; let regb=0;         /* #レジスタAに0，レジスタBに0を代入する。 */
-let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに１，それ以外は0 */
+let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに1，それ以外は0 */
 text_program_length.innerHTML=m.length
 displayCPU();
 displayMemory();
