@@ -413,7 +413,7 @@
 // # Python15B (学習ノートP37も可)
 // # 疑似言語の命令コードを定義する
 // *** Scope is Gloabal ***
-const NUL=0; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
+const NUL=null; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
 const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11;
 // 注意！nullは予約語なので,null,NULL,Nullなどの名前は使わない。
 // NUL=0とした。意味は空欄、何もしない、何もない。読み方は「ヌル」。
@@ -643,21 +643,16 @@ function forwardonestep() {
 /* # 直前の演算結果が0ならば regfに1がセットされている。 */
 /* # JNZ Jump Not Zero 演算結果が0でなければジャンプする。 */
 /* # JEZ Jump Equal Zero 演算結果が0ならばジャンプする。 */
-if (c1 == JNZ) {                    /* #もしJNZ命令ならば */
-        if (regf != 1) {            /* #もしフラグレジスタの値が1でなければ */
-            p = c2;                 /* #プログラムカウンタに指定番地を代入する。 */
-        } else {                    /* #そうでなければ */
-            p = p + 1;              /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
-        }
-    } else if (c1 == JEZ) {         /* #そうでなくて、もしJEZ命令ならば */              
-        if (regf = 1) {             /* #もしフラグレジスタの値が1ならば */
-            p = c2;                 /* #プログラムカウンタに指定番地を代入する。 */
-        } else {                    /* #そうでなければ */
-            p = p + 1;              /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
-        }
-    } else {                        /* #そうでなければ */
-        p = p + 1;                  /* #プログラムカウンタに１を足したものをプログラムカウンタに代入する。 */
-            }
+    switch(c1) {
+        case JNZ:
+            if (regf = 0) {
+                p = c2; }
+        case JEZ:        
+            if (regf = 1) { 
+                p = c2; }
+        default:
+            p = p + 1;
+    }
 }
 /* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
 function flagset(x){
