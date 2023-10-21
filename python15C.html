@@ -7,10 +7,10 @@
 <center>
 <table id="memTbl">
 <tr>
-    <td colspan="6">主記憶装置</td>
-    <td colspan="2">中央処理装置(CPU)</td>
+    <td colspan="6">アセンブリ言語</td>
+    <td colspan="2">中央処理装置（CPU）</td>
     <td colspan="2">説明</td>
-    <td colspan="3">機械語</td>
+    <td colspan="3">主記憶装置（機械語）</td>
 </tr>
 <tr>
     <td>番地</td><td>ｵﾍﾟｺｰﾄﾞ</td><td>ｵﾍﾟﾗﾝﾄﾞ1</td><td>ｵﾍﾟﾗﾝﾄﾞ2</td><td>選択行</td><td>　</td>
@@ -20,35 +20,35 @@
 </tr>
 <tr>
     <td>0</td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="READ"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="A"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="10"></td>
     <td><input type="radio" name="lineSelect" value="0"></td>
     <td></td><td>ﾌﾟﾛｸﾞﾗﾑｶｳﾝﾀ</td><td><type="text" id="text_program_counter">PC</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>1</td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="ADD"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="A"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="11"></td>
     <td><input type="radio" name="lineSelect" value="1"></td>
     <td></td><td>命令レジスタ</td><td><type="text" id="text_instraction_register">IR</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>2</td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="WRITE"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="12"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="A"></td>
     <td><input type="radio" name="lineSelect" value="2"></td>
     <td></td><td>命令読解器</td><td><type="text" id="text_instraction_decoda">ID</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>3</td>  
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="DSP"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="12"></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="3"></td> 
     <td></td><td>レジスタA </td><td><type="text" id="text_register_a">RA</td>
@@ -56,7 +56,7 @@
 </tr>
 <tr>
     <td>4</td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="STOP"></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="4"></td> 
@@ -69,7 +69,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="5"></td> 
-    <td></td><td>ﾌﾗｸﾞﾚｼﾞｽﾀZF</td><td><type="text" id="text_flag_register_zero">RF</td>
+    <td></td><td>ﾌﾗｸﾞﾚｼﾞｽﾀZ</td><td><type="text" id="text_flag_register_zero">RZ</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -113,8 +113,8 @@
 </tr>
 <tr>
     <td>10</td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="DATA"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="3"></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="10"></td>  
     <td></td><td><input type="button" id="pushButtonStop" value="停止"></td>
@@ -123,8 +123,8 @@
 </tr>
 <tr>
     <td>11</td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
-    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="DATA"></td>
+    <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="5"></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="11"></td> 
     <td></td><td>最大行数</td><td><type="text" id="text_program_length"></td>
@@ -136,7 +136,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="12"></td> 
-    <td></td><td></td><td></td><td></td><td></td>
+    <td></td><td>DSP表示</td><td><type="text" id="text_display"></td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -167,6 +167,7 @@
             <option value="DATA">DATA</option>
             <option value="JEZ">JEZ</option>
             <option value="NOP">NOP</option>
+            <option value="DSP">DSP</option>
         </select>
     </td> 
     <td>
@@ -407,25 +408,24 @@
 </center>
 <script>
 // *** SCRIPT START ***
+// *** SCOPE IS GLOABAL****
 // window.onload = function(){
 // memTbl.style.textAlign = "center";
 // memTbl.style.verticalAlign = "middle";
-// # Python15B (学習ノートP37も可)
-// # 疑似言語の命令コードを定義する
-// *** Scope is Gloabal ***
+// 疑似言語の命令コードを定義する
 const NUL=0; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
-const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11;
-// 注意！nullは予約語なので,null,NULL,Nullなどの名前は使わない。
-// NUL=0とした。意味は空欄、何もしない、何もない。読み方は「ヌル」。
-/*        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15 */
-const n=["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","NOP","NOP","NOP","NOP"];
-const n_under=["nul","read","write","add","sub","stop","a","b","jnz","data","jez","nop","nop","nop","nop","nop"];
+const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11; const DSP=12;
+// 注意！nullは変数型の１つ。予約語なので,null,NULL,Nullなどの名前は使わないこと。
+// NUL=0とした。意味は空、何もしない、何もない。読み方は「ヌル」。
+//        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15
+const n=["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","DSP","NOP","NOP","NOP"];
+const n_under=["nul","read","write","add","sub","stop","a","b","jnz","data","jez","dsp","nop","nop","nop","nop"];
 const charUnder=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 const charUpper=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-// 主記憶(メモリ)この下にプログラムやデータを記入する。Python版では,m.append([1, READ, A, 10])とした。
-// 見本のプログラム 10番地と11番地の値を加算して12番地に書く。
-let m=[];
-// [c0, c1, c2, c3]
+let m=[];       // 主記憶（メモリ）を初期化する。
+// この下にプログラムやデータを記入する。Python版では、m.append([1, READ, A, 10])とした。
+// 見本のプログラム 10番地と11番地の値を加算して12番地に書く。3+5=8
+// [c0, c1, c2, c3]　番地　オペコード　オペランド１　オペンランド２の順
 m.push([0, NUL, NUL, NUL]);
 m.push([1, READ, A, 10]);
 m.push([2, ADD, A, 11]);
@@ -457,17 +457,19 @@ m.push([27,NUL, NUL, NUL]);
 m.push([28,NUL, NUL, NUL]);
 m.push([29,NUL, NUL, NUL]);
 //
-let p=0;                        /* #プログラムカウンタに0を代入する。*/
-let rega=0; let regb=0;         /* #レジスタAに0，レジスタBに0を代入する。 */
-let regf=0;                     /* #フラグレジスタに0を代入する。 演算結果が0のときに1，それ以外は0 */
-text_program_length.innerHTML=m.length
+let p=0;                        // プログラムカウンタに0を代入する。
+let rega=0; let regb=0;         // レジスタAに0，レジスタBに0を代入する。
+let regf=0;                     // フラグレジスタに0を代入する。 演算結果が0のときに1，それ以外は0
+text_program_length.innerHTML=m.length;
 displayCPU();
 displayMemory();
-// *** scope global end ***
-// *** function start ****
+// *** GLOABAL SCOPE END ***
+// *** FUNCTION START ****
 function resetCPU(){
 p=0; rega=0; regb=0; regf=0;
-text_program_length.innerHTML=m.length
+text_program_length.innerHTML=m.length;
+text_accumlater.innerHTML="";
+text_display.innerHTML="";
 }
 function displayCPU(){
     //text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
@@ -503,7 +505,7 @@ pushButtonSet.onclick = function() {
     }
   // 変換したデータを表示
   console.log(inputData);
-  /* 機械語（数値）メモリにセットする */
+  // 機械語（数値）メモリにセットする
   m=[];
   let adr=0;
   for (let i = 0; i < inputs.length; i=i+3) {
@@ -556,7 +558,7 @@ pushButtonSetline.onclick = function() {
     memTbl.rows[line+2].cells[3].innerHTML = op2x;
 }
 pushButtonRun.onclick = function() {
-    while (m[p][1] != STOP) {      /* #STOPでない間以下を繰り返す。 */
+    while (m[p][1] != STOP) {                   // STOPでない間以下を繰り返す。
         if (pushButtonStop.onclick == true){
             break;
         }
@@ -568,7 +570,7 @@ pushButtonRun.onclick = function() {
 pushButtonStep.onclick = function() {
     if (m[p][1] != STOP) { 
         forwardonestep();
-        displayMemory();                
+        displayMemory();
         displayCPU();
     }
 }
@@ -600,49 +602,72 @@ function decimal_to_binary(x){
     return c;
 }
 function forwardonestep() {
-    /* #c0=行番号,c1=命令,c2=レジスタ名または番地,c3=レジスタ名または番地 */
-    let c0=m[p][0]; let c1=m[p][1]; let c2=m[p][2]; let c3=m[p][3]
-    if (c1 == NUL) {           /* #もしNUL命令ならば */
-        ;                      /* #なにもしない。 */
-        }
-    /* 実行命令 */               
-    if (c1 == READ) {         /* #もしREAD命令ならば */
-        if (c2 == A) {              /* #もしレジスタAならば */
-            rega = m[c3][2];        /* #指定番地の値をレジスタAに読み込む。 */
-        } else if (c2 == B) {       /* #もしレジスタBならば */
-            regb = m[c3][2];        /* #指定番地の値をレジスタBに読み込む。 */
+    // c0=行番号,c1=命令,c2=レジスタ名または番地,c3=レジスタ名または番地
+    let c0=m[p][0]; let c1=m[p][1]; let c2=m[p][2]; let c3=m[p][3];
+    // if (c1 == NUL) {          // もしNUL命令ならば　←なにもしないのでNUL命令は無視する。
+    //    ;                      // なにもしない。     ←これらの行は不要
+    //    }                                            ←何もしないので不要
+    // ***  １行（１ステップ）だけ命令を実行する ***               
+    if (c1 == READ) {         // もしREAD命令ならば
+        if (c2 == A) {              // もしレジスタAならば
+            rega = m[c3][2];        // 指定番地の値をレジスタAに読み込む。
+        } else if (c2 == B) {       // もしレジスタBならば
+            regb = m[c3][2];        // 指定番地の値をレジスタBに読み込む。
         } 
     }  
-    if (c1 == WRITE) {       /* #もしWRITE命令ならば */
-        if (c3 == A) {              /* #もしレジスタAならば */
-            m[c2][1] = DATA;        /* #指定番地に命令コードDATAの値を書き込む。 */
-            m[c2][2] = rega;        /* #指定番地にレジスタAの値を書き込む。 */
-        } else if (c3 == B) {       /* #もしレジスタBならば */
-            m[c2][1] = DATA;        /* #指定番地に命令コードDATAの値を書き込む。 */
-            m[c2][2] = regb;        /* #指定番地にレジスタBの値を書き込む。 */
+    if (c1 == WRITE) {       // もしWRITE命令ならば
+        if (c3 == A) {              // もしレジスタAならば
+            m[c2][1] = DATA;        // 指定番地に命令コードDATAの値を書き込む。
+            m[c2][2] = rega;        // 指定番地にレジスタAの値を書き込む。
+        } else if (c3 == B) {       // もしレジスタBならば
+            m[c2][1] = DATA;        // 指定番地に命令コードDATAの値を書き込む。
+            m[c2][2] = regb;        // 指定番地にレジスタBの値を書き込む。
         }
     }
-    if (c1 == ADD ) {        /* #もしADD命令ならば */
-        if (c2 == A) {              /* #もしレジスタAならば */
-            rega = rega + m[c3][2]; /* #レジスタAの値に指定番地の値を足したものをレジスタAに代入する。 */
-            flagset(rega);          /* #関数flagsetを呼び出す。 */
-        } else if (c2 == B) {       /* #もしレジスタBならば */
-            regb = regb + m[c3][2]; /* #レジスタBの値に指定番地の値を足したものをレジスタBに代入する。 */
-            flagset(regb);          /* #関数flagsetを呼び出す。 */
+    if (c1 == ADD ) {        // もしADD命令ならば
+        if (c2 == A) {                          // もしレジスタAならば
+            rega=Math.floor(rega);              // レジスタAの値（文字）を整数切り捨てに変換する。
+            m[c3][2] = Math.floor(m[c3][2]);    // 指定番地の値（文字）を整数切り捨てに変換する。
+            let temp = rega;                    // 演算結果を表示するために演算前のレジスタAの値をtempに保存しておく。
+            rega = rega + m[c3][2];             // レジスタAの値に指定番地の値を足したものをレジスタAに代入する。
+            flagset(rega);                      // 関数flagsetを呼び出す。
+            text_accumlater.innerHTML = temp + "+" + m[c3][2] + "=" + rega;         //演算装置に計算結果を表示する。
+        } else if (c2 == B) {                   // もしレジスタBならば
+            regb=Math.floor(regb);              
+            m[c3][2] = Math.floor(m[c3][2]);
+            let temp = regb;
+            regb = regb + m[c3][2];             // レジスタBの値に指定番地の値を足したものをレジスタBに代入する。
+            flagset(regb);                      // 関数flagsetを呼び出す。
+            text_accumlater.innerHTML = temp + "+" + m[c3][2] + "=" + regb;
         }
     }
-    if (c1 == SUB) {         /* #もしSUB命令ならば */
-        if (c2 == A) {              /* #もしレジスタAならば */
-            rega = rega - m[c3][2]; /* #レジスタAの値から指定番地の値を引いたものをAレジスタに代入する。 */
-            flagset(rega);          /* #関数flagsetを呼び出す。 */
-        } else if (c2 == B) {       /* #もしレジスタBならば */
-            regb = regb - m[c3][2]; /* #レジスタBの値から指定番地の値を引いたものをBレジスタに代入する。 */
-            flagset(regb);          /* #関数flagsetを呼び出す。 */
+    if (c1 == SUB) {         // もしSUB命令ならば
+        if (c2 == A) {                          // もしレジスタAならば
+            rega=Math.floor(rega);
+            m[c3][2] = Math.floor(m[c3][2]);
+            let temp = rega;
+            rega = rega - m[c3][2];             // レジスタAの値から指定番地の値を引いたものをAレジスタに代入する。
+            flagset(rega);                      // 関数flagsetを呼び出す。
+            text_accumlater.innerHTML = temp + "-" + m[c3][2] + "=" + rega;
+        } else if (c2 == B) {                   // もしレジスタBならば
+            regb=Math.floor(regb);
+            m[c3][2] = Math.floor(m[c3][2]);
+            let temp = regb;
+            regb = regb - m[c3][2];             // レジスタBの値から指定番地の値を引いたものをBレジスタに代入する。
+            flagset(regb);                      // 関数flagsetを呼び出す。
+            text_accumlater.innerHTML = temp + "-" + m[c3][2] + "=" + regb;
         }
-    }           
-/* # 直前の演算結果が0ならば regfに1がセットされている。 */
-/* # JNZ Jump Not Zero 演算結果が0でなければジャンプする。 */
-/* # JEZ Jump Equal Zero 演算結果が0ならばジャンプする。 */
+    } 
+    if (c1 == DSP) {           // もしDSP命令ならは、指定番地の内容を10進数で表示する。
+        let dsp1=m[c2][1]; let dsp2=m[c2][2]; let dsp3=m[c2][3];
+        // if (dsp1 == undefined) { dsp1 = "----"; }
+        // if (dsp2 == undefined) { dsp2 = "----"; }
+        // if (dsp3 == undefined) { dsp3 = "----"; }        
+        text_display.innerHTML= c2 + "番地は[" + dsp1 + "][" + dsp2 + "][" + dsp3 +"]";
+    }          
+// 直前の演算結果が0ならば、regfに1がセットされている。
+// JNZ (Jump Not Zero) 演算結果が0でなければ指定番地c2にジャンプする。
+// JEZ (Jump Equal Zero) 演算結果が0ならば指定番地c2にジャンプする。
     switch(c1) {
         case JNZ:
             if (regf = 0) {
@@ -654,22 +679,23 @@ function forwardonestep() {
             p = p + 1;
     }
 }
-/* #演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。*/
+// 演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。
 function flagset(x){
-/*    global regf */
+// gloabl regf
     if (x == 0) {
         regf = 1;
     } else {
         regf = 0;
     }
 }
-/* #レジスタの内容を表示する関数 */
+// レジスタの内容を表示する関数
 function regdump(){
-/*    global p; rega; regb; regf */
-window.alert("プログラムカウンタ= "+p+" レジスタA= "+rega+" レジスタB= "+regb+" フラグレジスタ= "+regf)
+// global p, rega, regb, regf
+    window.alert("プログラムカウンタ= "+p+" レジスタA= "+rega+" レジスタB= "+regb+" フラグレジスタ= "+regf)
 }
-/* #メモリーの内容を表示する関数（メモリダンプ） */
+// メモリーの内容を表示する関数（メモリダンプ）
 function memdump(x){
+// global p, rega, regb, regf
     msg="PC= "+p+" A= "+rega+" B= "+regb+" F= "+regf+"\n";
     for(let i=0; i < x.length; i++ ){
         for(let j=0; j < 4; j++ ){
@@ -677,7 +703,7 @@ function memdump(x){
             }
         msg=msg+"| "
         if ( i%5 == 0 ) {
-             msg=msg+"\n" ;    /* キーボードの\（バックシュラッス）￥ではなく　*/
+             msg=msg+"\n" ;    // キーボードの\バックシュラッシュ、￥円マークではない
         }
     }
     window.alert(msg);
