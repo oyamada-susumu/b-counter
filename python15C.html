@@ -706,13 +706,13 @@ function forwardonestep() {
 // JEZ (Jump Equal Zero) 演算結果が0ならば指定番地c2にジャンプする。
     switch(c1) {
         case JMP:
-            p = c2;
+            p = c3;
         case JNZ:
             if (regf = 0) {
-                p = c2; }
+                p = c3; }
         case JEZ:        
             if (regf = 1) { 
-                p = c2; }
+                p = c3; }
         default:
             p = p + 1;
     }
