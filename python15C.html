@@ -136,8 +136,12 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="12"></td> 
-    <td></td><td>DSP表示</td><td><type="text" id="text_display"></td>
-    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    <td></td>
+    <td><type="text" id="text_dsp0"></td>
+    <td><type="text" id="text_dsp1"></td>
+    <td><type="text" id="text_dsp2"></td>
+    <td><type="text" id="text_dsp3"></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
     <td>13</td>
@@ -168,6 +172,7 @@
             <option value="JEZ">JEZ</option>
             <option value="NOP">NOP</option>
             <option value="DSP">DSP</option>
+            <option value="JMP">JMP</option>
         </select>
     </td> 
     <td>
@@ -414,12 +419,12 @@
 // memTbl.style.verticalAlign = "middle";
 // 疑似言語の命令コードを定義する
 const NUL=0; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
-const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11; const DSP=12;
+const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11; const DSP=12; const JMP=13;
 // 注意！nullは変数型の１つ。予約語なので,null,NULL,Nullなどの名前は使わないこと。
 // NUL=0とした。意味は空、何もしない、何もない。読み方は「ヌル」。
 //        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15
-const n=["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","DSP","NOP","NOP","NOP"];
-const n_under=["nul","read","write","add","sub","stop","a","b","jnz","data","jez","dsp","nop","nop","nop","nop"];
+const n=["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","DSP","JMP","NOP","NOP"];
+const n_under=["nul","read","write","add","sub","stop","a","b","jnz","data","jez","dsp","jmp","nop","nop"];
 const charUnder=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 const charUpper=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 let m=[];       // 主記憶（メモリ）を初期化する。
@@ -466,10 +471,10 @@ displayMemory();
 // *** GLOABAL SCOPE END ***
 // *** FUNCTION START ****
 function resetCPU(){
-p=0; rega=0; regb=0; regf=0;
-text_program_length.innerHTML=m.length;
-text_accumlater.innerHTML="";
-text_display.innerHTML="";
+    p=0; rega=0; regb=0; regf=0;
+    text_program_length.innerHTML=m.length;
+    text_accumlater.innerHTML="";
+    text_display.innerHTML="";
 }
 function displayCPU(){
     //text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
@@ -495,7 +500,7 @@ pushButtonSet.onclick = function() {
   // 取得したデータを表示
   // console.log(inputData);
   // Chat-GPT ここまで
-  // 小文字を大文字に変換する
+  // 小文字の命令を大文字に変換する
   for (let i = 0; i < inputs.length; i++) {
     for (let j = 0; j < n.length; j++) {
         if (inputData[i] == n_under[j]) {
@@ -504,7 +509,7 @@ pushButtonSet.onclick = function() {
         }
     }
   // 変換したデータを表示
-  console.log(inputData);
+  // console.log(inputData);
   // 機械語（数値）メモリにセットする
   m=[];
   let adr=0;
@@ -527,7 +532,7 @@ pushButtonSet.onclick = function() {
     m.push([c0,c1,c2,c3]);
     adr=adr+1;
 }
-  console.log(m);
+// console.log(m);
   displayMemory();
   resetCPU();
   displayCPU();
@@ -588,10 +593,14 @@ function displayMemory(){
     }
 }
 function decimal_to_binary(x){
+    let d = x;
     let a=[]; let b=[]; let c="";
+    if(d < 0) {                     //負ならば補数に変換する。
+        d = 2**8 - Math.abs(d);
+    }
     for(let i=0; i<8; i++) {
-        a[i] = x % 2;
-        x = Math.floor(x/2);
+        a[i] = d % 2;
+        d = Math.floor(d/2);
     }
     for(let j=0; j<8; j++) {
         b[7-j]=a[j];
@@ -662,13 +671,19 @@ function forwardonestep() {
         let dsp1=m[c2][1]; let dsp2=m[c2][2]; let dsp3=m[c2][3];
         // if (dsp1 == undefined) { dsp1 = "----"; }
         // if (dsp2 == undefined) { dsp2 = "----"; }
-        // if (dsp3 == undefined) { dsp3 = "----"; }        
-        text_display.innerHTML= c2 + "番地は[" + dsp1 + "][" + dsp2 + "][" + dsp3 +"]";
+        // if (dsp3 == undefined) { dsp3 = "----"; }
+        text_dsp0.innerHTML = c2 + "番地";
+        text_dsp1.innerHTML = "[" + dsp1 + "]";
+        text_dsp2.innerHTML = "[" + dsp2 + "]";
+        text_dsp3.innerHTML = "[" + dsp3 + "]";
     }          
 // 直前の演算結果が0ならば、regfに1がセットされている。
+// JMP (Jump) 指定番地c2に無条件でジャンプする。
 // JNZ (Jump Not Zero) 演算結果が0でなければ指定番地c2にジャンプする。
 // JEZ (Jump Equal Zero) 演算結果が0ならば指定番地c2にジャンプする。
     switch(c1) {
+        case JMP:
+            p = c2;
         case JNZ:
             if (regf = 0) {
                 p = c2; }
