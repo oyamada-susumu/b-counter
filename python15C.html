@@ -7,16 +7,16 @@
 <center>
 <table id="memTbl">
 <tr>
-    <td colspan="6">アセンブリ言語</td>
+    <td colspan="6">仮想言語</td>
     <td colspan="2">中央処理装置（CPU）</td>
     <td colspan="2"></td>
     <td colspan="3">主記憶装置（機械語）</td>
 </tr>
 <tr>
-    <td>番地</td><td>ｵﾍﾟｺｰﾄﾞ</td><td>ｵﾍﾟﾗﾝﾄﾞ1</td><td>ｵﾍﾟﾗﾝﾄﾞ2</td><td>選択行</td><td>　</td>
+    <td>番地</td><td>命令</td><td>引数1</td><td>引数2</td><td>選択行</td><td>　</td>
     <td>CPU内部</td><td>値</td>
     <td></td><td></td>
-    <td>ｵﾍﾟｺｰﾄﾞ</td><td>ｵﾍﾟﾗﾝﾄﾞ1</td><td>ｵﾍﾟﾗﾝﾄﾞ2</td>
+    <td>Opcode</td><td>Operand1</td><td>Operand2</td>
 </tr>
 <tr>
     <td>0</td>
@@ -149,7 +149,7 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="13"></td>
-    <td></td><td>ｵﾍﾟｺｰﾄﾞ</td><td>ｵﾍﾟﾗﾝﾄﾞ1</td><td>ｵﾍﾟﾗﾝﾄﾞ2</td>
+    <td></td><td>命令</td><td>引数1</td><td>引数2</td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -435,7 +435,7 @@ for (let i = 0; i<30; i++){
     mtext.push([i,"","",""]);
 }
 // この下にプログラムやデータを記入する。Python版では、m.append([1, READ, A, 10])とした。
-// [c0, c1, c2, c3]　番地　オペコード　オペランド１　オペンランド２の順
+// [c0, c1, c2, c3]　番地　命令　引数1　引数2の順
 m=[];
 m.push([0, NUL, NUL, NUL]);
 m.push([1, NUL, NUL, NUL]);
