@@ -5,6 +5,13 @@
 </head>
 <body bgcolor="#c0c0c0">
 <center>
+<table id="msgTbl">
+    <tr>
+        <td type="text" id="text_msgjp"></td>
+    </tr>
+</table>
+</center>
+<center>
 <table id="memTbl">
 <tr>
     <td colspan="6">仮想言語</td>
@@ -281,7 +288,9 @@
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value=""></td>
     <td><input type="radio" name="lineSelect" value="15"></td> 
-    <td></td><td></td><td></td><td></td>
+    <td></td>
+    <td></td>
+    <td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
 </tr>
 <tr>
@@ -292,6 +301,7 @@
     <td><input type="radio" name="lineSelect" value="16"></td> 
     <td></td><td></td><td></td><td></td>
     <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    
 </tr>
 <tr>
     <td>17</td>
@@ -426,8 +436,9 @@ const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11; con
 //        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15
 const n=["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","DSP","JMP","NOP","NOP"];
 const n_under=["nul","read","write","add","sub","stop","a","b","jnz","data","jez","dsp","jmp","nop","nop"];
-const charUnder=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
-const charUpper=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+// const n_jp=["空","読","書","加算","減算","停止","レジスタA","レジスタB","0でなければジャンプ","表示","ジャンプ","データ","0ならジャンプ","何もするな","何もするな"]
+// const charUnder=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+// const charUpper=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 let m=[];       // 主記憶（メモリ）保存領域。すべて数値で表現する。を初期化する。
 let mtext=[];   // プログラム（ニーモニック）保存領域。命令とレジスタは文字、番地は数字。を初期化する。
 for (let i = 0; i<30; i++){
@@ -488,17 +499,101 @@ function resetCPU(){
 function displayCPU(){
     //text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
     text_program_counter.innerHTML = String(p);
-    let textmp1=m[p][1];
-    let textmp2=m[p][2];
-    let textmp3=m[p][3];
+    let temp1=m[p][1];
+    let temp2=m[p][2];
+    let temp3=m[p][3];
     // if (textmp1=="     ") {let textmp1 ="   ";}
     // if (textmp2==null) {let textmp2 ="   ";}
     // if (textmp3==undefined) {let textmp3 ="   ";}
-    text_instraction_register.innerHTML = "["+textmp1+"]["+textmp2+"]["+textmp3+"]";
-    text_instraction_decoda.innerHTML = mtext[p][1] + " " + mtext[p][2] + " " + mtext[p][3];
+    text_instraction_register.innerHTML = "["+temp1+"]["+temp2+"]["+temp3+"]";
+    text_instraction_decoda.innerHTML = mtext[p][1] + " " + mtext[p][2] + " " + mtext[p][3];    
     text_register_a.innerHTML = String(rega);
     text_register_b.innerHTML = String(regb);
-    text_flag_register_zero.innerHTML = String(regf); 
+    text_flag_register_zero.innerHTML = String(regf);
+    displayJPMSG();
+}
+function displayJPMSG(){
+    let temp1=m[p][1];
+    let temp2=m[p][2];
+    let temp3=m[p][3];
+    let msgjp =""; 
+    switch(temp1) {
+        case NUL:
+            msgjp = "空";
+            break;
+        case NOP:
+            msgjp = "何もするな";
+            break;
+        case READ:
+            switch(temp2) {
+                case A:
+                    msgjp = "レジスタAに" + temp3 + "番地の値を読み込め";
+                    break;
+                case B:
+                    msgjp = "レジスタBに" + temp3 + "番地の値を読み込め";
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case WRITE:
+            switch(temp3) {
+                case A:
+                    msgjp = temp2+"番地にレジスタAの値を書き出せ";
+                    break;
+                case B:
+                    msgjp = temp2+"番地にレジスタBの値を書き出せ";
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case ADD:
+            switch(temp2) {
+                case A:
+                    msgjp = "レジスタAの値に" + temp3 + "番地の値を加えレジスタAに保存せよ";
+                    break;
+                case B:
+                    msgjp = "レジスタBの値に" + temp3 + "番地の値を加えレジスタBに保存せよ";
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case SUB:
+            switch(temp2) {
+                case A:
+                    msgjp = "レジスタAの値から" + temp3 + "番地の値を引きレジスタAに保存せよ";
+                    break;
+                case B:
+                    msgjp = "レジスタBの値から" + temp3 + "番地の値を引きレジスタBに保存せよ";
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case STOP:
+            msgjp ="停止せよ";
+            break;
+        case JMP:
+            msgjp = temp2 + "番地にジャンプせよ";
+            break;
+        case JNZ:
+            msgjp = "演算結果が０でなければ" + temp2 + "番地にジャンプせよ";
+            break;
+        case JEZ:
+            msgjp = "演算結果が０ならば" + temp2 + "番地にジャンプせよ";
+            break;
+        case DATA:
+            msgjp = "データ" + temp2;
+            break;
+        case DSP:
+            msgjp = temp2 + "番地の値を表示せよ";
+            break;
+        default:
+            break;
+    }
+    text_msgjp.innerHTML = msgjp;
 }
 pushButtonSet.onclick = function() {
     gettextondisplay();
