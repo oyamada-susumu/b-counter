@@ -589,6 +589,12 @@ function displayJPMSG(){
         case JEZ:
             msgjp = "演算結果が０ならば" + temp2 + "番地にジャンプせよ";
             break;
+        case JLZ:
+            msgjp = "演算結果が０より小さければ" + temp2 + "番地にジャンプせよ";
+            break;
+        case JGZ:
+            msgjp = "演算結果が０以上ならば" + temp2 + "番地にジャンプせよ";
+            break;
         case DATA:
             msgjp = "データ" + temp2;
             break;
