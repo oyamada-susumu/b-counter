@@ -4,11 +4,13 @@
     <title>15C Assembler</title>
 </head>
 <body bgcolor="#c0c0c0">
+<center>
 <table id="msgTbl">
     <tr>
-        <td type="text" id="text_msgjp"></td>
+        <td type="text" id="text_msgjp">ここに命令の解説が表示されます</td>
     </tr>
 </table>
+</center>
 <center>
 <table id="memTbl">
 <tr>
@@ -595,6 +597,7 @@ function displayJPMSG(){
 }
 pushButtonSet.onclick = function() {
     gettextondisplay();
+    text_msgjp.innerHTML = "ここに「命令読解器」の読み取った命令が表示されます" ;
 }
 function gettextondisplay(){
   // テーブル要素を取得(これは不要) assisted by Chat-GPT 20231017
@@ -812,7 +815,7 @@ function forwardonestep() {
                 break;
             }
         default:
-            p = p + 1;
+            p++ ;
     }
 }
 // 演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。
