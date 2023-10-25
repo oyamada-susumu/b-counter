@@ -180,8 +180,8 @@
             <option value="DSP">DSP</option>
             <option value="JMP">JMP</option>
             <option value="REM">REM</option>
-            <option value="JLZ">JLZ</option>
-            <option value="JGZ">JGZ</option>
+            <option value="JLTZ">JLTZ</option>
+            <option value="JGEZ">JGEZ</option>
         </select>
     </td> 
     <td>
@@ -432,13 +432,13 @@
 // 疑似言語の命令コードを定義する
 const NUL=0; const READ=1; const WRITE=2; const ADD=3; const SUB=4; const STOP=5;
 const A=6; const B=7; const JNZ=8; const DATA=9; const JEZ=10; const NOP=11; const DSP=12; const JMP=13;
-const JLZ=14; const JGZ=15;
+const JLTZ=14; const JGEZ=15;
 // 注意！nullは変数型の１つ。予約語なので,null,NULL,Nullなどの名前は使わないこと。
 // NUL=0とした。意味は空、何もしない、何もない。読み方は「ヌル」。
 //        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15
-const n =       ["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","DSP","JMP","JLZ","JGZ"];
-const n_under = ["nul","read","write","add","sub","stop","a","b","jnz","data","jez","nop","dsp","jmp","jlz","jgz"];
-// const n_jp=["空","読","書","加算","減算","停止","レジスタA","レジスタB","0でなければジャンプ","表示","ジャンプ","データ","0ならジャンプ","何もするな","何もするな"]
+const n =       ["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","DSP","JMP","JLTZ","JGEZ"];
+const n_under = ["nul","read","write","add","sub","stop","a","b","jnz","data","jez","nop","dsp","jmp","jltz","jgez"];
+// const n_jp=["空","読","書","加算","減算","停止","レジスタA","レジスタB","0でなければジャンプ","表示","ジャンプ","データ","0ならジャンプ","0より小さければジャンプ","0以上ならジャンプ"]
 // const charUnder=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 // const charUpper=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 let m=[];       // 主記憶（メモリ）保存領域。すべて数値で表現する。を初期化する。
@@ -589,10 +589,10 @@ function displayJPMSG(){
         case JEZ:
             msgjp = "演算結果が０ならば" + temp2 + "番地にジャンプせよ";
             break;
-        case JLZ:
+        case JLTZ:
             msgjp = "演算結果が０より小さければ" + temp2 + "番地にジャンプせよ";
             break;
-        case JGZ:
+        case JGEZ:
             msgjp = "演算結果が０以上ならば" + temp2 + "番地にジャンプせよ";
             break;
         case DATA:
@@ -609,7 +609,7 @@ function displayJPMSG(){
 }
 pushButtonSet.onclick = function() {
     gettextondisplay();
-    text_msgjp.innerHTML = "ここに「命令読解器」の読み取った命令が表示されます" ;
+    text_msgjp.innerHTML = "ここに「命令読解器」が読み取った命令が表示されます" ;
 }
 function gettextondisplay(){
   // テーブル要素を取得(これは不要) assisted by Chat-GPT 20231017
@@ -663,7 +663,8 @@ function gettextondisplay(){
     m.push([mx0,mx1,mx2,mx3]);
     adr=adr+1;
 }
-// console.log(m);
+  console.log(m);
+  console.log(mtext);
   displayMemory();
   resetCPU();
   displayCPU();
@@ -683,9 +684,9 @@ pushButtonSetline.onclick = function() {
     let op1 = operand1select.value;
     let op2 = operand2select.value;
     // console.log(checkValue+" "+opc+" "+op1+" "+op2 + " です");
-    let opcx ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + opc + '">';
-    let op1x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op1 + '">';
-    let op2x ='<input type="text" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op2 + '">';
+    let opcx ='<input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="' + opc + '">';
+    let op1x ='<input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op1 + '">';
+    let op2x ='<input type="text" class="inputField" style="border:none" required minlength="0" maxlength="5" size="5" value="' + op2 + '">';
     // memTbl.rows[line+2].cells[1].value = opc;
     // memTbl.rows[line+2].cells[2].value = op1;
     // memTbl.rows[line+2].cells[3].value = op2;
@@ -709,6 +710,8 @@ pushButtonStep.onclick = function() {
         displayMemory();
         displayCPU();
     }
+}
+pushButtonStop.onclick = function() {
 }
 function displayMemory(){
     let offsetx=9;
@@ -808,11 +811,15 @@ function forwardonestep() {
         text_dsp2.innerHTML = "[" + dsp2 + "]";
         text_dsp3.innerHTML = "[" + dsp3 + "]";
     }          
-// 直前の演算結果が0ならば、regfに1がセットされている。
-// JMP (Jump) 指定番地c2に無条件でジャンプする。
-// JNZ (Jump Not Zero) 演算結果が0でなければ指定番地c2にジャンプする。
-// JEZ (Jump Equal Zero) 演算結果が0ならば指定番地c2にジャンプする。
-    switch(c1) {
+// 直前の演算結果が0ならば,  regfに1がセットされている, それ以外は0がセットされている。 
+// 直前の演算結果が負ならは, regsに1がセットされている, それ以外は0がセットされている。
+// JMP (Jump)                               指定番地c2に無条件でジャンプせよ。
+// JNZ (Jump Not Zero)                      演算結果が0でなければ, 指定番地c2にジャンプせよ。
+// JEZ (Jump Equal Zero)                    演算結果が0ならば, 指定番地c2にジャンプせよ。
+// JLTZ (Jump Less than Zero)               演算結果が0より小さければ, 指定番地c2にジャンプせよ。
+// JGEZ (Jump Greater Equal Zero)  　　     演算結果が0以上ならば, 指定番地c2にジャンプせよ。
+
+switch(c1) {
         case JMP:
             p = Math.floor(c2);
             break;
@@ -826,12 +833,12 @@ function forwardonestep() {
                 p = Math.floor(c2);
                 break;
             }
-        case JLZ:
+        case JLTZ:
             if (regs == 1) {
                 p = Math.floor(c2);
                 break;
             }
-        case JGZ:
+        case JGEZ:
             if (regs == 0) {
                 p = Math.floor(c2);
                 break;
@@ -840,8 +847,8 @@ function forwardonestep() {
             p++ ;
     }
 }
-// 演算結果が0ならばフラグレジスタに1を代入する。それ以外は0を代入する。
-// 演算結果が負ならはフラグレジスタSに１を代入する。それ以外は0を代入する。
+// 演算結果が0ならば, フラグレジスタregfに1を代入する, それ以外は0を代入する。
+// 演算結果が負ならは, フラグレジスタregSに1を代入する, それ以外は0を代入する。
 function flagset(x){
 // gloabl regf
     if (x == 0) {
