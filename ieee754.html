@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <title>IEEE754</title>
+</head>
+<body>
 <h1>32ビット浮動小数点数の内部表現</h1>
   <table id="LedTbl" border="1">
      <tr>
@@ -164,26 +170,29 @@
 <h5 id="hyouji7">***7***</h5>
 <h5 id="hyouji8">***8***</h5>
 <script>
+// SCRIPT START
+// GLOBAL START
 LedTbl.style.textAlign = "center";
-LedTbl.style.verticalAlign = "middle";
-window.onload = function(){
-  fugo = 0;                                              /* GLOBAL fugo 符号 0は+, 1は- */
-  fugoKanji=["＋","－"];
-  shisu = 0;                                             /* GLOBAL shisu 指数 */
-  kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];  /* GLOBAL kasu 仮数 */                   
-  displaySign(fugo);
-  displayExponent(shisu);
-  displayMantissa(kasu);
-  M=[];
-  u=-1;
+LedTbl.style.verticalAlign = "middle"
+//
+fugo = 0;                                               /* GLOBAL fugo 符号 0は+, 1は- */
+fugoKanji=["＋","－"];                                  // 符号　表示用
+shisu = 0;                                              // GLOBAL shisu 指数
+kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];   // GLOBAL kasu  仮数                   
+displaySign(fugo);                                      // 符号部を表示する
+displayExponent(shisu);                                 // 指数部を表示する
+displayMantissa(kasu);                                  // 仮数部を表示する
+M=[];
+u=-1;
   for(t=0; t < 23; t++) {
     M[t]=2**u;
     u--; 
-    }
-  hyouji5.innerHTML = M;
-}
-</script>
-<script>
+  }
+hyouji5.innerHTML = M;
+// GLOBAL END
+//-----------------------------
+// 符号ボタンが押された時の関数
+//-----------------------------
 pushButtonS.onclick = function(){
   if(fugo==1){
     fugo=0;
@@ -192,14 +201,16 @@ pushButtonS.onclick = function(){
     }
   displaySign(fugo);
 }
-/* 10進数を内部表現に変換する */
+//---------------------------------------
+// 2進数へ変換ボタンが押された時の関数
+//---------------------------------------
 pushButtonDtoB.onclick = function(){
   x = numberDEC.value;              /* 入力された文字を変数xに代入する */
   d = parseFloat(x,10);             /* 文字を浮動小数点数に変換する */ 
     if(d < 0){                      /* 符号を検出する */
-    fugo=1;
-    }else{
-    fugo=0;
+      fugo=1
+      }else{
+        fugo=0;                         
     }
   displaySign(fugo);                    /* 符号を表示する */
   k = x.split(".");                     /* 小数点で区切って,k[0]整数部とk[1]小数部に分割する */ 
@@ -260,7 +271,6 @@ pushButtonDtoB.onclick = function(){
       carry[t]=0;
       }
     }
-
   /* hyouji7.innerHTML = "carry="+carry; */
   /* hyouji8.innerHTML = "小数部="+syousuy; */
   hyouji9.innerHTML = "小数部(2進数)="+syousub;
@@ -313,11 +323,12 @@ pushButtonDtoB.onclick = function(){
     kasubu[k]=bnum[k+1];
   }
   hyouji45.innerHTML = kasubu
-
   /* 仮数部を表示する */
   displayMantissa(kasubu) 
 }
-/* 指数部 */
+//---------------------------
+// 各ボタンが押された時の関数
+//---------------------------
 pushButtonE1.onclick = function(){if(D2BX(shisu,0)==1){shisu=shisu-1;}else{shisu=shisu+1;}displayExponent(shisu);}
 pushButtonE2.onclick = function(){if(D2BX(shisu,1)==1){shisu=shisu-2;}else{shisu=shisu+2;}displayExponent(shisu);}
 pushButtonE3.onclick = function(){if(D2BX(shisu,2)==1){shisu=shisu-4;}else{shisu=shisu+4;}displayExponent(shisu);}
@@ -352,21 +363,21 @@ pushButtonM20.onclick = function(){if(kasu[19] == 1){kasu[19] = 0;}else{kasu[19]
 pushButtonM21.onclick = function(){if(kasu[20] == 1){kasu[20] = 0;}else{kasu[20] = 1;}displayMantissa(kasu); }
 pushButtonM22.onclick = function(){if(kasu[21] == 1){kasu[21] = 0;}else{kasu[21] = 1;}displayMantissa(kasu); }
 pushButtonM23.onclick = function(){if(kasu[22] == 1){kasu[22] = 0;}else{kasu[22] = 1;}displayMantissa(kasu); }
-</script>
-
-<script>
-  function displaySign(x){
-    hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + fugoKanji[x] + "を表す"
-    LedTbl.rows[0].cells[0].innerHTML=x;
-    if (x==1){
-      LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
-      }else{
-      LedTbl.rows[1].cells[0].innerHTML='<img src="LedOff.jpg" width="50">';
-      } 
-    }
-  </script>
-  
-<script>
+//-----------------------------
+//　符号部（１桁）を表示する関数
+//-----------------------------
+function displaySign(x){
+  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + fugoKanji[x] + "を表す"
+  LedTbl.rows[0].cells[0].innerHTML=x;
+  if (x==1){
+    LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
+    }else{
+    LedTbl.rows[1].cells[0].innerHTML='<img src="LedOff.jpg" width="50">';
+    } 
+}
+//----------------------------
+// 指数部（８桁）を表示する関数
+//----------------------------
 function displayExponent(x){
   D=decimal_to_binary(x);
   displayLed(D);
@@ -377,10 +388,10 @@ function displayExponent(x){
   hyouji2.innerHTML = "指数部Ｅ＝" + String(TX) + " は10進数で" + String(x) +
   ",よって" + String(x) + "-" + String(127) + "=" + String(x-127) +
   ",つまり 2の"+String(x-127)+" 乗を表す。（指数部は符号がないので,いつも127を引く）";
-  }
-</script>
-
-<script>
+}
+//------------------------------
+// 仮数部（２３桁）を表示する関数
+//------------------------------
 function displayMantissa(K){
   TX="";
   for(j=0; j<23; j++){
@@ -394,10 +405,10 @@ function displayMantissa(K){
     }
   hyouji3.innerHTML = "仮数部Ｍ=" + TX + " は２進数で,１." + TX +
   "を表す（２進数の最上位は必ず１になるので省略すると決めている）";
-  }
-</script>
-
-<script>
+}
+//---------------------------------
+// 10進数を2進数(8桁)に変換する関数
+//---------------------------------
 function decimal_to_binary(x){
   a=[];
   b=[];
@@ -409,10 +420,10 @@ function decimal_to_binary(x){
     b[7-k]=a[k];
     }
   return b;
-  }
-</script>
-
-<script>
+}
+//---------------------------------
+// 指数部（８桁）のLEDを表示する関数
+//---------------------------------
 function displayLed(c){
   r=1; n=0;
   for(k=0; k<8; k++){
@@ -423,10 +434,10 @@ function displayLed(c){
       LedTbl.rows[r].cells[k+1].innerHTML='<img src="LedOff.jpg" width="50">';
       } 
     }
-  }
-</script>
-
-<script>
+}
+//---------------------------------
+// 10進数を2進数(8桁)に変換する関数
+//---------------------------------
 function D2BX(x,n) {
   a=[];
   for(j=0; j<8; j=j+1){
@@ -434,5 +445,10 @@ function D2BX(x,n) {
     x = Math.floor(x/2);
     }
   return a[n];
-  }
+}
+//=============
+// SCRIPT END
+//=============
 </script>
+</body>
+</html>
