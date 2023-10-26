@@ -425,7 +425,7 @@
 </center>
 <script>
 // *** SCRIPT START ***
-// *** SCOPE IS GLOABAL****
+// *** SCOPE IS GLOABAL ****
 // window.onload = function(){
 // memTbl.style.textAlign = "center";
 // memTbl.style.verticalAlign = "middle";
@@ -447,8 +447,11 @@ for (let i = 0; i<30; i++){
     m.push[i,0,0,0];
     mtext.push([i,"","",""]);
 }
-// この下にプログラムやデータを記入する。Python版では、m.append([1, READ, A, 10])とした。
-// [c0, c1, c2, c3]　番地　命令　引数1　引数2の順
+// メモリを初期セットしておく。
+// Python版では, この下にプログラムやデータを記入した。
+// (例）m.append([1, READ, A, 10])など
+// [c0, c1, c2, c3]
+// [番地, 命令, 引数1, 引数2]
 m=[];
 m.push([0, NUL, NUL, NUL]);
 m.push([1, NUL, NUL, NUL]);
@@ -481,19 +484,18 @@ m.push([27,NUL, NUL, NUL]);
 m.push([28,NUL, NUL, NUL]);
 m.push([29,NUL, NUL, NUL]);
 //
-let p=0;                        // プログラムカウンタに0を代入する。
-let rega=0; let regb=0;         // レジスタAに0，レジスタBに0を代入する。
-let regf=0;                     // フラグレジスタZに0を代入する。 演算結果が0のときに1, それ以外は0
-let regs=0;                     // フラグレジスタSに0を代入する。演算結果が0または制の時に0, それ以外は1
-text_program_length.innerHTML=m.length;
-displayCPU();
-displayMemory();
+let p=0;                                    // プログラムカウンタに0を代入する。
+let rega=0; let regb=0;                     // レジスタAに0，レジスタBに0を代入する。
+let regf=0;                                 // フラグレジスタZに0を代入する。演算結果が0のときに1, それ以外は0。
+let regs=0;                                 // フラグレジスタSに0を代入する。演算結果が0または制の時に0, それ以外は1。
+text_program_length.innerHTML=m.length;     // プログラムの最大行数を表示する。
+displayCPU();                               // CPUの内部の値を表示する。
+displayMemory();                            // 主記憶の値を表示する。
 // *** GLOABAL SCOPE END ***
 // *** FUNCTION START ****
+// CPU内部の各値をリセットする関数
 function resetCPU(){
-    p=0; rega=0; regb=0;
-    regf=0; // フラグレジスタZ　ゼロのとき１、他は０
-    regs=0; // フラグレジスタS  ゼロとプラスのとき０、マイナスのとき１
+    p=0; rega=0; regb=0; regf=0; regs=0;
     text_program_length.innerHTML=m.length;
     text_accumlater.innerHTML="";
     text_dsp0.innerHTML="";
@@ -501,27 +503,25 @@ function resetCPU(){
     text_dsp2.innerHTML="";
     text_dsp3.innerHTML="";
 }
+// CPU内部の各値を表示する関数
 function displayCPU(){
-    //text_program_counter.innerHTML ='<input type="number" id="text_program_counter" required minlength="0" maxlength="5" size="5" value="' + "1234" + '">';
     text_program_counter.innerHTML = String(p);
-    let temp1=m[p][1];
-    let temp2=m[p][2];
-    let temp3=m[p][3];
-    // if (textmp1=="     ") {let textmp1 ="   ";}
-    // if (textmp2==null) {let textmp2 ="   ";}
-    // if (textmp3==undefined) {let textmp3 ="   ";}
-    text_instraction_register.innerHTML = "["+temp1+"]["+temp2+"]["+temp3+"]";
-    text_instraction_decoda.innerHTML = mtext[p][1] + " " + mtext[p][2] + " " + mtext[p][3];    
-    text_register_a.innerHTML = String(rega);
-    text_register_b.innerHTML = String(regb);
-    text_flag_register_zero.innerHTML = "Z = " + String(regf) + "   S = " + String(regs);
+    let temp1 = m[p][1];
+    let temp2 = m[p][2];
+    let temp3 = m[p][3];
+    text_instraction_register.innerHTML = "[" + temp1 + "][" + temp2 + "][" + temp3 +"]";
+    text_instraction_decoda.innerHTML   = mtext[p][1] + " " + mtext[p][2] + " " + mtext[p][3];    
+    text_register_a.innerHTML           = String(rega);
+    text_register_b.innerHTML           = String(regb);
+    text_flag_register_zero.innerHTML   = "Z = " + String(regf) + "   S = " + String(regs);
     displayJPMSG();
 }
+// 命令読解器が読み取った内容を日本語で表示する関数
 function displayJPMSG(){
-    let temp1=m[p][1];
-    let temp2=m[p][2];
-    let temp3=m[p][3];
-    let msgjp =""; 
+    let temp1 = m[p][1];
+    let temp2 = m[p][2];
+    let temp3 = m[p][3];
+    let msgjp = ""; 
     switch(temp1) {
         case NUL:
             msgjp = "空";
@@ -607,10 +607,12 @@ function displayJPMSG(){
     }
     text_msgjp.innerHTML = msgjp;
 }
+// セットボタンが押されたときに実行する関数
 pushButtonSet.onclick = function() {
     gettextondisplay();
     text_msgjp.innerHTML = "ここに「命令読解器」が読み取った命令が表示されます" ;
 }
+// 画面に表示されているアセンブリ言語のプログラムを取り込み機械語に変換する関数
 function gettextondisplay(){
   // テーブル要素を取得(これは不要) assisted by Chat-GPT 20231017
   // let table = document.getElementById("memTbl");
@@ -669,6 +671,7 @@ function gettextondisplay(){
   resetCPU();
   displayCPU();
 }
+// 選択行にセットボタンが押されたときに実行する関数
 pushButtonSetline.onclick = function() {
     let elements = document.getElementsByName('lineSelect');
     let len = elements.length;
@@ -694,6 +697,7 @@ pushButtonSetline.onclick = function() {
     memTbl.rows[line+2].cells[2].innerHTML = op1x;
     memTbl.rows[line+2].cells[3].innerHTML = op2x;
 }
+// 最後まで実行ボタンが押されたときに実行する関数
 pushButtonRun.onclick = function() {
     while (m[p][1] != STOP) {                   // STOPでない間以下を繰り返す。
         if (pushButtonStop.onclick == true){
@@ -704,6 +708,7 @@ pushButtonRun.onclick = function() {
         displayCPU();
         }
     }
+//　1行実行ボタンが押されたときに実行する関数
 pushButtonStep.onclick = function() {
     if (m[p][1] != STOP) { 
         forwardonestep();
@@ -711,8 +716,12 @@ pushButtonStep.onclick = function() {
         displayCPU();
     }
 }
+// 停止ボタンが押されたときに実行する関数
 pushButtonStop.onclick = function() {
+    p = m.length;   //　プログラムカウンタを最終行にセットする
+    displayCPU();
 }
+// メモリを表示する関数
 function displayMemory(){
     let offsetx=9;
     let offsety=2;
@@ -726,24 +735,26 @@ function displayMemory(){
         }
     }
 }
+// 10進数から2進数に変換する関数
 function decimal_to_binary(x){
     let d = x;
     let a=[]; let b=[]; let c="";
-    if(d < 0) {                     //負ならば補数に変換する。
+    if(d < 0) {                     // 負ならば補数に変換する。
         d = 2**8 - Math.abs(d);
     }
-    for(let i=0; i<8; i++) {
+    for(let i=0; i<8; i++) {        // 2で割った余りを格納する。
         a[i] = d % 2;
         d = Math.floor(d/2);
     }
-    for(let j=0; j<8; j++) {
+    for(let j=0; j<8; j++) {        // 表示用に順番を逆に並び替える。
         b[7-j]=a[j];
     }
-    for(let k=0; k<8; k++) {
+    for(let k=0; k<8; k++) {        // １桁づつ文字として連結する。
         c=c+String(b[k]);
     }
     return c;
 }
+// 1ステップ実行する関数
 function forwardonestep() {
     // c0=行番号,c1=命令,c2=レジスタ名または番地,c3=レジスタ名または番地
     let c0=m[p][0]; let c1=m[p][1]; let c2=m[p][2]; let c3=m[p][3];
@@ -818,7 +829,6 @@ function forwardonestep() {
 // JEZ (Jump Equal Zero)                    演算結果が0ならば, 指定番地c2にジャンプせよ。
 // JLTZ (Jump Less than Zero)               演算結果が0より小さければ, 指定番地c2にジャンプせよ。
 // JGEZ (Jump Greater Equal Zero)  　　     演算結果が0以上ならば, 指定番地c2にジャンプせよ。
-
 switch(c1) {
         case JMP:
             p = Math.floor(c2);
@@ -847,6 +857,7 @@ switch(c1) {
             p++ ;
     }
 }
+// 演算結果をフラグレジスタにセットする関数
 // 演算結果が0ならば, フラグレジスタregfに1を代入する, それ以外は0を代入する。
 // 演算結果が負ならは, フラグレジスタregSに1を代入する, それ以外は0を代入する。
 function flagset(x){
@@ -863,15 +874,17 @@ function flagset(x){
         regs = 0;
     }
 }
+// デバッグ用の関数　プログラム本体の動作には関係ない
 // レジスタの内容を表示する関数
 function regdump(){
-// global p, rega, regb, regf
-    window.alert("プログラムカウンタ= "+p+" レジスタA= "+rega+" レジスタB= "+regb+" フラグレジスタ= "+regf)
+// global p, rega, regb, regf, regs
+    window.alert("PC= "+p+" A= "+rega+" B= "+regb+" Z= "+regf+" S= "+regs)
 }
+// デバッグ用の関数　プログラム本体の動作には関係ない
 // メモリーの内容を表示する関数（メモリダンプ）
 function memdump(x){
-// global p, rega, regb, regf
-    msg="PC= "+p+" A= "+rega+" B= "+regb+" F= "+regf+"\n";
+// global p, rega, regb, regf, regs
+    msg="PC= "+p+" A= "+rega+" B= "+regb+" Z= "+regf+" S= "+regs+"\n";
     for(let i=0; i < x.length; i++ ){
         for(let j=0; j < 4; j++ ){
             msg=msg+x[i][j]+" ";
