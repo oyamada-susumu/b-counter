@@ -4,10 +4,11 @@
   <meta chaeset="utf-8">
   <title>IEEE754</title>
 </head>
-<body bgcolor="#e0e0e0">
+<body bgcolor="#ffffff">
 <h1>32ビット浮動小数点数の内部表現</h1>
   <table id="LedTbl" border="1">
      <tr>
+      <
       <td>0</td>
       <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>
       <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>
@@ -156,21 +157,24 @@
 LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle"
 //
-fugo = 0;                                               /* GLOBAL fugo 符号 0は+, 1は- */
-fugoKanji=["＋","－"];                                  // 符号　表示用
-shisu = 0;                                              // GLOBAL shisu 指数
-kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];   // GLOBAL kasu  仮数                   
+var   fugo = 0;                                               /* GLOBAL fugo 符号 0は+, 1は- */
+const fugoKanji=["＋","－"];                                  // 符号　表示用
+var   shisu = 0;                                              // GLOBAL shisu 指数
+var   kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];   // GLOBAL kasu  仮数                   
 displaySign(fugo);                                      // 符号部を表示する
 displayExponent(shisu);                                 // 指数部を表示する
 displayMantissa(kasu);                                  // 仮数部を表示する
-M=[];
-u=-1;
-  for(t=0; t < 23; t++) {
-    M[t]=2**u;
-    u--; 
-  }
-hyouji5.innerHTML = M;
+displaySyousu();
 // GLOBAL END
+function displaySyousu() {
+  let M = [];
+  let u = -1;
+    for(let t = 0; t < 23; t++) {
+      M[t] = "(" + String( 2**u ) + ") " ;
+      u--; 
+      hyouji5.innerHTML = M;
+    }
+  }
 //-----------------------------
 // 符号ボタンが押された時の関数
 //-----------------------------
@@ -187,55 +191,35 @@ pushButtonS.onclick = function(){
 //---------------------------------------
 pushButtonDtoB.onclick = function(){
   x = numberDEC.value;              /* 入力された文字を変数xに代入する */
-  d = parseFloat(x,10);             /* 文字を浮動小数点数に変換する */ 
-    if(d < 0){                      /* 符号を検出する */
-      fugo=1
-      }else{
-        fugo=0;                         
+  let d = parseFloat(x, 10);            /* 文字を浮動小数点数に変換する */ 
+    if(d < 0) {                         /* 符号を検出する */
+      fugo = 1;
+      } else {
+        fugo = 0;                         
     }
-  displaySign(fugo);                    /* 符号を表示する */
-  k = x.split(".");                     /* 小数点で区切って,k[0]整数部とk[1]小数部に分割する */ 
-  if(k[0]==null){k[0]="0"};             /* .5など0.5に変換する */
-  if(k[1]==null){k[1]="0"};             /* 1などを1.0に変換する*/
-  if(k[0]=="-"){k[0]="0"};              /* -.125　など符号をはずして0.125に変換する */ 
+  displaySign(fugo);                        /* 符号を表示する */
+  let xsp = x.split(".");                   /* 小数点で区切って,k[0]整数部とk[1]小数部に分割する */ 
+  if(xsp[0] == null) { xsp[0] = "0" };       /* .5など0.5に変換する */
+  if(xsp[1] == null) { xsp[1] = "0" };       /* 1などを1.0に変換する*/
+  if(xsp[0] == "-" ) { xsp[0] = "0" };       /* -.125　など符号をはずして0.125に変換する */ 
   /* 10進小数部を2進数に変換する */
-  abs_d = Math.abs(d);                  /* 絶対値をとる */
-  abs_d_seisu = Math.floor(abs_d);      /* 切り捨てる */
-  abs_d_syousu = k[1];                  /* 小数部は文字のまま処理することに注意! */
-  syousux=abs_d_syousu;                 /* 小数部（文字）*/
+  let abs_d =         Math.abs(d);        /* 絶対値をとる */
+  let abs_d_seisu =   Math.floor(abs_d);  /* 切り捨てる */
+  let abs_d_syousu =  xsp[1];   /* 小数部は文字のまま処理することに注意! */
+  let syousux = abs_d_syousu;   /* 小数部（文字）*/
+  let syousuy = [];             /* 計算用 syousu y */
+  let syousub = [];             /* 計算結果 ２進数小数部 syousu binary */
   hyouji4.innerHTML = "10進数"+abs_d + "の整数部は" + abs_d_seisu + ", 小数部は" + abs_d_syousu ;
-  carry=[];                             /* 繰り上がり */
-  syousuy=[];                           /* 計算用 */
-  syousub=[];                           /* 計算結果 ２進数小数部 */
-  /* 初期設定 */
-  syousu=[];                            /* 元の小数部 */
-  for(var i=0; i<syousux.length; i++) {
-    syousu[i] = syousux.charAt(i);          /* 10進数小数部文字を１けたずつ配列に格納する */
-    }
-/* 10進数の整数部が0のときに、2進数小数点以下の前ZEROを数える
-　0.03 →　0.000011101....*/
-/* その後、1.25e-04 とする コメントアウト　勘違い↓　必要なし
-  mae_zero=0;
-  if(k[0]=="0") {
-    while(syousu[mae_zero] == "0") {
-      mae_zero++ ;
-      }
-    k[0]=syousu[mae_zero]
-    for(var i=0; i<syousux.length; i++) {
-      if(i<(syousux.length - mae_zero - 1)) {
-        syousu[i]=syousu[i + mae_zero + 1];
-        }else{
-        syousu[i]="0"
-      }
-    }
-    hyouji45.innerHTML= k[0] + "." + syousu + "e-"+ (mae_zero+1);
-    } 
-*/
-  for(var i=0; i<syousux.length; i++) {
+  let carry=[];                 /* 繰り上がり carry bit */
+  let syousu=[];                /* 元の小数部 */
+  for(let i = 0; i < syousux.length; i++) {
+    syousu[i] = syousux.charAt(i);            /* 10進数小数部文字を１けたずつ配列に格納する */
+  }
+  for(let i = 0; i < syousux.length; i++) {
       syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
       carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
-    }
-  carry[syousux.length]=0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
+  }
+  carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
   hyouji6.innerHTML= syousu;
   /* 筆算方式の算譜 */
   for(var j=0; j<100; j++){                    /* ２進数で少数点以下100桁まで求める j=0から99 */         
@@ -259,36 +243,35 @@ pushButtonDtoB.onclick = function(){
   /* {x*2|0<=x<=9},0から9かける2は0から18となり
   繰り上がりは0か1しかないので,ここで繰り上がりの１を加えても
   1から9となり,さらなる繰り上げは発生しない　*/
-  /* */
-  /* 10進数整数部を2進数に変換する */
-  /* seisux=k[0];                              /* 整数部（文字） */
-  seisux=String(abs_d_seisu);
-  /* seisu=parseInt(seisux,10);                /* 整数部（整数） */
-  seisu=abs_d_seisu;
-  seisub=[];                                /* 計算結果　２進数整数部 最下位から最上位へ格納 */
-  seisuc=[];                                /* 計算結果　２進数整数部 最上位から最下位へ表示用 */
-  j=0;
-  seisub[0]=0;                              /* 整数部0のときは何もしないので、整数部1桁目(添字0)に0を代入しておく */  
-  while(seisu >= 1){                        /* 10進数を商が１になるまで割る */
+  //--------------------------------
+  //  10進数整数部を2進数に変換する
+  //--------------------------------
+  let seisux = String(abs_d_seisu);
+  let seisu  = abs_d_seisu;
+  let seisub = [];                                /* 計算結果　２進数整数部 最下位から最上位へ格納用 */
+  let seisuc = [];                                /* 計算結果　２進数整数部 最上位から最下位へ表示用 */
+  j = 0;
+  seisub[0] = 0;                              /* 整数部0のときは何もしないので、整数部1桁目(添字0)に0を代入しておく */  
+  while(seisu >= 1) {                        /* 10進数を商が１になるまで割る */
     seisub[j] = seisu % 2                   /* ２で割ったあまりが２進数の各位になる */
     seisu = Math.floor(seisu / 2);          /* 商を求める */
     j++;
     }
-  for(var k=0; k<seisub.length; k++){       /* 表示用に順番を逆転させる */
+  for(let k=0; k<seisub.length; k++){       /* 表示用に順番を逆転させる */
     seisuc[k] = seisub[seisub.length-k-1];
     }
-  hyouji10.innerHTML = "整数部(2進数)="+seisuc
+  hyouji10.innerHTML = "整数部(2進数)="+seisuc;
   /* 整数部と小数部を連結させて、指数部を得る */
-  bnum=[]
-  for(var k=0; k<seisuc.length; k++) {
-    bnum[k]=seisuc[k]
-  }
-  for(var k=0; k<syousub.length; k++) {
-    bnum[seisuc.length + k] = syousub[k]
-  } 
-  hyouji11.innerHTML = "整数部+小数部(２進数)="+bnum
+  let bnum = [];
+  for(let k=0; k < seisuc.length; k++) {
+    bnum[k] = seisuc[k];
+   }
+  for(var k=0; k < syousub.length; k++) {
+     bnum[seisuc.length + k] = syousub[k];
+    } 
+  hyouji11.innerHTML = "整数部+小数部(２進数)="+bnum;
   /* 2023/06/30 */
-  i = (seisuc.length - 1) + 127
+  i = (seisuc.length - 1) + 127;
   displayExponent(i)
   /* 仮数部24桁目25桁目を用いて丸めて23桁目を決定する */
   /* kasub[23] kasub[24]        kasub[22] 
@@ -299,13 +282,13 @@ pushButtonDtoB.onclick = function(){
   k2324=kasub[23]*10+kasub[24]
   if(k2324<10){kasubu[22]=0}else{kasubu[22]=1}
   */
-  kasubu=[]
+  kasubu = [];
   for(var k=0; k < bnum.length-1; k++) {
-    kasubu[k]=bnum[k+1];
-  }
-  hyouji45.innerHTML = kasubu
+    kasubu[k] = bnum[k+1];
+   }
+  hyouji45.innerHTML = kasubu;
   /* 仮数部を表示する */
-  displayMantissa(kasubu) 
+  displayMantissa(kasubu) ;
 }
 //---------------------------
 // 各ボタンが押された時の関数
@@ -348,7 +331,7 @@ pushButtonM23.onclick = function(){if(kasu[22] == 1){kasu[22] = 0;}else{kasu[22]
 //　符号部（１桁）を表示する関数
 //-----------------------------
 function displaySign(x){
-  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は " + fugoKanji[x] + "を表す"
+  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は [" + fugoKanji[x] + "] を表す。"
   LedTbl.rows[0].cells[0].innerHTML=x;
   if (x==1){
     LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
@@ -368,7 +351,7 @@ function displayExponent(x){
     }
   hyouji2.innerHTML = "指数部Ｅ＝" + String(TX) + " は10進数で" + String(x) +
   ",よって" + String(x) + "-" + String(127) + "=" + String(x-127) +
-  ",つまり 2の"+String(x-127)+" 乗を表す。（指数部は符号がないので,いつも127を引く）";
+  ",つまり [2の"+String(x-127)+"乗] を表す。（指数部は符号がないので,いつも127を引く）";
 }
 //------------------------------
 // 仮数部（２３桁）を表示する関数
@@ -384,9 +367,13 @@ function displayMantissa(K){
       LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOff.jpg" width="50">'; 
       }
     }
-  hyouji3.innerHTML = "仮数部Ｍ=" + TX + " は２進数で,１." + TX +
-  "を表す（２進数の最上位は必ず１になるので省略すると決めている）";
+  hyouji3.innerHTML = "仮数部Ｍ=" + TX + " は２進数で, [１." + TX +
+  "] を表す。（２進数の最上位は必ず１になるので省略すると決めている）";
 }
+//---------------------------------
+// 
+//---------------------------------
+// 
 //---------------------------------
 // 10進数を2進数(8桁)に変換する関数
 //---------------------------------
