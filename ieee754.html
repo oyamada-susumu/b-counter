@@ -190,21 +190,30 @@ pushButtonS.onclick = function(){
 // 2進数へ変換ボタンが押された時の関数
 //---------------------------------------
 pushButtonDtoB.onclick = function(){
-  x = numberDEC.value;              /* 入力された文字を変数xに代入する */
-  let d = parseFloat(x, 10);            /* 文字を浮動小数点数に変換する */ 
-    if(d < 0) {                         /* 符号を検出する */
+  x = numberDEC.value;              // 入力された文字を変数xに代入する
+  let d = parseFloat(x, 10);        // 文字xを浮動小数点数dに変換する
+  //---------------------
+  // 符号を検出する
+  //--------------------- 
+    if(d < 0) {
       fugo = 1;
       } else {
         fugo = 0;                         
     }
-  displaySign(fugo);                        /* 符号を表示する */
-  let xsp = x.split(".");                   /* 小数点で区切って,k[0]整数部とk[1]小数部に分割する */ 
-  if(xsp[0] == null) { xsp[0] = "0" };       /* .5など0.5に変換する */
-  if(xsp[1] == null) { xsp[1] = "0" };       /* 1などを1.0に変換する*/
-  if(xsp[0] == "-" ) { xsp[0] = "0" };       /* -.125　など符号をはずして0.125に変換する */ 
-  /* 10進小数部を2進数に変換する */
-  let abs_d =         Math.abs(d);        /* 絶対値をとる */
-  let abs_d_seisu =   Math.floor(abs_d);  /* 切り捨てる */
+  displaySign(fugo);    // 符号を表示する
+  //----------------------------------------------
+  // 整数部（符号なし）を取り出す
+  //----------------------------------------------
+  let abs_d =         Math.abs(d);        // 絶対値をとる
+  let abs_d_seisu =   Math.floor(abs_d);  // 切り捨てる
+  //----------------------------------------------
+  // 計算誤差がでるので、文字のまま小数部を取り出す
+  //----------------------------------------------
+  let xsp = x.split(".");                    // 小数点で区切って,xsp[0]整数部とxsp[1]小数部に分割する 
+  if(xsp[1] == null) { xsp[1] = "0" };       // [1].[]などを[1].[0]に変換する。小数部は文字0となる。
+  //-------------------------
+  // 小数部を2進数に変換する
+  //-------------------------
   let abs_d_syousu =  xsp[1];   /* 小数部は文字のまま処理することに注意! */
   let syousux = abs_d_syousu;   /* 小数部（文字）*/
   let syousuy = [];             /* 計算用 syousu y */
@@ -222,9 +231,9 @@ pushButtonDtoB.onclick = function(){
   carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
   hyouji6.innerHTML= syousu;
   /* 筆算方式の算譜 */
-  for(var j=0; j<100; j++){                    /* ２進数で少数点以下100桁まで求める j=0から99 */         
-    for(var i=syousux.length-1; i>-1; i--) {   /* 小数最下位から１桁ずつ２をかけていく */   
-      syousuy[i] = syousuy[i] * 2;             /* 小数部を２倍する */ 
+  for(var j = 0; j < 100; j++) {                    /* ２進数で少数点以下100桁まで求める j=0から99 */         
+    for(var i = syousux.length - 1; i > -1; i--) {  /* 小数最下位から１桁ずつ２をかけていく */   
+      syousuy[i] = syousuy[i] * 2;                  /* 小数部を２倍する */ 
       if(syousuy[i] > 9) {                     /* 繰り上がりの計算 */
         carry[i] = 1;                          /* 9より大きければ,繰り上がりは1 */
         syousuy[i] = syousuy[i] - 10;          /* 10を引いて1桁にする */
@@ -236,8 +245,6 @@ pushButtonDtoB.onclick = function(){
       carry[t]=0;
       }
     }
-  /* hyouji7.innerHTML = "carry="+carry; */
-  /* hyouji8.innerHTML = "小数部="+syousuy; */
   hyouji9.innerHTML = "小数部(2進数)="+syousub;
   displayMantissa(syousub);
   /* {x*2|0<=x<=9},0から9かける2は0から18となり
@@ -246,50 +253,69 @@ pushButtonDtoB.onclick = function(){
   //--------------------------------
   //  10進数整数部を2進数に変換する
   //--------------------------------
-  let seisux = String(abs_d_seisu);
-  let seisu  = abs_d_seisu;
-  let seisub = [];                                /* 計算結果　２進数整数部 最下位から最上位へ格納用 */
-  let seisuc = [];                                /* 計算結果　２進数整数部 最上位から最下位へ表示用 */
+  // let seisux = String(abs_d_seisu);
+  let seisu = abs_d_seisu;  // 計算用　整数部の絶対値をいれておく
+  let seisub = [];          // ２進数整数部 最下位から最上位へ格納用
+  let seisuc = [];          // ２進数整数部 最上位から最下位へ表示用
   j = 0;
-  seisub[0] = 0;                              /* 整数部0のときは何もしないので、整数部1桁目(添字0)に0を代入しておく */  
-  while(seisu >= 1) {                        /* 10進数を商が１になるまで割る */
-    seisub[j] = seisu % 2                   /* ２で割ったあまりが２進数の各位になる */
-    seisu = Math.floor(seisu / 2);          /* 商を求める */
+  seisub[0] = 0;                     // 整数部0のときは何もしないので、整数部1桁目(添字0)に0を代入しておく  
+  while(seisu >= 1) {                // 10進数を商が１になるまで割る
+    seisub[j] = seisu % 2            // ２で割ったあまりが２進数の各位になる
+    seisu = Math.floor(seisu / 2);   // 商を求める
     j++;
     }
-  for(let k=0; k<seisub.length; k++){       /* 表示用に順番を逆転させる */
+  for(let k=0; k<seisub.length; k++){       // 整数部を表示用に順番を逆転させる
     seisuc[k] = seisub[seisub.length-k-1];
     }
-  hyouji10.innerHTML = "整数部(2進数)="+seisuc;
-  /* 整数部と小数部を連結させて、指数部を得る */
-  let bnum = [];
-  for(let k=0; k < seisuc.length; k++) {
+  hyouji10.innerHTML = "整数部(２進数)="+seisuc;
+  //---------------------------------------------
+  // 整数部と小数部を連結させ,仮数部と指数部を得る
+  // 整数部が0でない場合は,
+  // 6.0125なら 110(2)と.001(2) ----> 110.001(2)
+  // 1.xxxに変換する             ----> 1.1001×2^2   2は整数部110の長さ3-1
+  // 整数部が0の場合は,
+  // 0.0125なら 0(2)と.001(2)   ----> 0.001(2)
+  // 1.xxxに変換する             ----> 1.0×2^(-3)   -3は-(小数部001の長さ3)
+  //---------------------------------------------
+  let bnum = [];                              // 連結用配列
+  for(let k=0; k < seisuc.length; k++) {      // 整数部をセットする
     bnum[k] = seisuc[k];
    }
-  for(var k=0; k < syousub.length; k++) {
+  for(let k=0; k < syousub.length; k++) {     // 小数部を整数部の後にセットする
      bnum[seisuc.length + k] = syousub[k];
     } 
-  hyouji11.innerHTML = "整数部+小数部(２進数)="+bnum;
-  /* 2023/06/30 */
-  i = (seisuc.length - 1) + 127;
-  displayExponent(i)
-  /* 仮数部24桁目25桁目を用いて丸めて23桁目を決定する */
-  /* kasub[23] kasub[24]        kasub[22] 
+  hyouji11.innerHTML = "整数部+小数部(２進数)=" + bnum;
+  //-------------------------------------------------------------------
+  // 指数部をセットする
+  // 特別な規則！ 10進数0（ゼロ）の場合は指数部i＝0,仮数=0
+  //-------------------------------------------------------------------
+  if (abs_d == 0) {
+    i = 0;
+    } else {
+      i = (seisuc.length - 1) + 127;
+    }
+  //-------------------
+  // 仮数部をセットする
+  //------------------
   kasubu=[]
-  for(var k=0; k < bnum.length-1; k++) {
+  for(let k=0; k < bnum.length-1; k++) {
     kasubu[k]=bnum[k+1]
   }
-  k2324=kasub[23]*10+kasub[24]
-  if(k2324<10){kasubu[22]=0}else{kasubu[22]=1}
-  */
-  kasubu = [];
-  for(var k=0; k < bnum.length-1; k++) {
-    kasubu[k] = bnum[k+1];
-   }
+  if (abs_d_seisu == 0) {
+    for(let k = 0; k < bnum.lengt-1; k++) {
+      if(bnum(k) == 1) {
+        break;
+      } 
+    } 
+    for(let l = 0; l < bunm.length-1; l++) {
+
+    }
+  }
   hyouji45.innerHTML = kasubu;
-  /* 仮数部を表示する */
+  displayExponent(i);
   displayMantissa(kasubu) ;
 }
+
 //---------------------------
 // 各ボタンが押された時の関数
 //---------------------------
