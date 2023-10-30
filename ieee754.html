@@ -228,23 +228,23 @@ pushButtonDtoB.onclick = function(){
   //-------------------------------------------------------
   for(var j = 0; j < 100; j++) {                      // ２進数で少数点以下100桁まで求める j=0から99         
     for(var i = syousux.length - 1; i > -1; i--) {    // 小数最下位から１桁ずつ２をかけていく（＊１）
-      syousuy[i] = syousuy[i] * 2;                    // 小数部を２倍する 
+      syousuy[i] = syousuy[i] * 2;                    // 小数部の１桁を２倍する 
       if(syousuy[i] > 9) {                            // 繰り上がりの計算
         carry[i] = 1;                                 // 9より大きければ,繰り上がりは1・・・(注１)を見よ
         syousuy[i] = syousuy[i] - 10;                 // 10を引いて1桁にする
       }
       syousuy[i] = syousuy[i] + carry[i+1];           // 下位からの繰り上がりをたす
     }
-    syousub[j]=carry[0];                              // 小数点以下第一位のくりあげ（整数1の位)を2進数小数点以下の各位の計算結果として保存する
-    for(var t = 0; t < syousux.length; t++) {         // 繰り上げをすべて0にリセットして、（＊１）へ
+    syousub[j]=carry[0];                              // 小数点以下第一位の繰り上げ＝（整数部1の位)を2進数小数点以下の各位の計算結果として保存する
+    for(var t = 0; t < syousux.length; t++) {         // 繰り上げをすべて0にセットして、（＊１）へ
       carry[t]=0;
     }
   }
   hyouji9.innerHTML = "小数部(2進数)="+syousub;
   displayMantissa(syousub);
   //-------------------------------------------------------------------------
-  // (注１) １桁の2の掛け算,つまり,
-  // {x*2 | 0 <= x <= 9} は {0,2,4,6,8,10,12,14,16,18}がすべてである。
+  // (注１) 10進数整数１桁の2の掛け算, つまり,
+  // {x*2,xは整数 | 0 <= x <= 9} は {0,2,4,6,8,10,12,14,16,18}がすべてである。
   // 繰り上がりは1しかないので, 10を引けば1桁になり, 計算している桁が確定する。
   //-------------------------------------------------------------------------
   //--------------------------------
@@ -284,9 +284,9 @@ pushButtonDtoB.onclick = function(){
   hyouji11.innerHTML = "整数部+小数部(２進数)=" + bnum;
   //-------------------------------------------------------------------
   // 指数部をセットする
-  // 特別な規則！ 10進数0（ゼロ）の場合は指数部i＝0,仮数=0
+  // 特別な規則！ 10進数0（ゼロ）の場合は指数部i＝0,仮数部すべて0
   //-------------------------------------------------------------------
-  if (abs_d == 0) {
+  if(abs_d == 0) {
     i = 0;
     } else {
       i = (seisuc.length - 1) + 127;
@@ -295,19 +295,16 @@ pushButtonDtoB.onclick = function(){
   // 仮数部をセットする
   //-------------------
   kasubu=[]
-  for(let k=0; k < bnum.length-1; k++) {
-    kasubu[k]=bnum[k+1]
-  }
-  if (abs_d_seisu == 0) {
-    for(let k = 0; k < bnum.lengt-1; k++) {
-      if(bnum(k) == 1) {
-        break;
-      } 
-    } 
-    for(let l = 0; l < bnum.length-1; l++) {
-
+  m = 0;
+  if(abs_d_seisu == 0) {
+    for(let k = 0; k < bnum.lengt; k++) {
+      if(bnum(k) == 1) {break;} 
     }
-  }
+    m = k;
+  } 
+  for(let l = m+1; l < bnum.length; l++) {
+    kasubu[l] = bnum[l];
+  } 
   hyouji45.innerHTML = kasubu;
   displayExponent(i);
   displayMantissa(kasubu) ;
