@@ -228,7 +228,7 @@ pushButtonDtoB.onclick = function(){
       syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
       carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
   }
-  carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
+  // carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
   hyouji6.innerHTML= syousu;
   /* 筆算方式の算譜 */
   for(var j = 0; j < 100; j++) {                    /* ２進数で少数点以下100桁まで求める j=0から99 */         
@@ -254,7 +254,7 @@ pushButtonDtoB.onclick = function(){
   //  10進数整数部を2進数に変換する
   //--------------------------------
   // let seisux = String(abs_d_seisu);
-  let seisu = abs_d_seisu;  // 計算用　整数部の絶対値をいれておく
+  let seisu = abs_d_seisu;  // 計算用 整数部の絶対値をいれておく
   let seisub = [];          // ２進数整数部 最下位から最上位へ格納用
   let seisuc = [];          // ２進数整数部 最上位から最下位へ表示用
   j = 0;
@@ -307,7 +307,7 @@ pushButtonDtoB.onclick = function(){
         break;
       } 
     } 
-    for(let l = 0; l < bunm.length-1; l++) {
+    for(let l = 0; l < bnum.length-1; l++) {
 
     }
   }
