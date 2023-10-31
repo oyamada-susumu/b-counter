@@ -302,8 +302,10 @@ pushButtonDtoB.onclick = function(){
     }
     m = k;
   } 
+  r = 0;
   for(let l = m+1; l < bnum.length; l++) {
-    kasubu[l] = bnum[l];
+    kasubu[r] = bnum[l];
+    r++;
   } 
   hyouji45.innerHTML = kasubu;
   displayExponent(i);
