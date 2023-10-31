@@ -296,11 +296,16 @@ pushButtonDtoB.onclick = function(){
   //-------------------
   kasubu=[]
   m = 0; k = 0 ;
+  //-----------------------------------------
+  // 整数部が0のときに配列bnumを左から探索し,
+  // はじめて出てくる1の位置を求める
+  //-----------------------------------------
   if(abs_d_seisu == 0) {
     for(let k = 0; k < bnum.lengt; k++) {
       if(bnum(k) == 1) {break;} 
     }
     m = k;
+    i = i - m -1;
   } 
   r = 0;
   for(let l = m+1; l < bnum.length; l++) {
