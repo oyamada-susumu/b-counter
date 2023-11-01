@@ -700,9 +700,6 @@ pushButtonSetline.onclick = function() {
 // 最後まで実行ボタンが押されたときに実行する関数
 pushButtonRun.onclick = function() {
     while (m[p][1] != STOP) {                   // STOPでない間以下を繰り返す。
-        if (pushButtonStop.onclick == true){
-            break;
-        }
         forwardonestep();
         displayMemory();                
         displayCPU();
@@ -814,9 +811,6 @@ function forwardonestep() {
     } 
     if (c1 == DSP) {           // もしDSP命令ならは、指定番地の内容を10進数で表示する。
         let dsp1=m[c2][1]; let dsp2=m[c2][2]; let dsp3=m[c2][3];
-        // if (dsp1 == undefined) { dsp1 = "----"; }
-        // if (dsp2 == undefined) { dsp2 = "----"; }
-        // if (dsp3 == undefined) { dsp3 = "----"; }
         text_dsp0.innerHTML = c2 + "番地";
         text_dsp1.innerHTML = "[" + dsp1 + "]";
         text_dsp2.innerHTML = "[" + dsp2 + "]";
@@ -834,47 +828,32 @@ switch(c1) {
             p = Math.floor(c2);
             break;
         case JNZ:
-            if (regf == 0) {
-                p = Math.floor(c2);
-                break;
-            }
+            if (regf == 0) {p = Math.floor(c2);} else {p = Math.floor(c0) + 1;}
+            break;
         case JEZ:        
-            if (regf == 1) {
-                p = Math.floor(c2);
-                break;
-            }
+            if (regf == 1) {p = Math.floor(c2);} else {p = Math.floor(c0) + 1;}
+            break;
         case JLTZ:
-            if (regs == 1) {
-                p = Math.floor(c2);
-                break;
-            }
+            if (regs == 1) {p = Math.floor(c2);} else {p = Math.floor(c0) + 1;}
+            break;
         case JGEZ:
-            if (regs == 0) {
-                p = Math.floor(c2);
-                break;
-            }
+            if (regs == 0) {p = Math.floor(c2);} else {p = Math.floor(c0) + 1;}
+            break;
         default:
             p++ ;
     }
+if(p < 0 || 29 < p) { p = 0;}
 }
 // 演算結果をフラグレジスタにセットする関数
 // 演算結果が0ならば, フラグレジスタregfに1を代入する, それ以外は0を代入する。
 // 演算結果が負ならは, フラグレジスタregSに1を代入する, それ以外は0を代入する。
 function flagset(x){
 // gloabl regf
-    if (x == 0) {
-        regf = 1;
-    } else {
-        regf = 0;
-    }
+    if (x == 0) {regf = 1;} else {regf = 0;}
 // global regs
-    if (x < 0) {
-        regs = 1;
-    } else {
-        regs = 0;
-    }
+    if (x < 0 ) {regs = 1;} else {regs = 0;}
 }
-// デバッグ用の関数　プログラム本体の動作には関係ない
+// デバッグ用の関数
 // レジスタの内容を表示する関数
 function regdump(){
 // global p, rega, regb, regf, regs
