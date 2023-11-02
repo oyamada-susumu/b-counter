@@ -438,7 +438,6 @@ const JLTZ=14; const JGEZ=15;
 //        0     1     2      3       4     5      6     7   8   9     10     11    12    13    14    15
 const n =       ["NUL","READ","WRITE","ADD","SUB","STOP","A","B","JNZ","DATA","JEZ","NOP","DSP","JMP","JLTZ","JGEZ"];
 const n_under = ["nul","read","write","add","sub","stop","a","b","jnz","data","jez","nop","dsp","jmp","jltz","jgez"];
-// const n_jp=["空","読","書","加算","減算","停止","レジスタA","レジスタB","0でなければジャンプ","表示","ジャンプ","データ","0ならジャンプ","0より小さければジャンプ","0以上ならジャンプ"]
 // const charUnder=["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 // const charUpper=["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 let m=[];       // 主記憶（メモリ）保存領域。すべて数値で表現する。を初期化する。
@@ -493,7 +492,9 @@ displayCPU();                               // CPUの内部の値を表示する
 displayMemory();                            // 主記憶の値を表示する。
 // *** GLOABAL SCOPE END ***
 // *** FUNCTION START ****
+//--------------------------------
 // CPU内部の各値をリセットする関数
+//--------------------------------
 function resetCPU(){
     p=0; rega=0; regb=0; regf=0; regs=0;
     text_program_length.innerHTML=m.length;
@@ -503,7 +504,9 @@ function resetCPU(){
     text_dsp2.innerHTML="";
     text_dsp3.innerHTML="";
 }
+//----------------------------
 // CPU内部の各値を表示する関数
+//----------------------------
 function displayCPU(){
     text_program_counter.innerHTML = String(p);
     let temp1 = m[p][1];
@@ -516,7 +519,9 @@ function displayCPU(){
     text_flag_register_zero.innerHTML   = "Z = " + String(regf) + "   S = " + String(regs);
     displayJPMSG();
 }
+//------------------------------------------------
 // 命令読解器が読み取った内容を日本語で表示する関数
+//------------------------------------------------
 function displayJPMSG(){
     let temp1 = m[p][1];
     let temp2 = m[p][2];
@@ -607,12 +612,16 @@ function displayJPMSG(){
     }
     text_msgjp.innerHTML = msgjp;
 }
+//-----------------------------------------
 // セットボタンが押されたときに実行する関数
+//-----------------------------------------
 pushButtonSet.onclick = function() {
     gettextondisplay();
     text_msgjp.innerHTML = "ここに「命令読解器」が読み取った命令が表示されます" ;
 }
-// 画面に表示されているアセンブリ言語のプログラムを取り込み機械語に変換する関数
+//--------------------------------------------------------------------------------------
+// 画面に表示されているアセンブリ言語のプログラムを取り込み機械語に変換する関数（ここから）
+//--------------------------------------------------------------------------------------
 function gettextondisplay(){
   // テーブル要素を取得(これは不要) assisted by Chat-GPT 20231017
   // let table = document.getElementById("memTbl");
@@ -661,17 +670,20 @@ function gettextondisplay(){
         if (mx3 == n[j]) {
             mx3 = j;
             }      
-    }
+        }
     m.push([mx0,mx1,mx2,mx3]);
     adr=adr+1;
+    }
+    displayMemory();
+    resetCPU();
+    displayCPU();
 }
-  console.log(m);
-  console.log(mtext);
-  displayMemory();
-  resetCPU();
-  displayCPU();
-}
+//--------------------------------------------------------------------------------------
+// 画面に表示されているアセンブリ言語のプログラムを取り込み機械語に変換する関数（ここまで）
+//--------------------------------------------------------------------------------------
+//-------------------------------------------------
 // 選択行にセットボタンが押されたときに実行する関数
+//-------------------------------------------------
 pushButtonSetline.onclick = function() {
     let elements = document.getElementsByName('lineSelect');
     let len = elements.length;
@@ -697,7 +709,9 @@ pushButtonSetline.onclick = function() {
     memTbl.rows[line+2].cells[2].innerHTML = op1x;
     memTbl.rows[line+2].cells[3].innerHTML = op2x;
 }
+//----------------------------------------------
 // 最後まで実行ボタンが押されたときに実行する関数
+//----------------------------------------------
 pushButtonRun.onclick = function() {
     while (m[p][1] != STOP) {                   // STOPでない間以下を繰り返す。
         forwardonestep();
@@ -705,7 +719,9 @@ pushButtonRun.onclick = function() {
         displayCPU();
         }
     }
+//-------------------------------------------
 //　1行実行ボタンが押されたときに実行する関数
+//-------------------------------------------
 pushButtonStep.onclick = function() {
     if (m[p][1] != STOP) { 
         forwardonestep();
@@ -713,12 +729,16 @@ pushButtonStep.onclick = function() {
         displayCPU();
     }
 }
+//---------------------------------------
 // 停止ボタンが押されたときに実行する関数
+//---------------------------------------
 pushButtonStop.onclick = function() {
     p = m.length;   //　プログラムカウンタを最終行にセットする
     displayCPU();
 }
+//---------------------
 // メモリを表示する関数
+//---------------------
 function displayMemory(){
     let offsetx=9;
     let offsety=2;
@@ -732,7 +752,9 @@ function displayMemory(){
         }
     }
 }
+//------------------------------
 // 10進数から2進数に変換する関数
+//------------------------------
 function decimal_to_binary(x){
     let d = x;
     let a=[]; let b=[]; let c="";
@@ -751,7 +773,9 @@ function decimal_to_binary(x){
     }
     return c;
 }
-// 1ステップ実行する関数
+//---------------------------------
+// 1ステップ実行する関数（ここから）
+//---------------------------------
 function forwardonestep() {
     // c0=行番号,c1=命令,c2=レジスタ名または番地,c3=レジスタ名または番地
     let c0=m[p][0]; let c1=m[p][1]; let c2=m[p][2]; let c3=m[p][3];
@@ -823,6 +847,8 @@ function forwardonestep() {
 // JEZ (Jump Equal Zero)                    演算結果が0ならば, 指定番地c2にジャンプせよ。
 // JLTZ (Jump Less than Zero)               演算結果が0より小さければ, 指定番地c2にジャンプせよ。
 // JGEZ (Jump Greater Equal Zero)  　　     演算結果が0以上ならば, 指定番地c2にジャンプせよ。
+// JUMPの条件が不成立ならば, 
+//   JUMP命令が書かれている番地(c0)の次の番地（c0＋1)をプログラムカウンタ(p)に代入せよ。
 switch(c1) {
         case JMP:
             p = Math.floor(c2);
@@ -842,25 +868,34 @@ switch(c1) {
         default:
             p++ ;
     }
-if(p < 0 || 29 < p) { p = 0;}
+if(p < 0 || 29 < p) { p = 0;}  // もしpがメモリ番地の範囲をこえたら0に戻せ。
 }
+//---------------------------------
+// 1ステップ実行する関数（ここまで）
+//---------------------------------
+//---------------------------------------------------------------------------
 // 演算結果をフラグレジスタにセットする関数
 // 演算結果が0ならば, フラグレジスタregfに1を代入する, それ以外は0を代入する。
 // 演算結果が負ならは, フラグレジスタregSに1を代入する, それ以外は0を代入する。
+//---------------------------------------------------------------------------
 function flagset(x){
 // gloabl regf
     if (x == 0) {regf = 1;} else {regf = 0;}
 // global regs
     if (x < 0 ) {regs = 1;} else {regs = 0;}
 }
+//------------------------------
 // デバッグ用の関数
 // レジスタの内容を表示する関数
+//------------------------------
 function regdump(){
 // global p, rega, regb, regf, regs
     window.alert("PC= "+p+" A= "+rega+" B= "+regb+" Z= "+regf+" S= "+regs)
 }
-// デバッグ用の関数　プログラム本体の動作には関係ない
+//--------------------------------------------
+// デバッグ用の関数
 // メモリーの内容を表示する関数（メモリダンプ）
+//--------------------------------------------
 function memdump(x){
 // global p, rega, regb, regf, regs
     msg="PC= "+p+" A= "+rega+" B= "+regb+" Z= "+regf+" S= "+regs+"\n";
