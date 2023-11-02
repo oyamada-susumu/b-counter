@@ -157,10 +157,10 @@
 LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle"
 //
-var   fugo = 0;                                               // GLOBAL fugo 符号 0は+, 1は-
+let   fugo = 0;                                               // GLOBAL fugo 符号 0は+, 1は-
 const fugoKanji=["＋","－"];                                  // 符号 表示用漢字
-var   shisu = 0;                                              // GLOBAL shisu 指数
-var   kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];   // GLOBAL kasu  仮数                   
+let   shisu = 0;                                              // GLOBAL shisu 指数
+let   kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];   // GLOBAL kasu  仮数                   
 displaySign(fugo);                                      // 符号部を表示する
 displayExponent(shisu);                                 // 指数部を表示する
 displayMantissa(kasu);                                  // 仮数部を表示する
@@ -226,8 +226,8 @@ pushButtonDtoB.onclick = function(){
   // 筆算方式の算譜(ここは10進数で計算をしていることに注意！)
   // 計算結果の2進数小数部はsyousubに格納される
   //-------------------------------------------------------
-  for(var j = 0; j < 100; j++) {                      // ２進数で少数点以下100桁まで求める j=0から99         
-    for(var i = syousux.length - 1; i > -1; i--) {    // 小数最下位から１桁ずつ２をかけていく（＊１）
+  for(let j = 0; j < 100; j++) {                      // ２進数で少数点以下100桁まで求める j=0から99         
+    for(let i = syousux.length - 1; i > -1; i--) {    // 小数最下位から１桁ずつ２をかけていく（＊１）
       syousuy[i] = syousuy[i] * 2;                    // 小数部の１桁を２倍する 
       if(syousuy[i] > 9) {                            // 繰り上がりの計算
         carry[i] = 1;                                 // 9より大きければ,繰り上がりは1・・・(注１)を見よ
@@ -236,7 +236,7 @@ pushButtonDtoB.onclick = function(){
       syousuy[i] = syousuy[i] + carry[i+1];           // 下位からの繰り上がりをたす
     }
     syousub[j]=carry[0];                              // 小数点以下第一位の繰り上げ＝（整数部1の位)を2進数小数点以下の各位の計算結果として保存する
-    for(var t = 0; t < syousux.length; t++) {         // 繰り上げをすべて0にセットして、（＊１）へ
+    for(let t = 0; t < syousux.length; t++) {         // 繰り上げをすべて0にセットして、（＊１）へ
       carry[t]=0;
     }
   }
