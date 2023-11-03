@@ -144,6 +144,7 @@
 LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle"
 //
+let   absN = 0;                                               // 入力された数Nの絶対値 
 let   fugo = 0;                                               // GLOBAL fugo 符号 0は+, 1は-
 const fugoKanji=["＋","－"];                                  // 符号 表示用漢字
 let   shisu = 0;                                              // GLOBAL shisu 指数
@@ -179,6 +180,8 @@ pushButtonS.onclick = function(){
 pushButtonDtoB.onclick = function(){
   let x = numberDEC.value;                // 入力された文字を変数xに代入する
   let d = parseFloat(x, 10);              // 文字xを浮動小数点数dに変換する
+  absN = d;                               // GLOBAL変数absNに代入しておく
+  //                                         あとで,関数の中でゼロの判定につかう。
   //---------------------
   // 符号を検出する
   //--------------------- 
@@ -356,7 +359,7 @@ pushButtonM23.onclick = function(){if(kasu[22] == 1){kasu[22] = 0;}else{kasu[22]
 //　符号部（１桁）を表示する関数
 //-----------------------------
 function displaySign(x){
-  hyouji.innerHTML = "符号部Ｓ＝" + String(x)+ "は [" + fugoKanji[x] + "] を表す。"
+  hyouji.innerHTML = "符号部S=" + String(x)+ "は [" + fugoKanji[x] + "] を表す。"
   LedTbl.rows[0].cells[0].innerHTML=x;
   if (x==1){
     LedTbl.rows[1].cells[0].innerHTML='<img src="LedOn.jpg" width="50">';
@@ -375,9 +378,17 @@ function displayExponent(x){
   for(j=0; j<8; j++){
     TX=TX+D[j]
     }
-  hyouji2.innerHTML = "指数部Ｅ＝" + String(TX) + " は10進数で" + String(x) +
-  ",よって" + String(x) + "-" + String(127) + "=" + String(x-127) +
-  ",つまり [2の"+String(x-127)+"乗] を表す。指数部に符号はない。本当の値に127を足して（下駄をはかせて）保存しておく。使うときは127を引いてから使う。こうするとマイナス乗も表現できる。";
+  if(absN == 0) {
+    hyouji2.innerHTML = "０（ゼロ）のとき, 指数部Eはすべて0となる。";
+    } else {
+      hyouji2.innerHTML = "指数部E= " + String(TX) + " は10進数で" + String(x) +
+      ",よって" + String(x) + "-" + String(127) + "=" + String(x-127) +
+      ",つまり [2の"+String(x-127)+"乗] を表す。" + 
+      "指数部に符号はない。" +
+      "本当の値に127を足して（下駄をはかせて）保存しておく。" +
+      "使うときは127を引いてから使う。" +
+      "こうするとマイナス乗も表現できる。";
+  }
 }
 //------------------------------
 // 仮数部（２３桁）を表示する関数
@@ -394,7 +405,11 @@ function displayMantissa(K){
       LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOff.jpg" width="50">'; 
       }
     }
-  hyouji3.innerHTML = "仮数部Ｍ=" + TX + " は２進数で, [１." + TX +"] を表す。2進数の最上位は必ず1になるので,1ビット「けちって」省略している。";
+  if(absN == 0) {
+    hyouji3.innerHTML = "０（ゼロ）のとき, 仮数部Mはすべて0となる。";
+  } else {
+    hyouji3.innerHTML = "仮数部M=" + TX + " は2進数で, [1." + TX +"] を表す。2進数の最上位は必ず1になるので,1ビット「けちって」省略している。";
+  }
 }
 //---------------------------------
 // 10進数を2進数(8桁)に変換する関数
