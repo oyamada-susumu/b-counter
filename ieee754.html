@@ -5,10 +5,9 @@
   <title>IEEE754</title>
 </head>
 <body bgcolor="#ffffff">
-<h1>32ビット浮動小数点数の内部表現</h1>
+<h3>32ビット浮動小数点数の内部表現</h3>
   <table id="LedTbl" border="1">
      <tr>
-      <
       <td>0</td>
       <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>
       <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>  <td>0</td>
@@ -50,15 +49,15 @@
       <td><img src="LedOff.jpg" width="50"></td>
     </tr>
     <tr>
-      <td><br><input type="button" id="pushButtonS" value="Ｓ"><br><br></td>
-      <td><input type="button" id="pushButtonE8" value="Ｅ８"></td>
-      <td><input type="button" id="pushButtonE7" value="Ｅ７"></td>
-      <td><input type="button" id="pushButtonE6" value="Ｅ６"></td>
-      <td><input type="button" id="pushButtonE5" value="Ｅ５"></td>
-      <td><input type="button" id="pushButtonE4" value="Ｅ４"></td>
-      <td><input type="button" id="pushButtonE3" value="Ｅ３"></td>
-      <td><input type="button" id="pushButtonE2" value="Ｅ２"></td>
-      <td><input type="button" id="pushButtonE1" value="Ｅ１"></td>
+      <td><br><input type="button" id="pushButtonS" value="S"><br><br></td>
+      <td><input type="button" id="pushButtonE8" value="E8"></td>
+      <td><input type="button" id="pushButtonE7" value="E7"></td>
+      <td><input type="button" id="pushButtonE6" value="E6"></td>
+      <td><input type="button" id="pushButtonE5" value="E5"></td>
+      <td><input type="button" id="pushButtonE4" value="E4"></td>
+      <td><input type="button" id="pushButtonE3" value="E3"></td>
+      <td><input type="button" id="pushButtonE2" value="E2"></td>
+      <td><input type="button" id="pushButtonE1" value="E1"></td>
       <td><input type="button" id="pushButtonM1" value="M1"></td>
       <td><input type="button" id="pushButtonM2" value="M2"></td>
       <td><input type="button" id="pushButtonM3" value="M3"></td>
@@ -118,42 +117,30 @@
   </table>
 <br>
 指数部
-<input type="button" id="pushButtonRst"   value = "ＲＥＳＥＴ">
-<input type="button" id="pushButtonUp"    value = "ＵＰ">
-<input type="button" id="pushButtonDown"  value = "ＤＯＷＮ">
+<input type="button" id="pushButtonRst"   value = "RESET">
+<input type="button" id="pushButtonUp"    value = "UP">
+<input type="button" id="pushButtonDown"  value = "DOWN">
 10進数を入力してください
 <input type="number" id="numberDEC"       value = "">
 <input type="button" id="pushButtonDtoB"  value = "内部表現に変換する">
 <input type="button" id="pushButtonBtoD"  value = "10進数で表示する">
-<!-- MESSAGE DISPLAY AREA 
-<table id="msgTbl" border="1">
-  <tr> <td id="mt01"> </td> </tr>
-  <tr> <td id="mt02"> </td> </tr>
-  <tr> <td id="mt03"> </td> </tr>
-  <tr> <td id="mt04"> </td> </tr>
-  <tr> <td id="mt05"> </td> </tr>
-  <tr> <td id="mt06"> </td> </tr>
-  <tr> <td id="mt07"> </td> </tr>
-  <tr> <td id="mt08"> </td> </tr>
-  <tr> <td id="mt09"> </td> </tr>
-  <tr> <td id="mt10"> </td> </tr>
-</table>
--->
-<h2 id="hyouji">***1***</h2>
-<h2 id="hyouji2">***2***</h2>
-<h2 id="hyouji3">***3***</h2>
-<h5 id="hyouji4">***4*** </h5>
-<h5 id="hyouji10">***10***</h5>
-<h5 id="hyouji9">***9***</h5>
-<h5 id="hyouji11">***11***</h5>
-<h5 id="hyouji45">***45***</h5>  
-<h5 id="hyouji5">***5***</h5>
-<h5 id="hyouji6">***6***</h5>
-<h5 id="hyouji7">***7***</h5>
-<h5 id="hyouji8">***8***</h5>
+<h3 id="hyouji">***1***</h3>
+<h3 id="hyouji2">***2***</h3>
+<h3 id="hyouji3">***3***</h3>
+<h6 id="hyouji4">***4*** </h6>
+<h6 id="hyouji10">***10***</h6>
+<h6 id="hyouji9">***9***</h6>
+<h6 id="hyouji11">***11***</h6>
+<h6 id="hyouji45">***45***</h6>  
+<h6 id="hyouji5">***5***</h6>
+<h6 id="hyouji6">***6***</h6>
+<h6 id="hyouji7">***7***</h6>
+<h6 id="hyouji8">***8***</h6>
 <script>
 // SCRIPT START
+//------------------------------------------------------------------------
 // GLOBAL START
+//------------------------------------------------------------------------
 LedTbl.style.textAlign = "center";
 LedTbl.style.verticalAlign = "middle"
 //
@@ -165,7 +152,9 @@ displaySign(fugo);                                      // 符号部を表示す
 displayExponent(shisu);                                 // 指数部を表示する
 displayMantissa(kasu);                                  // 仮数部を表示する
 displaySyousu();
+//------------------------------------------------------------------------
 // GLOBAL END
+//------------------------------------------------------------------------
 function displaySyousu() {
   let M = [];
   let u = -1;
@@ -183,10 +172,12 @@ pushButtonS.onclick = function(){
   displaySign(fugo);
 }
 //---------------------------------------
+//
 // 2進数へ変換ボタンが押された時の関数
+//
 //---------------------------------------
 pushButtonDtoB.onclick = function(){
-  x = numberDEC.value;                    // 入力された文字を変数xに代入する
+  let x = numberDEC.value;                // 入力された文字を変数xに代入する
   let d = parseFloat(x, 10);              // 文字xを浮動小数点数dに変換する
   //---------------------
   // 符号を検出する
@@ -220,7 +211,7 @@ pushButtonDtoB.onclick = function(){
       syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
       carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
   }
-  carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）に０をセットしておく */
+  carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）lengthに０をセットしておく */
   hyouji6.innerHTML= syousu;
   //--------------------------------------------------------
   // 筆算方式の算譜(ここは10進数で計算をしていることに注意！)
@@ -236,8 +227,8 @@ pushButtonDtoB.onclick = function(){
       syousuy[i] = syousuy[i] + carry[i+1];           // 下位からの繰り上がりをたす
     }
     syousub[j]=carry[0];                              // 小数点以下第一位の繰り上げ＝（整数部1の位)を2進数小数点以下の各位の計算結果として保存する
-    for(let t = 0; t < syousux.length; t++) {         // 繰り上げをすべて0にセットして、（＊１）へ
-      carry[t]=0;
+    for(let k = 0; k < syousux.length; k++) {         // 繰り上げをすべて0にセットして、（＊１）へ
+      carry[k]=0;
     }
   }
   hyouji9.innerHTML = "小数部(2進数)="+syousub;
@@ -250,71 +241,79 @@ pushButtonDtoB.onclick = function(){
   //--------------------------------
   //  10進数整数部を2進数に変換する
   //--------------------------------
-  // let seisux = String(abs_d_seisu);
   let seisu = abs_d_seisu;  // 計算用 整数部の絶対値をいれておく
   let seisub = [];          // ２進数整数部 最下位から最上位へ格納用
   let seisuc = [];          // ２進数整数部 最上位から最下位へ表示用
-  j = 0;
+  let j = 0;
   seisub[0] = 0;                     // 整数部0のときは何もしないので、整数部1桁目(添字0)に0を代入しておく  
   while(seisu >= 1) {                // 10進数を商が１になるまで割る
     seisub[j] = seisu % 2            // ２で割ったあまりが２進数の各位になる
     seisu = Math.floor(seisu / 2);   // 商を求める
     j++;
     }
-  for(let k=0; k<seisub.length; k++){       // 整数部を表示用に順番を逆転させる
-    seisuc[k] = seisub[seisub.length-k-1];
+  for(let k = 0; k < seisub.length; k++){        // 整数部を表示用に順番を逆転させる
+    seisuc[k] = seisub[seisub.length - k - 1];
     }
-  hyouji10.innerHTML = "整数部(２進数)="+seisuc;
-  //---------------------------------------------
+  hyouji10.innerHTML = "整数部(２進数)=" + seisuc;
+  //---------------------------------------------------------------------------------
   // 整数部と小数部を連結させ,仮数部と指数部を得る
+  //---------------------------------------------------------------------------------
+  let bnum = seisuc.concat(syousub);  // 整数部seisucと少数部syousubを連結して配列bnumとする
+  hyouji11.innerHTML = "整数部+小数部(２進数)=" + bnum;
+  //-----------------------------------------------------------------------------------
   // 整数部が0でない場合は,
   // 6.0125なら 110(2)と.001(2) ----> 110.001(2)
   // 1.xxxに変換する             ----> 1.1001×2^2   2は整数部110の長さ3-1
+  // bnum = [1,1,0,0,0,1] となっている。
+  // 小数点の位置：(整数部の長さ-1)だけ小数点を左にシフトさせる。
+  // 指数部＝(整数部の長さ-1)となる。小数点のシフト桁数分
+  // 仮数部：先頭の1（配列の0番目に入っている）は省略するので、
+  //         配列の添え字1から順番に仮数部の添え字0からセットしていく。
+  //-----------------------------------------------------------------------------------
   // 整数部が0の場合は,
-  // 0.0125なら 0(2)と.001(2)   ----> 0.001(2)
-  // 1.xxxに変換する             ----> 1.0×2^(-3)   -3は-(小数部001の長さ3)
-  //---------------------------------------------
-  let bnum = [];                              // 連結用配列
-  for(let k=0; k < seisuc.length; k++) {      // 整数部をセットする
-    bnum[k] = seisuc[k];
-   }
-  for(let k=0; k < syousub.length; k++) {     // 小数部を整数部の後にセットする
-     bnum[seisuc.length + k] = syousub[k];
-    } 
-  hyouji11.innerHTML = "整数部+小数部(２進数)=" + bnum;
-  //-------------------------------------------------------------------
-  // 指数部をセットする
-  // 特別な規則！ 10進数0（ゼロ）の場合は指数部i＝0,仮数部すべて0
-  //-------------------------------------------------------------------
-  if(abs_d == 0) {
-    i = 0;
-    } else {
-      i = (seisuc.length - 1) + 127;
-    }
-  //-------------------
-  // 仮数部をセットする
-  //-------------------
+  // 0.015625 --> 0.125+0.03125 --> 1/8+1/32 --> 0(2)と.00101(2) --> 0.00101(2)
+  // 1.xxxに変換する --> 1.01×2^(-3) -->(-3)は-1*(小数部最初の1の添え字2+1)
+  // bnum = [0,0,0,1,0,1] となっている。
+  // 小数点の位置：(小数部の先頭からの0の数)だけ小数点を右にシフトさせる。
+  // 指数部＝(-1)×(右シフトの回数)となる。
+  // 仮数部：配列bnumの先頭からはじめての1の前の3個の0を取り去り bnum = [1,0,1] とする。
+  // 仮数部：先頭の1（配列の0番目に入っている）は省略するので、
+  //         配列の添え字1から順番に仮数部の添え字0からセットしていく。
+  //------------------------------------------------------------------------------------
   kasubu=[]
-  m = 0; k = 0 ;
-  //-----------------------------------------
-  // 整数部が0のときに配列bnumを左から探索し,
-  // はじめて出てくる1の位置を求める
-  //-----------------------------------------
-  if(abs_d_seisu == 0) {
-    for(let k = 0; k < bnum.lengt; k++) {
-      if(bnum(k) == 1) {break;} 
+  if(abs_d_seisu != 0) {
+    shisu = seisuc.length - 1;
+  }
+  if(abs_d_seisu == 0 ) {
+    shisu = 0;
+    let t = bnum.length;
+    for(let j = 1; j < t; j++) {
+      if(bnum[j] == 1) {
+        for(let k = 0; k < j; k++) {
+          let returnVal = bnum.shift();
+          bnum.push(0);
+          shisu = shisu - 1;
+        }
+        break;
+      }
     }
-    m = k;
-    i = i - m -1;
-  } 
-  r = 0;
-  for(let l = m+1; l < bnum.length; l++) {
-    kasubu[r] = bnum[l];
-    r++;
-  } 
-  hyouji45.innerHTML = kasubu;
-  displayExponent(i);
-  displayMantissa(kasubu) ;
+  }
+  for(let i = 0; i < bnum.length - 1; i++) {
+    kasubu[i] = bnum[i+1];
+  }
+  //----------------------------------------
+  // 0のとき, 32ビットすべてが0, 指数部も0
+  // 0でないとき, 指数部に127の下駄をはかせる
+  //----------------------------------------
+  if(abs_d == 0) {
+    shisu = 0;
+    } else {
+      shisu = shisu + 127;
+    }
+  //----------------------------------------
+  hyouji45.innerHTML = "bnum=" + bnum;
+  displayExponent(shisu);
+  displayMantissa(kasubu);
 }
 //---------------------------
 // 各ボタンが押された時の関数
@@ -378,7 +377,7 @@ function displayExponent(x){
     }
   hyouji2.innerHTML = "指数部Ｅ＝" + String(TX) + " は10進数で" + String(x) +
   ",よって" + String(x) + "-" + String(127) + "=" + String(x-127) +
-  ",つまり [2の"+String(x-127)+"乗] を表す。（指数部は符号がないので,いつも127を引く）";
+  ",つまり [2の"+String(x-127)+"乗] を表す。指数部に符号はない。本当の値に127を足して（下駄をはかせて）保存しておく。使うときは127を引いてから使う。こうするとマイナス乗も表現できる。";
 }
 //------------------------------
 // 仮数部（２３桁）を表示する関数
@@ -395,8 +394,7 @@ function displayMantissa(K){
       LedTbl.rows[1].cells[j+9].innerHTML='<img src="LedOff.jpg" width="50">'; 
       }
     }
-  hyouji3.innerHTML = "仮数部Ｍ=" + TX + " は２進数で, [１." + TX +
-  "] を表す。（２進数の最上位は必ず１になるので省略すると決めている）";
+  hyouji3.innerHTML = "仮数部Ｍ=" + TX + " は２進数で, [１." + TX +"] を表す。2進数の最上位は必ず1になるので,1ビット「けちって」省略している。";
 }
 //---------------------------------
 // 10進数を2進数(8桁)に変換する関数
