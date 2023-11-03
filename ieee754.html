@@ -180,8 +180,6 @@ pushButtonS.onclick = function(){
 pushButtonDtoB.onclick = function(){
   let x = numberDEC.value;                // 入力された文字を変数xに代入する
   let d = parseFloat(x, 10);              // 文字xを浮動小数点数dに変換する
-  absN = d;                               // GLOBAL変数absNに代入しておく
-  //                                         あとで,関数の中でゼロの判定につかう。
   //---------------------
   // 符号を検出する
   //--------------------- 
@@ -191,7 +189,9 @@ pushButtonDtoB.onclick = function(){
   // 整数部（符号なし）を取り出す
   //----------------------------------------------
   let abs_d =         Math.abs(d);        // 絶対値をとる
-  let abs_d_seisu =   Math.floor(abs_d);  // 切り捨てる
+  let abs_d_seisu =   Math.floor(abs_d);  // 切り捨てる（整数部になる）
+  absN = abs_d;                           // 入力された数の絶対値をGLOBAL変数absNに代入しておく
+  //                                         あとで, 関数の中でゼロの判定につかう。
   //----------------------------------------------
   // 計算誤差がでるので、文字のまま小数部を取り出す
   //----------------------------------------------
