@@ -112,29 +112,29 @@
     <tr>
       <td>正0,負1</td>
       <td>128</td> <td>64</td> <td>32</td> <td>16</td> <td>8</td> <td>4</td> <td>2</td> <td>1</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
+      <td type="text" class="manDigit" id="manD1"></td>
+      <td type="text" class="manDigit" id="manD2"></td>
+      <td type="text" class="manDigit" id="manD3"></td>
+      <td type="text" class="manDigit" id="manD4"></td>
+      <td type="text" class="manDigit" id="manD5"></td>
+      <td type="text" class="manDigit" id="manD6"></td>
+      <td type="text" class="manDigit" id="manD7"></td>
+      <td type="text" class="manDigit" id="manD8"></td>
+      <td type="text" class="manDigit" id="manD9"></td>
+      <td type="text" class="manDigit" id="manD10"></td>
+      <td type="text" class="manDigit" id="manD11"></td>
+      <td type="text" class="manDigit" id="manD12"></td>
+      <td type="text" class="manDigit" id="manD13"></td>
+      <td type="text" class="manDigit" id="manD14"></td>
+      <td type="text" class="manDigit" id="manD15"></td>
+      <td type="text" class="manDigit" id="manD16"></td>
+      <td type="text" class="manDigit" id="manD17"></td>
+      <td type="text" class="manDigit" id="manD18"></td>
+      <td type="text" class="manDigit" id="manD19"></td>
+      <td type="text" class="manDigit" id="manD20"></td>
+      <td type="text" class="manDigit" id="manD21"></td>
+      <td type="text" class="manDigit" id="manD22"></td>
+      <td type="text" class="manDigit" id="manD23"></td>
     </tr>
     <tr>
       <td>符号</td>
@@ -184,10 +184,24 @@ displaySyousu();
 // GLOBAL END
 //------------------------------------------------------------------------
 function displaySyousu() {
+  // 仮数部を取得する　M1からE23の値は配列に格納される
+  // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
+  // セレクタ文字列 ".inputMan" はclass="inputMan"に一致する物を示す・・・(.はclass)
+  elmArray = document.querySelectorAll( ".manDigit" );
+  // window.console.log( elmArray );
+  // データを格納するための配列を作成
+  let inputDigit = [];
+  // 各要素から値を取得し、配列に追加
+  for (let i = 0; i < elmArray.length; i++) {
+    elmTemp = elmArray[i].textContent;
+    inputDigit.push(elmTemp);
+  }
+  // window.console.log( inputDigit );
   let M = [];
   let u = -1;
     for(let t = 0; t < 23; t++) {
       M[t] = "(" + String( 2**u ) + ") " ;
+      elmArray[t].textContent = String( 2**u );
       u--; 
       hyouji5.innerHTML = M;
     }
@@ -345,6 +359,47 @@ pushButtonDtoB.onclick = function(){
   displayExponent(shisu);
   displayMantissa(kasubu);
 }
+//-------------------------------------------
+// [10進数で表示する]ボタンが押された時の関数
+// inputS, inputShisu, inputKasu に取り込む
+//-------------------------------------------
+pushButtonBtoD.onclick = function() {
+  let elmTemp;    // elementエレメント用一時的な変数
+  let elmArray;   // elementエレメント配列用一時的な変数
+  let valTemp;    // なんでも値用一時的な変数
+  // 符号を取得する
+  // querySelectorメソッドは最初にセレクタ文字列に一致したElementオブジェクトのみを取得する
+  // セレクタ文字列 "#inputS" はid="inputS"に一致する物を示す・・・(＃はid)
+  elmTemp = document.querySelector( "#inputS" );
+  let inputFugo = elmTemp.textContent;
+  window.console.log(inputFugo);
+  // 指数部を取得する　E1からE8の値は配列に格納される
+  // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
+  // セレクタ文字列 ".inputS" はclass="inputExp"に一致する物を示す・・・(.はclass)
+  elmArray = document.querySelectorAll( ".inputExp" ); 
+  // window.console.log( elmArray );
+  // データを格納するための配列を作成
+  let inputShisu = [];
+  // 各要素から値を取得し、配列に追加
+  for (let i = 0; i < elmArray.length; i++) {
+    elmTemp = elmArray[i].textContent;
+    inputShisu.push(elmTemp);
+  }
+  window.console.log( inputShisu );
+  // 仮数部を取得する　M1からE23の値は配列に格納される
+  // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
+  // セレクタ文字列 ".inputMan" はclass="inputMan"に一致する物を示す・・・(.はclass)
+  elmArray = document.querySelectorAll( ".inputMan" );
+  // window.console.log( elmArray );
+  // データを格納するための配列を作成
+  let inputKasu = [];
+  // 各要素から値を取得し、配列に追加
+  for (let i = 0; i < elmArray.length; i++) {
+    elmTemp = elmArray[i].textContent;
+    inputKasu.push(elmTemp);
+  }
+  window.console.log( inputKasu );
+}
 //---------------------------
 // 各ボタンが押された時の関数
 //---------------------------
@@ -385,6 +440,8 @@ pushButtonM23.onclick = function(){if(kasu[22] == 1){kasu[22] = 0;}else{kasu[22]
 //-----------------------------
 //　符号部（１桁）を表示する関数
 //-----------------------------
+// 表のオフセット位置で指定するのは手間がかかるので
+// セレクタAPIによるエレメントの取得に変えたほうがよい
 function displaySign(x){
   hyouji.innerHTML = "符号部S=" + String(x)+ "は [" + fugoKanji[x] + "] を表す。"
   LedTbl.rows[0].cells[0].innerHTML=x;
@@ -421,6 +478,8 @@ function displayExponent(x){
 // 仮数部（２３桁）を表示する関数
 // 添え字0から22の23桁を表示する
 //------------------------------
+// 表のオフセット位置で指定するのは手間がかかるので
+// セレクタAPIによるエレメントの取得に変えたほうがよい
 function displayMantissa(K){
   TX="";
   for(j=0; j<23; j++){
@@ -456,6 +515,8 @@ function decimal_to_binary(x){
 //---------------------------------
 // 指数部（８桁）のLEDを表示する関数
 //---------------------------------
+// 表のオフセット位置で指定するのは手間がかかるので
+// セレクタAPIによるエレメントの取得に変えたほうがよい
 function displayLed(c){
   r=1; n=0;
   for(k=0; k<8; k++){
