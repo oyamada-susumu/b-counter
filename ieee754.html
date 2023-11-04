@@ -6,7 +6,8 @@
 </head>
 <body bgcolor="#ffffff">
 <h3>32ビット浮動小数点数の内部表現</h3>
-  <table id="LedTbl" border="1">
+<h2 type="text" id="displayKaisetsu2">ここに10進数が表示されます</h2>
+<table id="LedTbl" border="1">
      <tr>
       <td type="text" class="inputSign" id="inputS">0</td>
       <td type="text" class="inputExp" id="inputE8">0</td>
@@ -151,18 +152,11 @@
 <input type="number" id="numberDEC"       value = "">
 <input type="button" id="pushButtonDtoB"  value = "内部表現に変換する">
 <input type="button" id="pushButtonBtoD"  value = "10進数で表示する">
+<h3 type="text" id="displayKaisetsu">ここに解説が表示されます</h2>
 <h3 id="hyouji">***1***</h3>
 <h3 id="hyouji2">***2***</h3>
 <h3 id="hyouji3">***3***</h3>
-<h6 id="hyouji4">***4*** </h6>
-<h6 id="hyouji10">***10***</h6>
-<h6 id="hyouji9">***9***</h6>
-<h6 id="hyouji11">***11***</h6>
-<h6 id="hyouji45">***45***</h6>  
-<h6 id="hyouji5">***5***</h6>
-<h6 id="hyouji6">***6***</h6>
-<h6 id="hyouji7">***7***</h6>
-<h6 id="hyouji8">***8***</h6>
+<h3 id="hyouji4">***4*** </h3>
 <script>
 // SCRIPT START
 //------------------------------------------------------------------------
@@ -179,7 +173,7 @@ let   kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];   // GLOBAL kasu  �
 displaySign(fugo);                                      // 符号部を表示する
 displayExponent(shisu);                                 // 指数部を表示する
 displayMantissa(kasu);                                  // 仮数部を表示する
-displaySyousu();
+// displaySyousu();
 //------------------------------------------------------------------------
 // GLOBAL END
 //------------------------------------------------------------------------
@@ -203,7 +197,6 @@ function displaySyousu() {
       M[t] = "(" + String( 2**u ) + ") " ;
       elmArray[t].textContent = String( 2**u );
       u--; 
-      hyouji5.innerHTML = M;
     }
   }
 //-----------------------------
@@ -214,11 +207,25 @@ pushButtonS.onclick = function(){
   displaySign(fugo);
 }
 //---------------------------------------
-//
-// 2進数へ変換ボタンが押された時の関数
-//
+// [内部表現に変換する]ボタンが押された時
 //---------------------------------------
 pushButtonDtoB.onclick = function(){
+  displayBinary();      // 2進数の内部表現に変換した後で
+  displayDecimal();     // 変換結果から10進数に再計算している
+}
+//-------------------------------------
+// [10進数で表示する]ボタンが押された時
+//-------------------------------------
+pushButtonBtoD.onclick = function() {
+  displayDecimal();     // 10進数に変換した後で
+  displayBinary();      // 2進数の内部表現に再変換している
+}
+//--------------------------------------------------------------------------
+//
+// [2進数へ変換する]ボタンが押された時の関数(本体)
+//
+//--------------------------------------------------------------------------
+function displayBinary(){
   let x = numberDEC.value;                // 入力された文字を変数xに代入する
   let d = parseFloat(x, 10);              // 文字xを浮動小数点数dに変換する
   //---------------------
@@ -256,7 +263,6 @@ pushButtonDtoB.onclick = function(){
       carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
   }
   carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）lengthに０をセットしておく */
-  hyouji6.innerHTML= syousu;
   //--------------------------------------------------------
   // 筆算方式の算譜(ここは10進数で計算をしていることに注意！)
   // 計算結果の2進数小数部はsyousubに格納される
@@ -275,7 +281,6 @@ pushButtonDtoB.onclick = function(){
       carry[k]=0;
     }
   }
-  hyouji9.innerHTML = "小数部(2進数)="+syousub;
   displayMantissa(syousub);
   //-------------------------------------------------------------------------
   // (注１) 10進数整数１桁の2の掛け算, つまり,
@@ -298,12 +303,10 @@ pushButtonDtoB.onclick = function(){
   for(let k = 0; k < seisub.length; k++){        // 整数部を表示用に順番を逆転させる
     seisuc[k] = seisub[seisub.length - k - 1];
     }
-  hyouji10.innerHTML = "整数部(２進数)=" + seisuc;
   //---------------------------------------------------------------------------------
   // 整数部と小数部を連結させ,仮数部と指数部を得る
   //---------------------------------------------------------------------------------
   let bnum = seisuc.concat(syousub);  // 整数部seisucと少数部syousubを連結して配列bnumとする
-  hyouji11.innerHTML = "整数部+小数部(２進数)=" + bnum;
   //-----------------------------------------------------------------------------------
   // 整数部が0でない場合は,
   // 6.0125なら 110(2)と.001(2) ----> 110.001(2)
@@ -355,17 +358,16 @@ pushButtonDtoB.onclick = function(){
       shisu = shisu + 127;
     }
   //----------------------------------------
-  hyouji45.innerHTML = "bnum=" + bnum;
   displayExponent(shisu);
   displayMantissa(kasubu);
 }
 //------------------------------------------------------------------------------
 //
-// [10進数で表示する]ボタンが押された時の関数
+// [10進数で表示する]ボタンが押された時の関数(本体)
 // inputS, inputShisu, inputKasu に取り込む
 //
 //------------------------------------------------------------------------------
-pushButtonBtoD.onclick = function() {
+function displayDecimal() {
   let elmTemp;    // elementエレメント用一時的な変数
   let elmArray;   // elementエレメント配列用一時的な変数
   let valTemp;    // なんでも値用一時的な変数
@@ -412,11 +414,31 @@ pushButtonBtoD.onclick = function() {
     getaExp = getaExp + 2**(inputShisu.length - i - 1) * inputShisu[i];
   }
   let realExp = getaExp - 127;
-  window.console.log( realExp );
   elmArray = document.querySelectorAll( ".manDigit" );
   for(let i = 0; i < elmArray.length; i++) {
-    elmArray[i].textContent = 2**(realExp - i); 
+    elmArray[i].textContent = 2**(realExp - i -1); 
   }
+  // 10進数で実際の値を求める
+  let DecNumber = 2**realExp;
+  let msgAdd = "=" + String(DecNumber);
+  for(let i = 0; i < elmArray.length; i++) {
+    DecNumber = DecNumber + parseInt(inputKasu[i]) * parseFloat(elmArray[i].textContent);
+    if(inputKasu[i] == "1") {
+      msgAdd = msgAdd + "+" + elmArray[i].textContent;
+    }
+  }
+  DecNumber = (-1)**inputFugo * DecNumber;
+  window.console.log( realExp, DecNumber );
+  // 解説を表示する
+  let msgM = "";
+  for(let i = 0; i < inputKasu.length; i++) {
+    msgM = msgM +inputKasu[i];
+    }
+  let msg = "(-1)の" + inputFugo +"乗 × 1." + msgM + "× 2の" + "(" + String(realExp) + ")乗" ;
+  elmTemp = document.querySelector( "#displayKaisetsu" );
+  elmTemp.textContent = msg;
+  elmTemp = document.querySelector( "#displayKaisetsu2" );
+  elmTemp.textContent = String(DecNumber) + msgAdd;
 }
 //---------------------------
 // 各ボタンが押された時の関数
