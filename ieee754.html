@@ -156,7 +156,6 @@
 <h3 id="hyouji">***1***</h3>
 <h3 id="hyouji2">***2***</h3>
 <h3 id="hyouji3">***3***</h3>
-<h3 id="hyouji4">***4*** </h3>
 <script>
 // SCRIPT START
 //------------------------------------------------------------------------
@@ -252,7 +251,6 @@ function displayBinary(){
   let syousux = abs_d_syousu;   /* 小数部（文字）*/
   let syousuy = [];             /* 計算用 syousu y */
   let syousub = [];             /* 計算結果 ２進数小数部 syousu binary */
-  hyouji4.innerHTML = "10進数"+abs_d + "の整数部は" + abs_d_seisu + ", 小数部は" + abs_d_syousu ;
   let carry=[];                 /* 繰り上がり carry bit */
   let syousu=[];                /* 元の小数部 */
   for(let i = 0; i < syousux.length; i++) {
@@ -420,7 +418,11 @@ function displayDecimal() {
   }
   // 10進数で実際の値を求める
   let DecNumber = 2**realExp;
-  let msgAdd = "=" + String(DecNumber);
+  let msgAdd;                               // 解説用
+  if(inputFugo == "0" ) {msgAdd = "= (" + String(DecNumber);
+    } else {
+      msgAdd = "= -(" +String(DecNumber);
+  }
   for(let i = 0; i < elmArray.length; i++) {
     DecNumber = DecNumber + parseInt(inputKasu[i]) * parseFloat(elmArray[i].textContent);
     if(inputKasu[i] == "1") {
@@ -438,7 +440,7 @@ function displayDecimal() {
   elmTemp = document.querySelector( "#displayKaisetsu" );
   elmTemp.textContent = msg;
   elmTemp = document.querySelector( "#displayKaisetsu2" );
-  elmTemp.textContent = String(DecNumber) + msgAdd;
+  elmTemp.textContent = String(DecNumber) + msgAdd +")";
 }
 //---------------------------
 // 各ボタンが押された時の関数
