@@ -153,9 +153,10 @@
 <input type="button" id="pushButtonDtoB"  value = "内部表現に変換する">
 <input type="button" id="pushButtonBtoD"  value = "10進数で表示する">
 <h3 type="text" id="displayKaisetsu">ここに解説が表示されます</h2>
-<h3 id="hyouji">***1***</h3>
-<h3 id="hyouji2">***2***</h3>
-<h3 id="hyouji3">***3***</h3>
+<h3 id="hyouji">ここに解説が表示されます</h3>
+<h3 id="hyouji2">ここに解説が表示されます</h3>
+<h3 id="hyouji3">ここに解説が表示されます</h3>
+<h3 id="hyouji4">ここに解説が表示されます</h3>
 <script>
 // SCRIPT START
 //------------------------------------------------------------------------
@@ -176,31 +177,28 @@ displayMantissa(kasu);                                  // 仮数部を表示す
 //------------------------------------------------------------------------
 // GLOBAL END
 //------------------------------------------------------------------------
-function displaySyousu() {
+/*function displaySyousu() {
   // 仮数部を取得する　E1からE23の値は配列に格納される
   // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
   // セレクタ文字列 ".inputMan" はclass="inputMan"に一致する物を示す・・・(.はclass)
   elmArray = document.querySelectorAll( ".manDigit" );
-  // window.console.log( elmArray );
-  // データを格納するための配列を作成
-  // let inputDigit = [];
-  // 各要素から値を取得し、配列に追加
-  // for (let i = 0; i < elmArray.length; i++) {
-  //  elmTemp = elmArray[i].textContent;
-  //  inputDigit.push(elmTemp);
-  // }
-  // window.console.log( inputDigit );
   let M = [];
   let u = -1;
     for(let t = 0; t < 23; t++) {
-      M[t] = "(" + String( 2**u ) + ") " ;
-      elmArray[t].textContent = String( 2**u );
-      u--; 
+      if( absN != 0 ) {
+        M[t] = "(" + String( 2**u ) + ") " ;
+        elmArray[t].textContent = String( 2**u );
+      } else {
+        M[t] ="(0)";
+        elmArray[t].textContent = "0";
+      }
+        u--;       
     }
   }
-//-----------------------------
-// 符号ボタンが押された時の関数
-//-----------------------------
+*/
+//-------------------------------
+// 符号ボタン[S]が押された時の関数
+//-------------------------------
 pushButtonS.onclick = function(){
   if(fugo == 1) {fugo = 0;} else {fugo = 1;}
   displaySign(fugo);
@@ -209,23 +207,26 @@ pushButtonS.onclick = function(){
 // [内部表現に変換する]ボタンが押された時
 //---------------------------------------
 pushButtonDtoB.onclick = function(){
-  displayBinary();      // 2進数の内部表現に変換した後で
-  displayDecimal();     // 変換結果から10進数に再計算している
+  displayBinary();      // 2進数の内部表現に変換する
+  displayDecimal();     // 変換結果から10進数に再計算する
+// ２進数の有限桁数で計算しているため,少数や大きな数になると誤差が出るが,
+// 誤差を見せるため,そのままにしておく。
 }
 //-------------------------------------
 // [10進数で表示する]ボタンが押された時
 //-------------------------------------
 pushButtonBtoD.onclick = function() {
-  displayDecimal();     // 10進数に変換した後で
-  displayBinary();      // 2進数の内部表現に再変換している
+  displayDecimal();     // S,E,MのLedの点灯を2進数として読み取り10進数に変換する
+  displayBinary();      // 2進数の内部表現に再変換して,解説を表示する
 }
-//--------------------------------------------------------------------------
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
-// [2進数へ変換する]ボタンが押された時の関数(本体)
+// [内部表現に変換する]ボタンが押された時の関数(本体)
 //
-//--------------------------------------------------------------------------
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function displayBinary(){
   let x = numberDEC.value;                // 入力された文字を変数xに代入する
+  if(x == "") {x = "0.0";}                // 何も入力されない場合は0.0とする
   let d = parseFloat(x, 10);              // 文字xを浮動小数点数dに変換する
   //---------------------
   // 符号を検出する
@@ -253,6 +254,7 @@ function displayBinary(){
   let syousub = [];             /* 計算結果 ２進数小数部 syousu binary */
   let carry=[];                 /* 繰り上がり carry bit */
   let syousu=[];                /* 元の小数部 */
+  hyouji4.innerHTML = "整数部= " + String(abs_d_seisu) + " 小数部= " + String(abs_d_syousu)
   for(let i = 0; i < syousux.length; i++) {
     syousu[i] = syousux.charAt(i);            /* 10進数小数部文字を１けたずつ配列に格納する */
   }
@@ -359,12 +361,13 @@ function displayBinary(){
   displayExponent(shisu);
   displayMantissa(kasubu);
 }
-//------------------------------------------------------------------------------
+//*****************************************************************
 //
 // [10進数で表示する]ボタンが押された時の関数(本体)
-// inputS, inputShisu, inputKasu に取り込む
+//   ボタンのON=1,OFF=0を,符号inputFugo,指数部（配列）inputShisu,
+//   仮数部（配列）inputKasu に取り込む
 //
-//------------------------------------------------------------------------------
+//*****************************************************************
 function displayDecimal() {
   let elmTemp;    // elementエレメント用一時的な変数
   let elmArray;   // elementエレメント配列用一時的な変数
@@ -401,12 +404,23 @@ function displayDecimal() {
     inputKasu.push(elmTemp);
   }
   // window.console.log( inputKasu );
-  //-------------------------------------------------------------
-  // 10進数に変換する inputFugo, inputShisu[1-8], inputKasu[1-23]
-  //-------------------------------------------------------------
+  //-----------------------------------------------------------------
+  // 10進数に変換する inputFugo, inputShisu[1-8], inputKasu[1-23]から
+  //-----------------------------------------------------------------
   // (-1)**S * 2**(E-127) * 1.MMMMMMMMMMMMMMMMMMMMMMM
   // ↑を10進数で求める
-  //-------------------------------------------------------------
+  //-----------------------------------------------------------------
+  // 0の判定をする。指数部と仮数部の全ビットを足して0ならば0ゼロ
+  let cheksum =0;
+  for (let i = 0; i < inputShisu.length; i++) {
+    checksum = cheksum + parseInt(inputShisu[i]);
+  }
+  for (let i = 0; i < inputKasu.length; i++) {
+    checksum = cheksum + parseInt(inputKasu[i]);
+  }
+  if( cheksum == 0 ){ absN = 0; }
+  window.console.log("cheksum= " + checksum + " absN= " + absN);
+  //------------------------------------------------------------------
   let getaExp = 0;
   for (let i = 0; i < inputShisu.length ; i++) {
     getaExp = getaExp + 2**(inputShisu.length - i - 1) * inputShisu[i];
@@ -414,37 +428,55 @@ function displayDecimal() {
   let realExp = getaExp - 127;
   elmArray = document.querySelectorAll( ".manDigit" );
   for(let i = 0; i < elmArray.length; i++) {
-    elmArray[i].textContent = 2**(realExp - i -1); 
+    if(absN != 0){elmArray[i].textContent = 2**(realExp - i - 1);}
+      else {elmArray[i].textContent = 0;}
   }
-  // 10進数で実際の値を求める
-  let DecNumber = 2**realExp;
-  let msgAdd;                               // 解説用
-  if(inputFugo == "0" ) {msgAdd = "= (" + String(DecNumber);
-    } else {
-      msgAdd = "= -(" +String(DecNumber);
-  }
+  for(let i =0; i < elmArray.length; i++) {elmArray[i].textContent = 2**(realExp - i - 1);}
+  // 指数部2^(E-127)+(仮数部23桁それぞれの2^nのあるなし)で10進数を求める。 
+  let DecNumber = 2**realExp;   // 始めの1つ,2＾(E-127),1.MMM...の1の部分にあたる
+  let msgAdd;                   // 解説メッセージ用（例）-90.5 = -(64+16+8+2+0.5)
+  if(inputFugo == "0"){msgAdd = "= (";} else {
+    msgAdd = "= -(";}
+    msgAdd = msgAdd + String(DecNumber);   // 始めの1つ,2**(E-127),1.xxxの1の部分
   for(let i = 0; i < elmArray.length; i++) {
     DecNumber = DecNumber + parseInt(inputKasu[i]) * parseFloat(elmArray[i].textContent);
     if(inputKasu[i] == "1") {
       msgAdd = msgAdd + "+" + elmArray[i].textContent;
     }
   }
+  //--------------------------------------------------
+  // 最終的な10進数を求める
+  //--------------------------------------------------
   DecNumber = (-1)**inputFugo * DecNumber;
   window.console.log( realExp, DecNumber );
-  // 解説を表示する
+  // ×できそうにない20231105→入力欄に表示する。
+  // elmTemp = document.querySelector( "#numberDec" );
+  // elmTemp.textContent = String(DecNumber);
+  //--------------------------------------------------
+  // 解説を作る
+  //--------------------------------------------------
+  // 仮数部Mの10110101000000000000000を作る
   let msgM = "";
   for(let i = 0; i < inputKasu.length; i++) {
     msgM = msgM +inputKasu[i];
-    }
-  let msg = "(-1)の" + inputFugo +"乗 × 1." + msgM + "× 2の" + "(" + String(realExp) + ")乗" ;
+  }
+  //(-1)^S*1.M*2^(E-127)の説明を作る
+  let msg = "";
+  if(checksum != 0) {
+    msg = "(-1)の" + inputFugo +"乗 × 1." + msgM + "× 2の" + "(" + String(realExp) + ")乗" ;
+    } else {
+      msg = "";
+  }
+  // クエリ―セレクタを使い解説を表示する
   elmTemp = document.querySelector( "#displayKaisetsu" );
   elmTemp.textContent = msg;
   elmTemp = document.querySelector( "#displayKaisetsu2" );
+  if(cheksum == 0) {DecNumber = 0; msgAdd = "= (0";}  
   elmTemp.textContent = String(DecNumber) + msgAdd +")";
 }
-//---------------------------
-// 各ボタンが押された時の関数
-//---------------------------
+//----------------------------------
+// その他の各ボタンが押された時の関数
+//----------------------------------
 pushButtonE1.onclick = function(){if(D2BX(shisu,0)==1){shisu=shisu-1;}else{shisu=shisu+1;}displayExponent(shisu);}
 pushButtonE2.onclick = function(){if(D2BX(shisu,1)==1){shisu=shisu-2;}else{shisu=shisu+2;}displayExponent(shisu);}
 pushButtonE3.onclick = function(){if(D2BX(shisu,2)==1){shisu=shisu-4;}else{shisu=shisu+4;}displayExponent(shisu);}
