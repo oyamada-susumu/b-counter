@@ -418,8 +418,6 @@ function displayDecimal() {
   for (let i = 0; i < inputKasu.length; i++) {
     checksum = cheksum + parseInt(inputKasu[i]);
   }
-  if( cheksum == 0 ){ absN = 0; }
-  window.console.log("cheksum= " + checksum + " absN= " + absN);
   //------------------------------------------------------------------
   let getaExp = 0;
   for (let i = 0; i < inputShisu.length ; i++) {
@@ -428,16 +426,22 @@ function displayDecimal() {
   let realExp = getaExp - 127;
   elmArray = document.querySelectorAll( ".manDigit" );
   for(let i = 0; i < elmArray.length; i++) {
-    if(absN != 0){elmArray[i].textContent = 2**(realExp - i - 1);}
-      else {elmArray[i].textContent = 0;}
+    if(checksum != 0){
+      elmArray[i].textContent = 2**(realExp - i - 1);
+      }else {
+        elmArray[i].textContent = 0;
+    }
   }
   for(let i =0; i < elmArray.length; i++) {elmArray[i].textContent = 2**(realExp - i - 1);}
   // 指数部2^(E-127)+(仮数部23桁それぞれの2^nのあるなし)で10進数を求める。 
   let DecNumber = 2**realExp;   // 始めの1つ,2＾(E-127),1.MMM...の1の部分にあたる
   let msgAdd;                   // 解説メッセージ用（例）-90.5 = -(64+16+8+2+0.5)
-  if(inputFugo == "0"){msgAdd = "= (";} else {
-    msgAdd = "= -(";}
-    msgAdd = msgAdd + String(DecNumber);   // 始めの1つ,2**(E-127),1.xxxの1の部分
+  if(inputFugo == "0") {
+    msgAdd = "= (";
+      } else {
+        msgAdd = "= -(";
+  }
+  msgAdd = msgAdd + String(DecNumber);   // 始めの1つ,2**(E-127),1.xxxの1の部分
   for(let i = 0; i < elmArray.length; i++) {
     DecNumber = DecNumber + parseInt(inputKasu[i]) * parseFloat(elmArray[i].textContent);
     if(inputKasu[i] == "1") {
@@ -447,7 +451,13 @@ function displayDecimal() {
   //--------------------------------------------------
   // 最終的な10進数を求める
   //--------------------------------------------------
-  DecNumber = (-1)**inputFugo * DecNumber;
+  if(cheksum != 0) {
+    DecNumber = (-1)**inputFugo * DecNumber;
+    absN = Math.abs(DecNumber);
+    } else {
+      DecNumber = 0;
+      absN = 0;
+  }
   window.console.log( realExp, DecNumber );
   // ×できそうにない20231105→入力欄に表示する。
   // elmTemp = document.querySelector( "#numberDec" );
@@ -471,7 +481,7 @@ function displayDecimal() {
   elmTemp = document.querySelector( "#displayKaisetsu" );
   elmTemp.textContent = msg;
   elmTemp = document.querySelector( "#displayKaisetsu2" );
-  if(cheksum == 0) {DecNumber = 0; msgAdd = "= (0";}  
+  if(cheksum == 0) {msgAdd = "= (0";}  
   elmTemp.textContent = String(DecNumber) + msgAdd +")";
 }
 //----------------------------------
