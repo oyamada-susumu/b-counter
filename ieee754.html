@@ -184,18 +184,18 @@ displaySyousu();
 // GLOBAL END
 //------------------------------------------------------------------------
 function displaySyousu() {
-  // 仮数部を取得する　M1からE23の値は配列に格納される
+  // 仮数部を取得する　E1からE23の値は配列に格納される
   // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
   // セレクタ文字列 ".inputMan" はclass="inputMan"に一致する物を示す・・・(.はclass)
   elmArray = document.querySelectorAll( ".manDigit" );
   // window.console.log( elmArray );
   // データを格納するための配列を作成
-  let inputDigit = [];
+  // let inputDigit = [];
   // 各要素から値を取得し、配列に追加
-  for (let i = 0; i < elmArray.length; i++) {
-    elmTemp = elmArray[i].textContent;
-    inputDigit.push(elmTemp);
-  }
+  // for (let i = 0; i < elmArray.length; i++) {
+  //  elmTemp = elmArray[i].textContent;
+  //  inputDigit.push(elmTemp);
+  // }
   // window.console.log( inputDigit );
   let M = [];
   let u = -1;
@@ -359,10 +359,12 @@ pushButtonDtoB.onclick = function(){
   displayExponent(shisu);
   displayMantissa(kasubu);
 }
-//-------------------------------------------
+//------------------------------------------------------------------------------
+//
 // [10進数で表示する]ボタンが押された時の関数
 // inputS, inputShisu, inputKasu に取り込む
-//-------------------------------------------
+//
+//------------------------------------------------------------------------------
 pushButtonBtoD.onclick = function() {
   let elmTemp;    // elementエレメント用一時的な変数
   let elmArray;   // elementエレメント配列用一時的な変数
@@ -372,7 +374,7 @@ pushButtonBtoD.onclick = function() {
   // セレクタ文字列 "#inputS" はid="inputS"に一致する物を示す・・・(＃はid)
   elmTemp = document.querySelector( "#inputS" );
   let inputFugo = elmTemp.textContent;
-  window.console.log(inputFugo);
+  // window.console.log(inputFugo);
   // 指数部を取得する　E1からE8の値は配列に格納される
   // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
   // セレクタ文字列 ".inputS" はclass="inputExp"に一致する物を示す・・・(.はclass)
@@ -385,7 +387,7 @@ pushButtonBtoD.onclick = function() {
     elmTemp = elmArray[i].textContent;
     inputShisu.push(elmTemp);
   }
-  window.console.log( inputShisu );
+  // window.console.log( inputShisu );
   // 仮数部を取得する　M1からE23の値は配列に格納される
   // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
   // セレクタ文字列 ".inputMan" はclass="inputMan"に一致する物を示す・・・(.はclass)
@@ -398,7 +400,23 @@ pushButtonBtoD.onclick = function() {
     elmTemp = elmArray[i].textContent;
     inputKasu.push(elmTemp);
   }
-  window.console.log( inputKasu );
+  // window.console.log( inputKasu );
+  //-------------------------------------------------------------
+  // 10進数に変換する inputFugo, inputShisu[1-8], inputKasu[1-23]
+  //-------------------------------------------------------------
+  // (-1)**S * 2**(E-127) * 1.MMMMMMMMMMMMMMMMMMMMMMM
+  // ↑を10進数で求める
+  //-------------------------------------------------------------
+  let getaExp = 0;
+  for (let i = 0; i < inputShisu.length ; i++) {
+    getaExp = getaExp + 2**(inputShisu.length - i - 1) * inputShisu[i];
+  }
+  let realExp = getaExp - 127;
+  window.console.log( realExp );
+  elmArray = document.querySelectorAll( ".manDigit" );
+  for(let i = 0; i < elmArray.length; i++) {
+    elmArray[i].textContent = 2**(realExp - i); 
+  }
 }
 //---------------------------
 // 各ボタンが押された時の関数
