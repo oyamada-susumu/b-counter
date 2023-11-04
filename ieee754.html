@@ -411,13 +411,14 @@ function displayDecimal() {
   // ↑を10進数で求める
   //-----------------------------------------------------------------
   // 0の判定をする。指数部と仮数部の全ビットを足して0ならば0ゼロ
-  let cheksum =0;
+  let checksum =0;
   for (let i = 0; i < inputShisu.length; i++) {
-    checksum = cheksum + parseInt(inputShisu[i]);
+    checksum = checksum + parseInt(inputShisu[i]);
   }
   for (let i = 0; i < inputKasu.length; i++) {
-    checksum = cheksum + parseInt(inputKasu[i]);
+    checksum = checksum + parseInt(inputKasu[i]);
   }
+  window.console.log("checksum = " + checksum);
   //------------------------------------------------------------------
   let getaExp = 0;
   for (let i = 0; i < inputShisu.length ; i++) {
