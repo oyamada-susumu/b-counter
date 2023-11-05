@@ -170,32 +170,14 @@ let   fugo = 0;                                               // GLOBAL fugo 符
 const fugoKanji=["＋","－"];                                  // 符号 表示用漢字
 let   shisu = 0;                                              // GLOBAL shisu 指数
 let   kasu=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];   // GLOBAL kasu  仮数                   
+let   inputShisu = [];
+let   inputKasu  = [];
 displaySign(fugo);                                      // 符号部を表示する
 displayExponent(shisu);                                 // 指数部を表示する
 displayMantissa(kasu);                                  // 仮数部を表示する
-// displaySyousu();
 //------------------------------------------------------------------------
 // GLOBAL END
 //------------------------------------------------------------------------
-/*function displaySyousu() {
-  // 仮数部を取得する　E1からE23の値は配列に格納される
-  // querySelectorAllメソッドはセレクタ文字列に一致したオブジェクトをすべて取得する
-  // セレクタ文字列 ".inputMan" はclass="inputMan"に一致する物を示す・・・(.はclass)
-  elmArray = document.querySelectorAll( ".manDigit" );
-  let M = [];
-  let u = -1;
-    for(let t = 0; t < 23; t++) {
-      if( absN != 0 ) {
-        M[t] = "(" + String( 2**u ) + ") " ;
-        elmArray[t].textContent = String( 2**u );
-      } else {
-        M[t] ="(0)";
-        elmArray[t].textContent = "0";
-      }
-        u--;       
-    }
-  }
-*/
 //-------------------------------
 // 符号ボタン[S]が押された時の関数
 //-------------------------------
@@ -281,7 +263,7 @@ function displayBinary(){
       carry[k]=0;
     }
   }
-  displayMantissa(syousub);
+  // displayMantissa(syousub);
   //-------------------------------------------------------------------------
   // (注１) 10進数整数１桁の2の掛け算, つまり,
   // {x*2,xは整数 | 0 <= x <= 9} は {0,2,4,6,8,10,12,14,16,18}がすべてである。
@@ -384,7 +366,10 @@ function displayDecimal() {
   elmArray = document.querySelectorAll( ".inputExp" ); 
   // window.console.log( elmArray );
   // データを格納するための配列を作成
-  let inputShisu = [];
+  // let inputShisu = [];
+  //
+  inputShisu =[];
+  //
   // 各要素から値を取得し、配列に追加
   for (let i = 0; i < elmArray.length; i++) {
     elmTemp = elmArray[i].textContent;
@@ -397,7 +382,10 @@ function displayDecimal() {
   elmArray = document.querySelectorAll( ".inputMan" );
   // window.console.log( elmArray );
   // データを格納するための配列を作成
-  let inputKasu = [];
+  // let inputKasu = [];
+  //
+  inputKasu =[];
+  //
   // 各要素から値を取得し、配列に追加
   for (let i = 0; i < elmArray.length; i++) {
     elmTemp = elmArray[i].textContent;
@@ -411,7 +399,7 @@ function displayDecimal() {
   // ↑を10進数で求める
   //-----------------------------------------------------------------
   // 0の判定をする。指数部と仮数部の全ビットを足して0ならば0ゼロ
-  let checksum =0;
+  let checksum = 0;
   for (let i = 0; i < inputShisu.length; i++) {
     checksum = checksum + parseInt(inputShisu[i]);
   }
@@ -428,10 +416,15 @@ function displayDecimal() {
   elmArray = document.querySelectorAll( ".manDigit" );
   for(let i = 0; i < elmArray.length; i++) {
     if(checksum != 0){
-      elmArray[i].textContent = 2**(realExp - i - 1);
-      }else {
-        elmArray[i].textContent = 0;
-    }
+     elmArray[i].textContent = 2**(realExp - i - 1);
+     window.console.log("NOT ZERO");
+     } else {
+       elmArray[i].textContent = 0;
+       window.console.log("ZERO !!!");
+      }
+  }
+  for(let i=0; i< elmArray.length; i++) {
+    window.console.log(elmArray[i].textContent);
   }
   for(let i =0; i < elmArray.length; i++) {elmArray[i].textContent = 2**(realExp - i - 1);}
   // 指数部2^(E-127)+(仮数部23桁それぞれの2^nのあるなし)で10進数を求める。 
@@ -452,7 +445,7 @@ function displayDecimal() {
   //--------------------------------------------------
   // 最終的な10進数を求める
   //--------------------------------------------------
-  if(cheksum != 0) {
+  if(checksum != 0) {
     DecNumber = (-1)**inputFugo * DecNumber;
     absN = Math.abs(DecNumber);
     } else {
@@ -482,7 +475,7 @@ function displayDecimal() {
   elmTemp = document.querySelector( "#displayKaisetsu" );
   elmTemp.textContent = msg;
   elmTemp = document.querySelector( "#displayKaisetsu2" );
-  if(cheksum == 0) {msgAdd = "= (0";}  
+  if(checksum == 0) {msgAdd = "= (0";}  
   elmTemp.textContent = String(DecNumber) + msgAdd +")";
 }
 //----------------------------------
@@ -543,6 +536,9 @@ function displaySign(x){
 function displayExponent(x){
   D=decimal_to_binary(x);
   displayLed(D);
+  // 指数部が表示されたタイミングでinputShisuをセットしておく
+  inputShisu = D;       // 配列inputShisu ← 配列D まるごとの代入
+  //
   TX="";
   for(j=0; j<8; j++){
     TX=TX+D[j]
@@ -566,6 +562,9 @@ function displayExponent(x){
 // 表のオフセット位置で指定するのは手間がかかるので
 // セレクタAPIによるエレメントの取得に変えたほうがよい
 function displayMantissa(K){
+  // 仮数部が表示されたタイミングでinputKasuをセットしておく
+  inputKasu = K;       // 配列inputKasu ← 配列K まるごとの代入
+  //
   TX="";
   for(j=0; j<23; j++){
     LedTbl.rows[0].cells[j+9].innerHTML=K[j];
