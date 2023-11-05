@@ -430,10 +430,8 @@ function displayDecimal() {
   // 指数部2^(E-127)+(仮数部23桁それぞれの2^nのあるなし)で10進数を求める。 
   let DecNumber = 2**realExp;   // 始めの1つ,2＾(E-127),1.MMM...の1の部分にあたる
   let msgAdd;                   // 解説メッセージ用（例）-90.5 = -(64+16+8+2+0.5)
-  if(inputFugo == "0") {
-    msgAdd = "= (";
-      } else {
-        msgAdd = "= -(";
+  if(inputFugo == "0") { msgAdd = "= (";
+    } else { msgAdd = "= -(";
   }
   msgAdd = msgAdd + String(DecNumber);   // 始めの1つ,2**(E-127),1.xxxの1の部分
   for(let i = 0; i < elmArray.length; i++) {
@@ -452,10 +450,6 @@ function displayDecimal() {
       DecNumber = 0;
       absN = 0;
   }
-  window.console.log( realExp, DecNumber );
-  // ×できそうにない20231105→入力欄に表示する。
-  // elmTemp = document.querySelector( "#numberDec" );
-  // elmTemp.textContent = String(DecNumber);
   //--------------------------------------------------
   // 解説を作る
   //--------------------------------------------------
@@ -468,9 +462,7 @@ function displayDecimal() {
   let msg = "";
   if(checksum != 0) {
     msg = "(-1)の" + inputFugo +"乗 × 1." + msgM + "× 2の" + "(" + String(realExp) + ")乗" ;
-    } else {
-      msg = "";
-  }
+    } else { msg = ""; }
   // クエリ―セレクタを使い解説を表示する
   elmTemp = document.querySelector( "#displayKaisetsu" );
   elmTemp.textContent = msg;
