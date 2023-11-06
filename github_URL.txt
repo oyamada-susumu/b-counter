@@ -1,1 +1,3 @@
 https://oyamada-susumu.github.io/b-counter/b-counter.html
+https://oyamada-susumu.github.io/b-counter/ieee754.html
+https://oyamada-susumu.github.io/b-counter/p62_assembla.html
