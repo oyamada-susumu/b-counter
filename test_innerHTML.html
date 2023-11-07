@@ -1,24 +1,62 @@
-<h1 id="msg0">********</h1>
-<h1 id="msg05">********</h1>
-<h1 id="msg1">********</h1>
-<h1 id="msg2">********</h1>
-<h1 id="msg3">********</h1>
-<h1 id="msg4">********</h1>
-<h1 id="msg5">********</h1>
-<h1 id="msg6">********</h1>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>HTML sample</title>
+</head>
+<body bgcolor="#ffffff">
+    <h1>HTMLの input type="   "</h1>
+<hr>buttom ---
+A <input type="button">
+B <input type="button"></td>
+<hr>chekbok ---
+Yes     <input type="checkbox"></td>
+No      <input type="checkbox"></td>
+Other   <input type="checkbox"></td>
+<hr>color<input type="color"> ←クリックしてください
+<hr>date <input type="date">
+<hr>datatime-local <input type="datetime-local">
+<hr>email <input type="email">
+<hr>file <input type="file">
+<hr>hidden <input type="hidden">
+<hr>image <input type="image">
+<hr>month <input type="month">
+<hr>number <input type="number">
+<hr>password <input type="password">
+<hr>radio <input type="radio"><input type="radio"><input type="radio"><input type="radio"><input type="radio"><input type="radio">
+<hr>range <input type="range">
+<hr>reset <input type="reset">
+<hr>search <input type="search">
+<hr>submit <input type="submit">
+<hr>tel <input type="tel">
+<hr>text <input type="text">
+<hr>time <input type="time">
+<hr>url <input type="url">
+<hr>week <input type="week">
+<hr><h3 id="msg0">********</h3>
+<h3 id="msg05">********</h3>
+<h3 id="msg1">********</h3>
+<h3 id="msg2">********</h3>
+<h3 id="msg3">********</h3>
+<h3 id="msg4">********</h3>
+<h3 id="msg5">********</h3>
+<h2 id="msg6">********</h2>
 <script>
-    n = -123.56;
+    n = -1234.5678;
     msg0.innerHTML = "元の数=" + String(n);
     nabs = Math.abs(n);
     msg05.innerHTML = "絶対値=" + String(nabs);
     nabsx = String(nabs);
     nsp = nabsx.split(".");
-    msg1.innerHTML = "整数部(絶対値の小数点の前:文字で分割)=" + nsp[0];
-    msg2.innerHTML = "小数部(絶対値の小数点の後:文字で分割)=" + nsp[1];
+    msg1.innerHTML = "整数部(絶対値の小数点の前)=" + nsp[0];
+    msg2.innerHTML = "小数部(絶対値の小数点の後)=" + nsp[1];
     a =parseInt(nsp[0], 10);
     msg3.innerHTML = "parseIntで文字整数部を数値に変換 --> Stringで表示=" + String(a);
     b =parseFloat("0."+ nsp[1], 10);
     msg4.innerHTML = "parseFloatで文字小数部を数値に変換 --> Stringで表示=" + String(b);
     c = nabs - a;
-    msg5.innerHTML = "小数部(元の数の絶対値-整数部)=" + String(c);
+    msg5.innerHTML = "元の数の絶対値 - 整数部 = " + String(c) +" ....... 小数部";
+    msg6.innerHTML = "コンピュータの計算では、元の数-整数部＝小数部とはならない　ことが多い。"
 </script>
+</body>
+</html>
