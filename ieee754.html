@@ -198,7 +198,7 @@ pushButtonDtoB.onclick = function(){
 // [10進数で表示する]ボタンが押された時
 //-------------------------------------
 pushButtonBtoD.onclick = function() {
-  displayDecimal();     // S,E,MのLedの点灯を2進数として読み取り10進数に変換する
+  displayDecimal();     // S,E,MのLedの点灯を2進数として読み取り,10進数に変換する
   displayBinary();      // 2進数の内部表現に再変換して,解説を表示する
 }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -230,21 +230,21 @@ function displayBinary(){
   //-------------------------
   // 小数部を2進数に変換する
   //-------------------------
-  let abs_d_syousu =  xsp[1];   /* 小数部は文字のまま処理することに注意! */
-  let syousux = abs_d_syousu;   /* 小数部（文字）*/
-  let syousuy = [];             /* 計算用 syousu y */
-  let syousub = [];             /* 計算結果 ２進数小数部 syousu binary */
-  let carry=[];                 /* 繰り上がり carry bit */
-  let syousu=[];                /* 元の小数部 */
+  let abs_d_syousu =  xsp[1];   // 小数部は文字のまま処理することに注意!
+  let syousux = abs_d_syousu;   // 小数部（文字）
+  let syousuy = [];             // 計算用 syousu y
+  let syousub = [];             // 計算結果 ２進数小数部 syousu binary
+  let carry=[];                 // 繰り上がり carry bit
+  let syousu=[];                // 元の小数部
   hyouji4.innerHTML = "整数部= " + String(abs_d_seisu) + " 小数部= " + String(abs_d_syousu)
   for(let i = 0; i < syousux.length; i++) {
-    syousu[i] = syousux.charAt(i);            /* 10進数小数部文字を１けたずつ配列に格納する */
+    syousu[i] = syousux.charAt(i);            // 10進数小数部文字を１けたずつ配列に格納する
   }
   for(let i = 0; i < syousux.length; i++) {
-      syousuy[i] = syousu[i];                 /* 10進数小数部　計算結果用 */
-      carry[i] = 0;                           /* 10進数小数部　繰り上がり用 */
+      syousuy[i] = syousu[i];                 // 10進数小数部　計算結果用
+      carry[i] = 0;                           // 10進数小数部　繰り上がり用
   }
-  carry[syousux.length] = 0;                  /* 最下位の繰り上がりは０なので、１桁下の（最下位＋１）lengthに０をセットしておく */
+  carry[syousux.length] = 0;                  // 最下位の繰り上がりは０なので、１桁下の（最下位＋１）lengthに０をセットしておく
   //--------------------------------------------------------
   // 筆算方式の算譜(ここは10進数で計算をしていることに注意！)
   // 計算結果の2進数小数部はsyousubに格納される
