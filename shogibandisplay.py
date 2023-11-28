@@ -125,8 +125,10 @@ retsu = ["０","１","２","３","４","５","６","７","８"]
 gyou  = ["０","１","２","３","４","５","６","７","８"]
 #           0    1    2    3    4    5    6    7    8    9    10   11     12     13     14
 komamei = ["　","玉","飛","角","金","銀","桂","香","歩","竜","馬","成銀","成桂","成香","と"]
-sentgyoku=1;sentehisya=2;sentekaku=3;sentekin=4;sentegin=5;sentekei=6;sentekyou=7;sentefu=8;senteryuu=10;senteuma=10;sentenarigin=11;sentenarikei=12;sentenarikyou=13;sentetokin=14
-gotegyoku=-1;gotehisya=-2;gotkaku=-3;gotekin=-4;sentegin=5;gotekei=-6;gotekyou=-7;gotefu=-8;goteryuu=-11;goteuma=-10;gotenarigin=-11;gotenarikei=-12;gotenarikyou=-13;gotetokin=-14
+sentegyoku=1; sentehisya=2; sentekaku=3; sentekin=4; sentegin=5; sentekei=6; sentekyou=7; sentefu=8
+gotegyoku=-1; gotehisya=-2; gotekaku=-3; gotekin=-4; gotegin=5; gotekei=-6; gotekyou=-7; gotefu=-8
+senteryuu=10; senteuma=10; sentenarigin=11; sentenarikei=12; sentenarikyou=13; sentetokin=14
+goteryuu=-11; goteuma=-10; gotenarigin=-11; gotenarikei=-12; gotenarikyou=-13; gotetokin=-14
 # 取った成駒は元に戻り持ち駒となる。
 # nari[駒番号]:成ることができる駒は成駒の添え字,成駒は0とする。更に成ることはできない。一度成ると元の駒に戻れない。
 # 先手は３段目に入って成、不成が選べる。３段目以上内の移動でも成ることができる。３段目以上内より以下への移動でも成ることができる。
@@ -139,7 +141,7 @@ idovec = [[-1,0],[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-2,-1],[-2,1],[
 # i= 0駒なし、1玉、2飛、3角、4金、5銀、6桂、7香、8歩、9竜、10馬、11成銀、12成桂、12成香、13と
 # j= 0移動なし、1上、2右上、3右、4右下、5下、6左下、7左、8左上、9桂馬先手左上、10桂先手右上、11桂後手左下、12桂後手右下
 # 値は駒が進める最大数。
-# 玉1、飛8、角8、金1、銀1、桂1(先手用は[6][8]=1,[6][9]=1,後手用は[6][10]=1,[6][11=1)
+# 玉1、飛8、角8、金1、銀1、桂1(先手用は[6][8]=1,[6][9]=1,後手用は[6][10]=1,[6][11]=1)
 # 香8、歩1、竜8と1、馬8と1、成銀1、成桂1、成香1、と1
 idosente = [
     [0,0,0,0,0,0,0,0,0,0,0,0],
@@ -225,8 +227,11 @@ kikigote = [
 ##  FUNCTION START. SCOPE IS LOCAL IN FUNCTION WITHOUT UPPER↑GLOBAL VALIABLE.
 ################################################################################
 def sujihyoujiue():
-    print("　", end="")
-    print("    ０      １      ２      ３      ４      ５      ６      ７      ８")
+#   print("　", end="")
+#   print("    ０      １      ２      ３      ４      ５      ６      ７      ８")
+    msg = "　" + "    ０      １      ２      ３      ４      ５      ６      ７      ８"
+    print(msg)
+
 ####
 def sujihyoujishita():
     print("　", end="")
@@ -328,18 +333,6 @@ def yomiage(s,i,j,k):
     # s=0:先手, s=1:後手, i:行, j:列, k:駒の種類
     txt = sengo[s]+suji[j]+dan[i]+komamei[k]
     return(txt)
-################################################################################
-def findgyoku():
-    flag = 0
-    for i in range(9):
-        for j in range(9):
-            if ban[i][j] == -1:
-                # yomiage(1,i,j,1)
-                flag = 1
-                break
-        if flag == 1:
-            break
-    return(i,j)
 ################################################################################
 def findkoma(komano):
     # 使い方例 komanoは駒番号 先手s=0 後手s=1
@@ -453,9 +446,9 @@ for i in range(9):
         if ban[i][j] > 0:
             outeflag = findoute(i,j,ban[i][j],gi,gj)
             if outeflag == 1:
-                print(komamei[ban[i][j]],i,j,"が王手をかけています。")
+                print("先手 ☗",komamei[ban[i][j]],i,j,"が, ☖ 後手","玉",gi,gj,"に王手をかけています。")
 if kikisente[gi][gj] > 0:
-   print("玉",gi,gj,"に",kikisente[gi][gj],"方向から王手がかかっています。")
+   print("後手 ☖","玉",gi,gj,"に",kikisente[gi][gj],"方向から王手がかかっています。")
    print("")
 banhyouji2()
 ##
@@ -464,19 +457,19 @@ for i in range(9):
         if ban[i][j] < 0:
             findoute2(i,j,abs(ban[i][j]),gi,gj)
 banhyouji3()
-print("sente nifu", findnifu(sente))
-print("gote  nifu", findnifu(gote))
-print("sente ikidomari", findikidomari(sente))
-print("gote  ikidomari", findikidomari(gote))
+print("先手☗ 二歩", findnifu(sente))
+print("後手☖ 二歩", findnifu(gote))
+print("先手☗ 行き止まり", findikidomari(sente))
+print("後手☖ 行き止まり", findikidomari(gote))
 banhyouji()
 
 """
-############################################
+######################################################
 ## 先手駒の全てを1手ずつ動かして、王手を調べる。
-## 歩9 香2*8 桂2*2 銀2*6 金2*6 角4*4 飛4*4 玉8
-############################################
-# SAVE i j k
-############
+## 歩9*1 香2*8 桂2*2 銀2*6 金2*6 角2*4*8 飛2*4*8 玉1*8
+######################################################
+# SAVE 駒の位置[i][j] 駒の種類(k) 探索の方向(direction) 探索の距離(distance)
+######################################################
 for i in range(9):
     for j in range(9):
         if ban[i][j] > 0:
